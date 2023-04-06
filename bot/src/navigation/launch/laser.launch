@@ -1,0 +1,3 @@
+<launch>
+    <node name="laser" pkg="navigation" type="laser.py" output="screen"/>
+</launch>

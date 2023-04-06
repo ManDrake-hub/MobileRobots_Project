@@ -1,0 +1,3 @@
+<launch>
+    <node name="navigation" pkg="navigation" type="face.py" output="screen"/>
+</launch>

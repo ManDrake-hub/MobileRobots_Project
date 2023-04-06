@@ -1,0 +1,6 @@
+devel_space: /home/francesca/Scrivania/MobileRobots/bot/devel
+install: false
+install_space: /home/francesca/Scrivania/MobileRobots/bot/install
+profile: default
+source_space: /home/francesca/Scrivania/MobileRobots/bot/src
+workspace: /home/francesca/Scrivania/MobileRobots/bot
