@@ -7,10 +7,11 @@ import random
 from typing import List, Tuple
 import math
 import numpy as np
+from tf.transformations import euler_from_quaternion, quaternion_from_euler
 
 
 class WaypointMovement:
-    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False) -> None:
+    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False) -> None:
         #####################################
         # Don't touch this section
         self.publisher = publisher
@@ -31,7 +32,10 @@ class WaypointMovement:
         #####################################
         # Noise params
         self.noise = noise
-        self._func_noise = self._normal_noise
+        self.noise_var = noise_var
+        #####################################
+        # Corrections
+        self.odom = odom
         #####################################
         self.rate = rospy.Rate(1 / self.update_step)
 
@@ -41,16 +45,13 @@ class WaypointMovement:
         self._waypoints = waypoints
         self._waypoint_current_index = waypoint_current_index
 
-    def set_noise(self, func):
-        self._func_noise = func
-
     def set_belief(self, belief: np.ndarray) -> None:
         self._belief = belief
 
     #########################################
     # Getters
     def get_noise(self):
-        return self._func_noise()
+        return np.random.normal(size=(3, ), scale=self.noise_var)
 
     def get_belief(self) -> np.ndarray:
         return self._belief
@@ -61,30 +62,16 @@ class WaypointMovement:
         t = delta / speed
         return t
 
-    def _normal_noise(self):
-        return np.random.normal(size=(3, ))
-
     def rad_to_degree(self, rad) -> float:
         return math.degrees(rad)
 
     def degree_to_rad(self, degree) -> float:
         return math.radians(degree)
-    
-    def atan_custom(self, y, x):
-        if x >= 0 and y >= 0:
-            return math.atan2(y, x)
-        if x <= 0 and y >= 0:
-            return math.pi + math.atan2(y, x)
-        if x <= 0 and y <= 0:
-            return math.pi*2 + math.atan2(y, x)
-        if x >= 0 and y <= 0:
-            return math.pi + math.atan2(y, x)
 
     def rad_for_point(self, point: np.ndarray) -> float:
         start_x, start_y, _ = self._belief
         end_x, end_y = point
-        rad = self.atan_custom((end_y - start_y), (end_x - start_x))
-        print(f"atan {math.degrees(rad)}")
+        rad = math.atan2((end_y - start_y), (end_x - start_x))
         return rad
 
     def delta_to_stop(self, speed_current, speed_max):
@@ -100,10 +87,15 @@ class WaypointMovement:
         # Return the accumulated space
         return delta_to_stop
 
+    def get_rotation(self, orientation):
+        orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
+        roll, pitch, yaw = euler_from_quaternion (orientation_list)
+        return yaw
+
     def callback_odom(self, odom):
         self._odom[0] = odom.pose.pose.position.x
         self._odom[1] = odom.pose.pose.position.y
-        self._odom[2] = odom.pose.pose.orientation.z
+        self._odom[2] = self.get_rotation(odom.pose.pose.orientation)
 
     def get_odom_position(self) -> np.ndarray:
         return self._odom
@@ -168,13 +160,12 @@ class WaypointMovement:
         # Add noise if requested
         if self.noise:
             waypoint_next = waypoint_next + self.get_noise()
+            print(waypoint_next)
 
         # Rotate towards point
-        rad_expected = self.rad_for_point(waypoint_next[:2])
-        rad_delta = rad_expected - self._belief[-1]
-        print(math.degrees(rad_expected))
-        print(math.degrees(self._belief[-1]))
-        print(math.degrees(rad_delta))
+        rad_expected_for_point = self.rad_for_point(waypoint_next[:2])
+        rad_delta = rad_expected_for_point - self._belief[-1]
+        print("calc", rad_expected_for_point, self._belief[-1], rad_delta)
         self.move(0, rad_delta)
 
         # Move towards point
@@ -185,7 +176,7 @@ class WaypointMovement:
         
         # Rotate to match pose requested
         rad_expected = waypoint_next[-1]
-        rad_delta = rad_expected - self.rad_for_point(waypoint_next[:2])
+        rad_delta = rad_expected - rad_expected_for_point
         self.move(0, rad_delta)
 
         # Set belief as the ideal waypoint
@@ -199,9 +190,8 @@ class WaypointMovement:
     def play(self, wait_user: bool=False):
         for _ in range(len(self._waypoints) - 1):
             self.move_to_next()
-            self.set_belief(self.get_odom_position())
-            print(f"atan_odom {math.degrees(self.get_odom_position()[2])}")
-            print(f"odom {self.get_odom_position()}")
-            #print(self.get_belief())
+            if self.odom:
+                self.set_belief(self.get_odom_position())
+                print("odom for next step", self.get_odom_position(), math.degrees(self.get_odom_position()[-1]))
             if wait_user:
                 input("Press any key to move to the next waypoint")
