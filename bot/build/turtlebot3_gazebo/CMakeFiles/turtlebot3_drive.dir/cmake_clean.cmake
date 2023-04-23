@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/francesca/Scrivania/MobileRobots/bot/devel/.private/turtlebot3_gazebo/lib/turtlebot3_gazebo/turtlebot3_drive"
-  "/home/francesca/Scrivania/MobileRobots/bot/devel/.private/turtlebot3_gazebo/lib/turtlebot3_gazebo/turtlebot3_drive.pdb"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_gazebo/lib/turtlebot3_gazebo/turtlebot3_drive"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_gazebo/lib/turtlebot3_gazebo/turtlebot3_drive.pdb"
   "CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o"
 )
 

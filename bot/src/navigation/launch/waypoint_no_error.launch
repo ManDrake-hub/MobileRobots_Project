@@ -1,3 +1,0 @@
-<launch>
-    <node name="waypoint" pkg="navigation" type="waypoint_no_error.py" output="screen"/>
-</launch>

@@ -1,0 +1,3 @@
+<launch>
+    <node name="kf" pkg="navigation" type="node_kf.py" output="screen"/>
+</launch>

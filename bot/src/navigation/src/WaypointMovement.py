@@ -2,6 +2,7 @@
 import rospy
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist
+from KalmanFilter import KalmanFilter
 from nav_msgs.msg import Odometry
 import random
 from typing import List, Tuple
@@ -11,7 +12,7 @@ from tf.transformations import euler_from_quaternion, quaternion_from_euler
 
 
 class WaypointMovement:
-    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False) -> None:
+    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False, kf=False) -> None:
         #####################################
         # Don't touch this section
         self.publisher = publisher
@@ -19,6 +20,7 @@ class WaypointMovement:
         self._waypoint_current_index = 0
         self._belief: np.ndarray = pose_start
         self._odom: np.ndarray = pose_start.copy()
+        self._kf: KalmanFilter = KalmanFilter()
         rospy.Subscriber('odom', Odometry, self.callback_odom)
         #####################################
         # Performance params of our robot
@@ -36,6 +38,7 @@ class WaypointMovement:
         #####################################
         # Corrections
         self.odom = odom
+        self.kf = kf
         #####################################
         self.rate = rospy.Rate(1 / self.update_step)
 
@@ -190,8 +193,12 @@ class WaypointMovement:
     def play(self, wait_user: bool=False):
         for _ in range(len(self._waypoints) - 1):
             self.move_to_next()
+            print("belief for next step", self.get_belief())
             if self.odom:
                 self.set_belief(self.get_odom_position())
-                print("odom for next step", self.get_odom_position(), math.degrees(self.get_odom_position()[-1]))
+                print("odom for next step", self.get_belief())
+            if self.kf:
+                self.set_belief((self._kf.get_kf_position(self.get_belief(), self.speed_linear_max)))
+                print("kf for next step", self.get_belief())
             if wait_user:
                 input("Press any key to move to the next waypoint")
