@@ -11,7 +11,7 @@ if __name__ == "__main__":
     pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
     rospy.sleep(3)
 
-    wm = WaypointMovement(pub, noise=True, odom=False, kf=True)
+    wm = WaypointMovement(pub, noise=False, odom=True, kf=True)
 
     wm.set_waypoints([
         np.array((0.0, 0.0, 0.0)),
