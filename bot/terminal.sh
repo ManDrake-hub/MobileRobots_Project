@@ -9,6 +9,7 @@ sleep 3
 
 roslaunch navigation exercise_1.launch 
 kill $PID
+sleep 30
 
 # Exercise 2
 roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch & 
@@ -16,6 +17,7 @@ PID=$!
 sleep 3
 roslaunch navigation exercise_2.launch 
 kill $PID
+sleep 30
 
 # Exercise 3
 roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch
@@ -24,4 +26,24 @@ PID=$!
 sleep 3
 
 roslaunch navigation exercise_3.launch 
+kill $PID
+sleep 30
+
+# Exercise 4
+roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch
+PID=$!
+
+sleep 3
+
+roslaunch navigation exercise_4.launch 
+kill $PID
+sleep 30
+
+# Exercise 5
+roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch
+PID=$!
+
+sleep 3
+
+roslaunch navigation exercise_5.launch 
 kill $PID

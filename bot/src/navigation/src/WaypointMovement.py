@@ -3,6 +3,7 @@ import rospy
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist
 from KalmanFilter import KalmanFilter
+from ExtendedKalmanFilter import ExtendedKalmanFilter
 from nav_msgs.msg import Odometry
 import random
 from typing import List, Tuple
@@ -12,15 +13,18 @@ from tf.transformations import euler_from_quaternion, quaternion_from_euler
 
 
 class WaypointMovement:
-    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False, kf=False) -> None:
+    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False, kf=False, ekf=False) -> None:
         #####################################
         # Don't touch this section
+        self.update_step = 0.01
+        self.rate = rospy.Rate(1 / self.update_step)
         self.publisher = publisher
         self._waypoints: List = None
         self._waypoint_current_index = 0
         self._belief: np.ndarray = pose_start
         self._odom: np.ndarray = pose_start.copy()
-        self._kf: KalmanFilter = KalmanFilter()
+        self._kf: KalmanFilter = KalmanFilter(self.update_step)
+        self._ekf: ExtendedKalmanFilter = ExtendedKalmanFilter()
         rospy.Subscriber('odom', Odometry, self.callback_odom)
         #####################################
         # Performance params of our robot
@@ -30,7 +34,6 @@ class WaypointMovement:
         self.stop_time=0.5
         self.time_to_reach_max_speed = 2
         self.time_to_stop = 1
-        self.update_step = 0.01
         #####################################
         # Noise params
         self.noise = noise
@@ -39,8 +42,8 @@ class WaypointMovement:
         # Corrections
         self.odom = odom
         self.kf = kf
+        self.ekf = ekf
         #####################################
-        self.rate = rospy.Rate(1 / self.update_step)
 
     #########################################
     # Setters
@@ -132,11 +135,15 @@ class WaypointMovement:
 
         # Starting speed and movement already done set to 0
         speed = 0
+        speed_prev = 0
         _delta = 0
         
         while True:
             # Move or rotate with the current speed using the sign of the requested movement
             func(math.copysign(speed, delta))
+            if func == self._move_forward:
+                self._kf.update_position((speed - speed_prev)/self.update_step)
+                speed_prev = speed
             self.rate.sleep()
 
             # Update the movement already done
@@ -198,7 +205,10 @@ class WaypointMovement:
                 self.set_belief(self.get_odom_position())
                 print("odom for next step", self.get_belief())
             if self.kf:
-                self.set_belief((self._kf.get_kf_position(self.get_belief(), self.speed_linear_max)))
+                self.set_belief(self._kf.get_kf_position())
                 print("kf for next step", self.get_belief())
+            if self.ekf:
+                self.set_belief(self._ekf.get_ekf_position())
+                print("ekf for next step", self.get_belief())
             if wait_user:
                 input("Press any key to move to the next waypoint")
