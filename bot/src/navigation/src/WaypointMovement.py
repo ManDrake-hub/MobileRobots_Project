@@ -13,9 +13,9 @@ from tf.transformations import euler_from_quaternion, quaternion_from_euler
 
 
 class WaypointMovement:
-    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False, kf=False, ekf=False) -> None:
+    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False, kf=False, ekf=False, mc=(False,1)) -> None:
         #####################################
-        # Don't touch this section
+        # Init parameters and subscriber odom
         self.update_step = 0.01
         self.rate = rospy.Rate(1 / self.update_step)
         self.publisher = publisher
@@ -30,7 +30,6 @@ class WaypointMovement:
         # Performance params of our robot
         self.speed_linear_max = 0.26
         self.speed_rad_max = 0.1
-
         self.stop_time=0.5
         self.time_to_reach_max_speed = 2
         self.time_to_stop = 1
@@ -43,6 +42,7 @@ class WaypointMovement:
         self.odom = odom
         self.kf = kf
         self.ekf = ekf
+        self.mc = mc
         #####################################
 
     #########################################
@@ -97,11 +97,17 @@ class WaypointMovement:
         orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
         roll, pitch, yaw = euler_from_quaternion (orientation_list)
         return yaw
-
+    
+    # TO CHECK
     def callback_odom(self, odom):
-        self._odom[0] = odom.pose.pose.position.x
-        self._odom[1] = odom.pose.pose.position.y
-        self._odom[2] = self.get_rotation(odom.pose.pose.orientation)
+        if self.mc[0]:
+            self._odom[0] = odom.pose.pose.position.x + self.get_noise()
+            self._odom[1] = odom.pose.pose.position.y + self.get_noise()
+            self._odom[2] = self.get_rotation(odom.pose.pose.orientation) + self.get_noise()
+        else:
+            self._odom[0] = odom.pose.pose.position.x 
+            self._odom[1] = odom.pose.pose.position.y 
+            self._odom[2] = self.get_rotation(odom.pose.pose.orientation)
 
     def get_odom_position(self) -> np.ndarray:
         return self._odom

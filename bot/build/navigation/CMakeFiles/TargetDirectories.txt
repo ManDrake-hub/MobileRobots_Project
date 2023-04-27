@@ -4,6 +4,9 @@
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/rebuild_cache.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/edit_cache.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/test.dir
+/home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/move_base_msgs_generate_messages_py.dir
+/home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir
+/home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/move_base_msgs_generate_messages_lisp.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/std_msgs_generate_messages_lisp.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/run_tests.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir
@@ -20,7 +23,9 @@
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/geometry_msgs_generate_messages_py.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/install/local.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/nav_msgs_generate_messages_cpp.dir
+/home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/move_base_msgs_generate_messages_cpp.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/nav_msgs_generate_messages_lisp.dir
+/home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/move_base_msgs_generate_messages_eus.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/sensor_msgs_generate_messages_lisp.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir
 /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/geometry_msgs_generate_messages_eus.dir

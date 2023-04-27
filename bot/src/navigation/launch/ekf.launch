@@ -1,3 +1,0 @@
-<launch>
-    <node name="move" pkg="navigation" type="move.py" output="screen"/>
-</launch>
