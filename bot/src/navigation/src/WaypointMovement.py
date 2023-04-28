@@ -10,10 +10,11 @@ from typing import List, Tuple
 import math
 import numpy as np
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
+from gazebo_msgs.msg import ModelStates
 
 
 class WaypointMovement:
-    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False, kf=False, ekf=False, mc=(False,1)) -> None:
+    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False, kf=False, ekf=False, MC=(False,1)) -> None:
         #####################################
         # Init parameters and subscriber odom
         self.update_step = 0.01
@@ -23,6 +24,7 @@ class WaypointMovement:
         self._waypoint_current_index = 0
         self._belief: np.ndarray = pose_start
         self._odom: np.ndarray = pose_start.copy()
+        self._gazebo: np.ndarray = pose_start.copy()
         self._kf: KalmanFilter = KalmanFilter(self.update_step)
         self._ekf: ExtendedKalmanFilter = ExtendedKalmanFilter()
         rospy.Subscriber('odom', Odometry, self.callback_odom)
@@ -42,7 +44,7 @@ class WaypointMovement:
         self.odom = odom
         self.kf = kf
         self.ekf = ekf
-        self.mc = mc
+        self.MC = MC
         #####################################
 
     #########################################
@@ -100,7 +102,7 @@ class WaypointMovement:
     
     # TO CHECK
     def callback_odom(self, odom):
-        if self.mc[0]:
+        if self.MC[0]:
             self._odom[0] = odom.pose.pose.position.x + self.get_noise()
             self._odom[1] = odom.pose.pose.position.y + self.get_noise()
             self._odom[2] = self.get_rotation(odom.pose.pose.orientation) + self.get_noise()
@@ -111,6 +113,14 @@ class WaypointMovement:
 
     def get_odom_position(self) -> np.ndarray:
         return self._odom
+    
+    # TO CHECK
+    def callback_mc(self,msg):
+        # TUrtlebot3 position gazebo
+        turtlebot3_idx = msg.name.index('turtlebot3')
+        self._gazebo[0] = msg.pose[turtlebot3_idx].position.x
+        self._gazebo[1] = msg.pose[turtlebot3_idx].position.y
+        self._gazebo[2] = self.get_rotation(msg.pose[turtlebot3_idx].pose.orientation)
 
     #########################################
     # Movement
@@ -203,18 +213,22 @@ class WaypointMovement:
 
     #########################################
     # Main functions
+    # TO CHECK:
     def play(self, wait_user: bool=False):
-        for _ in range(len(self._waypoints) - 1):
-            self.move_to_next()
-            print("belief for next step", self.get_belief())
-            if self.odom:
-                self.set_belief(self.get_odom_position())
-                print("odom for next step", self.get_belief())
-            if self.kf:
-                self.set_belief(self._kf.get_kf_position())
-                print("kf for next step", self.get_belief())
-            if self.ekf:
-                self.set_belief(self._ekf.get_ekf_position())
-                print("ekf for next step", self.get_belief())
-            if wait_user:
-                input("Press any key to move to the next waypoint")
+        for i in range(self.MC[1]):
+            if self.MC[0]:
+                rospy.Subscriber('/gazebo/model_states', ModelStates, self.callback_mc)
+            for _ in range(len(self._waypoints) - 1):
+                self.move_to_next()
+                print("belief for next step", self.get_belief())
+                if self.odom:
+                    self.set_belief(self.get_odom_position())
+                    print("odom for next step", self.get_belief())
+                if self.kf:
+                    self.set_belief(self._kf.get_kf_position())
+                    print("kf for next step", self.get_belief())
+                if self.ekf:
+                    self.set_belief(self._ekf.get_ekf_position())
+                    print("ekf for next step", self.get_belief())
+                if wait_user:
+                    input("Press any key to move to the next waypoint")

@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   move_base_msgs
+  gazebo_msgs
 )
 
 ## System dependencies are found with CMake's conventions
