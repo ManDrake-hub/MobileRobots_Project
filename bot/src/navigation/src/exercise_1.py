@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     #####################################################
     # Rospy
-    rospy.init_node("exercise_2_")
+    rospy.init_node("exercise_1")
     pub = rospy.Publisher("cmd_vel", Twist, queue_size=20)
     rospy.sleep(3)
 

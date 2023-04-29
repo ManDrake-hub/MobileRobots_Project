@@ -233,12 +233,12 @@ class WaypointMovement:
         positions = []
 
         for index in range(len(self._waypoints) - 1):
+            self.move_to_next()
             positions.append({
                 "waypoint": index,
                 "pose": list(self.get_gazebo_position()),
                 "pose_real": list(self._waypoints[index])
             })
-            self.move_to_next()
             print("belief for next step", self.get_belief())
             # Depending on the settings, set the belief of our waffle using the corresponding method
             if self.odom:
