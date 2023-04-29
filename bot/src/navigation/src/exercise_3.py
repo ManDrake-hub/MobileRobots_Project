@@ -19,7 +19,7 @@ if __name__ == "__main__":
     # Waffle Settings
     NOISE = True
     ODOM = True
-    ODOM_TOPIC = "odom" # or "odom_noised"
+    ODOM_TOPIC = "odom_noised" # or "odom"
     KF = False
     EKF = False
     WAIT_USER = False
