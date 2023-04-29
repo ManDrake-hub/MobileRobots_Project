@@ -67,14 +67,14 @@ set(turtlebot3_gazebo_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(turtlebot3_gazebo_SOURCE_PREFIX /home/francesca/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_gazebo)
-  set(turtlebot3_gazebo_DEVEL_PREFIX /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_gazebo)
+  set(turtlebot3_gazebo_SOURCE_PREFIX /home/giovi/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_gazebo)
+  set(turtlebot3_gazebo_DEVEL_PREFIX /home/giovi/MobileRobots_Project/bot/devel/.private/turtlebot3_gazebo)
   set(turtlebot3_gazebo_INSTALL_PREFIX "")
   set(turtlebot3_gazebo_PREFIX ${turtlebot3_gazebo_DEVEL_PREFIX})
 else()
   set(turtlebot3_gazebo_SOURCE_PREFIX "")
   set(turtlebot3_gazebo_DEVEL_PREFIX "")
-  set(turtlebot3_gazebo_INSTALL_PREFIX /home/francesca/Scrivania/MobileRobots_Project/bot/install)
+  set(turtlebot3_gazebo_INSTALL_PREFIX /home/giovi/MobileRobots_Project/bot/install)
   set(turtlebot3_gazebo_PREFIX ${turtlebot3_gazebo_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/francesca/Scrivania/MobileRobots_Project/bot/install/lib;/home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/giovi/MobileRobots_Project/bot/install/lib;/home/giovi/MobileRobots_Project/bot/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

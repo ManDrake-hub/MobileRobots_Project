@@ -10,31 +10,40 @@ from typing import List, Tuple
 import math
 import numpy as np
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
-from gazebo_msgs.msg import ModelStates
+from gazebo_msgs.msg import ModelState
+import json
 
 
 class WaypointMovement:
-    def __init__(self, publisher: rospy.Publisher, pose_start: np.ndarray=np.array((0.0, 0.0, 0.0)), noise=False, noise_var=0.25, odom=False, kf=False, ekf=False, MC=(False,1)) -> None:
+    def __init__(self, publisher: rospy.Publisher, get_state_proxy: rospy.Service, set_state_proxy: rospy.Service,
+                 noise=False, noise_var=0.25, 
+                 odom=False, kf=False, ekf=False,
+                 odom_topic="odom", save_position_file=None) -> None:
         #####################################
         # Init parameters and subscriber odom
+        self.save_position_file = save_position_file
         self.update_step = 0.01
         self.rate = rospy.Rate(1 / self.update_step)
         self.publisher = publisher
         self._waypoints: List = None
         self._waypoint_current_index = 0
+
+        self.get_state_proxy = get_state_proxy
+        self.set_state_proxy = set_state_proxy
+        # pose_start = self.get_gazebo_position()
+        pose_start = np.array([0.0, 0.0, 0.0])
         self._belief: np.ndarray = pose_start
         self._odom: np.ndarray = pose_start.copy()
-        self._gazebo: np.ndarray = pose_start.copy()
         self._kf: KalmanFilter = KalmanFilter(self.update_step)
         self._ekf: ExtendedKalmanFilter = ExtendedKalmanFilter()
-        rospy.Subscriber('odom', Odometry, self.callback_odom)
+        rospy.Subscriber(odom_topic, Odometry, self.callback_odom)
         #####################################
         # Performance params of our robot
         self.speed_linear_max = 0.26
-        self.speed_rad_max = 0.1
-        self.stop_time=0.5
-        self.time_to_reach_max_speed = 2
-        self.time_to_stop = 1
+        self.speed_rad_max = 0.35
+        self.stop_time=1.0
+        self.time_to_reach_max_speed = 3
+        self.time_to_stop = 3.0
         #####################################
         # Noise params
         self.noise = noise
@@ -44,7 +53,6 @@ class WaypointMovement:
         self.odom = odom
         self.kf = kf
         self.ekf = ekf
-        self.MC = MC
         #####################################
 
     #########################################
@@ -100,27 +108,30 @@ class WaypointMovement:
         roll, pitch, yaw = euler_from_quaternion (orientation_list)
         return yaw
     
-    # TO CHECK
     def callback_odom(self, odom):
-        if self.MC[0]:
-            self._odom[0] = odom.pose.pose.position.x + self.get_noise()
-            self._odom[1] = odom.pose.pose.position.y + self.get_noise()
-            self._odom[2] = self.get_rotation(odom.pose.pose.orientation) + self.get_noise()
-        else:
-            self._odom[0] = odom.pose.pose.position.x 
-            self._odom[1] = odom.pose.pose.position.y 
-            self._odom[2] = self.get_rotation(odom.pose.pose.orientation)
+        self._odom[0] = odom.pose.pose.position.x 
+        self._odom[1] = odom.pose.pose.position.y 
+        self._odom[2] = self.get_rotation(odom.pose.pose.orientation)
 
     def get_odom_position(self) -> np.ndarray:
         return self._odom
-    
-    # TO CHECK
-    def callback_mc(self,msg):
-        # TUrtlebot3 position gazebo
-        turtlebot3_idx = msg.name.index('turtlebot3')
-        self._gazebo[0] = msg.pose[turtlebot3_idx].position.x
-        self._gazebo[1] = msg.pose[turtlebot3_idx].position.y
-        self._gazebo[2] = self.get_rotation(msg.pose[turtlebot3_idx].pose.orientation)
+
+    def get_gazebo_position(self) -> np.ndarray:
+        pose_gazebo = self.get_state_proxy("turtlebot3_waffle_pi", "")
+        return np.array([
+            pose_gazebo.pose.position.x,
+            pose_gazebo.pose.position.y,
+            self.get_rotation(pose_gazebo.pose.orientation)
+        ])
+
+    def set_gazebo_position(self, pose: np.ndarray):
+        state = ModelState()
+        state.model_name = "turtlebot3_waffle_pi"
+        state.pose.position.x = pose[0]
+        state.pose.position.y = pose[1]
+        state.pose.orientation.x, state.pose.orientation.y, \
+        state.pose.orientation.z, state.pose.orientation.w = quaternion_from_euler(0, 0, pose[2])
+        self.set_state_proxy(state)
 
     #########################################
     # Movement
@@ -160,7 +171,8 @@ class WaypointMovement:
             if func == self._move_forward:
                 self._kf.update_position((speed - speed_prev)/self.update_step)
                 speed_prev = speed
-            self.rate.sleep()
+            # self.rate.sleep()
+            rospy.sleep(self.update_step)
 
             # Update the movement already done
             _delta = _delta + speed * self.update_step
@@ -169,14 +181,19 @@ class WaypointMovement:
                 break
             
             # If the space left is higher than the one needed to stop from the current speed 
-            if (delta - _delta) > self.delta_to_stop(speed, speed_max):
+            if abs(delta - _delta) > abs(self.delta_to_stop(speed, speed_max)):
                 # Increase speed until we reach max speed
-                if speed < speed_max:
+                if speed < speed_max and delta > 0:
                     speed += speed_max / (self.time_to_reach_max_speed / self.update_step)
+                elif speed < speed_max and delta < 0:
+                    speed -= speed_max / (self.time_to_reach_max_speed / self.update_step)
             # Else (i.e. the space left is less or equal the one needed to fully stop from our current speed) decrease our speed
             else:
-                speed -= speed_max / (self.time_to_reach_max_speed / self.update_step)
-        # Stop after every movement (probably not needed since we are stopping gently)
+                if speed > 0 and delta > 0:
+                    speed -= speed_max / (self.time_to_stop / self.update_step)
+                elif speed < 0 and delta < 0:
+                    speed += speed_max / (self.time_to_stop / self.update_step)
+        # Stop after every movement
         self.stop()
 
     def move_to_next(self):
@@ -186,12 +203,11 @@ class WaypointMovement:
         # Add noise if requested
         if self.noise:
             waypoint_next = waypoint_next + self.get_noise()
-            print(waypoint_next)
+            print("Modified waypoint: ", waypoint_next)
 
         # Rotate towards point
         rad_expected_for_point = self.rad_for_point(waypoint_next[:2])
         rad_delta = rad_expected_for_point - self._belief[-1]
-        print("calc", rad_expected_for_point, self._belief[-1], rad_delta)
         self.move(0, rad_delta)
 
         # Move towards point
@@ -213,22 +229,31 @@ class WaypointMovement:
 
     #########################################
     # Main functions
-    # TO CHECK:
     def play(self, wait_user: bool=False):
-        for i in range(self.MC[1]):
-            if self.MC[0]:
-                rospy.Subscriber('/gazebo/model_states', ModelStates, self.callback_mc)
-            for _ in range(len(self._waypoints) - 1):
-                self.move_to_next()
-                print("belief for next step", self.get_belief())
-                if self.odom:
-                    self.set_belief(self.get_odom_position())
-                    print("odom for next step", self.get_belief())
-                if self.kf:
-                    self.set_belief(self._kf.get_kf_position())
-                    print("kf for next step", self.get_belief())
-                if self.ekf:
-                    self.set_belief(self._ekf.get_ekf_position())
-                    print("ekf for next step", self.get_belief())
-                if wait_user:
-                    input("Press any key to move to the next waypoint")
+        positions = []
+
+        for index in range(len(self._waypoints) - 1):
+            positions.append({
+                "waypoint": index,
+                "pose": list(self.get_gazebo_position()),
+                "pose_real": list(self._waypoints[index])
+            })
+            self.move_to_next()
+            print("belief for next step", self.get_belief())
+            # Depending on the settings, set the belief of our waffle using the corresponding method
+            if self.odom:
+                self.set_belief(self.get_odom_position())
+                print("odom for next step", self.get_belief())
+            if self.kf:
+                self.set_belief(self._kf.get_kf_position())
+                print("kf for next step", self.get_belief())
+            if self.ekf:
+                self.set_belief(self._ekf.get_ekf_position())
+                print("ekf for next step", self.get_belief())
+            if wait_user:
+                input("Press any key to move to the next waypoint")
+
+        # If a path has been given, save the positions recorded
+        if self.save_position_file is not None:
+            with open(self.save_position_file, "w") as f:
+                json.dump(positions, f)

@@ -1,4 +1,4 @@
-prefix=/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation
+prefix=/home/giovi/MobileRobots_Project/bot/devel/.private/navigation
 
 Name: navigation
 Description: Description of navigation
