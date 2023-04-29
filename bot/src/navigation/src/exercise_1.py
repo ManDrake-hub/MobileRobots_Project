@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     #####################################################
     # Waffle Settings
-    NOISE = True
+    NOISE = False
     ODOM = False
     ODOM_TOPIC = "odom" # or "odom_noised"
     KF = False
@@ -52,10 +52,10 @@ if __name__ == "__main__":
 
         wm.set_waypoints([
             np.array((0.0, 0.0, 0.0)),
+            np.array((0.5, 0.0, 0.0)),
+            np.array((0.5, -0.5, 0.0)),
+            np.array((1.0, -0.5, 0.0)),
             np.array((1.0, 0.0, 0.0)),
-            np.array((1.0, -1.0, 0.0)),
-            np.array((2.0, -1.0, 0.0)),
-            np.array((2.0, 0.0, 0.0)),
-            np.array((2.0, 1.0, 0.0))
+            np.array((1.0, 0.5, 0.0))
         ])
         wm.play(wait_user=WAIT_USER)

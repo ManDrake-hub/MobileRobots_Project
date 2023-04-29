@@ -2,8 +2,6 @@
 source devel/setup.bash
 
 # Exercise 1
-s = Exercise1
-printf "&s\n"
 roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch & 
 PID=$!
 sleep 3
@@ -12,8 +10,6 @@ kill $PID
 sleep 30
 
 # Exercise 2
-s = Exercise2
-printf "&s\n"
 roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch & 
 PID=$!
 sleep 3
@@ -22,8 +18,6 @@ kill $PID
 sleep 30
 
 # Exercise 3
-s = Exercise3
-printf "&s\n"
 roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch & 
 PID=$!
 sleep 3
@@ -32,8 +26,6 @@ kill $PID
 sleep 30
 
 # Exercise 4
-s = Exercise4
-printf "&s\n"
 roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch & 
 PID=$!
 sleep 3
@@ -42,9 +34,6 @@ kill $PID
 sleep 30
 
 # Exercise 5
-s = Exercise5
-printf "&s\n"
-
 roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch & 
 PID=$!
 sleep 3

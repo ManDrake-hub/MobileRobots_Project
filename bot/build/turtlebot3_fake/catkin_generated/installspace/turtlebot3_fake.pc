@@ -1,4 +1,4 @@
-prefix=/home/giovi/MobileRobots_Project/bot/install
+prefix=/home/francesca/Scrivania/MobileRobots_Project/bot/install
 
 Name: turtlebot3_fake
 Description: Description of turtlebot3_fake
