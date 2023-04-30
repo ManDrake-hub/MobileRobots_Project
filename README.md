@@ -48,7 +48,7 @@ In case of errors:
 
 * 
 
-  * ``` ```
+  * ``` sudo apt-get install ros-noetic-robot-pose-ekf ```
 
 ## How to use
 
