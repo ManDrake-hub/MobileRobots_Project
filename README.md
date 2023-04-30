@@ -37,7 +37,7 @@ The movement model and measurement model are affected by gaussian noise characte
 <img src="/bot/src/navigation/images/Figure_3.png"/>
 
 * Exercise 4:
-We use a custom Kalman filter for a straight path. It is uniformly accelerated because we modify the speed during the movement. As the initial state, we consider the robot's initial position (0,0,0). Consequently, the update is done through the measurements obtained from the laser scan.
+We use a custom Kalman filter for a straight path. It is uniformly accelerated because we modify the speed during the movement. As the initial state, we consider the robot's initial position (0,0,0). Consequently, the update is done through the measurements obtained from the laser scan. In the below figure, the std of the fourth waypoint represent the fact that the robot hits the wall.
 <img src="/bot/src/navigation/images/Figure_4.png"/>
 
 * Exercise 5:

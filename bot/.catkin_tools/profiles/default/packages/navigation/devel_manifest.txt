@@ -1,0 +1,5 @@
+navigation
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/cmake.lock /home/francesca/Scrivania/MobileRobots_Project/bot/devel/./cmake.lock
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/navigation/cmake/navigationConfig.cmake /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigationConfig.cmake
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/navigation/cmake/navigationConfig-version.cmake /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigationConfig-version.cmake
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/pkgconfig/navigation.pc /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/pkgconfig/navigation.pc

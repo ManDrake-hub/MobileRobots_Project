@@ -1,0 +1,1 @@
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/pkgconfig/turtlebot3_fake.pc
