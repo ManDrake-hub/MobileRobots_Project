@@ -62,7 +62,6 @@ In case of errors:
   * ```pip install pyyaml``` 
 
 *  Substitution args not supported:  No module named 'rospkg'
-
   * ```pip install rospkg``` 
 
 * Substitution args not supported:  No module named 'defusedxml'
