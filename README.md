@@ -10,6 +10,7 @@ For each exercise, we have previously run 20 tests for each exercise to check th
 
 * Exercise 1:
 Apply the command (a-priori known) for reaching the next waypoint. 
+<img src="images/FIgure_1.png"/>
 
 * Exercise 2:
 The movement model is affected by gaussian noise characterized by 0 mean and 0.25 variance. For this reason, the robot will never reach the true waypoint
