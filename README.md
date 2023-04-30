@@ -55,13 +55,13 @@ In case of errors:
   
 * CMake Error at /usr/share/cmake-3.16/Modules/FindPkgConfig.cmake:463 (message): A required package was not found
 
-  * ```sudo apt-get install ros-noetic-robot-pose-ekf`` 
+  * ```sudo apt-get install ros-noetic-robot-pose-ekf``` 
 
 * ModuleNotFoundError: No module named 'yaml'
 
   * ```pip install pyyaml``` 
 
-* ModuleNotFoundError: No module named 'rospkg'
+*  Substitution args not supported:  No module named 'rospkg'
   * ```pip install rospkg``` 
 
 * Substitution args not supported:  No module named 'defusedxml'
