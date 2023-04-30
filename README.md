@@ -45,10 +45,31 @@ The already implemented ROS ekf node is used to set the robot's belief. Again, t
 Install ros as done during the lectures 
 
 In case of errors:
+* Unable to find either executable 'empy' or Python module 'em'...  try installing the package 'python3-empy'
 
-* INSERT THE TEXT ERROR
+  * ```pip install empy ```
 
-  * ``` sudo apt-get install ros-noetic-robot-pose-ekf ```
+* ImportError: "from catkin_pkg.package import parse_package" failed: No module named 'catkin_pkg'
+
+  * ```pip install catkin-pkg``` 
+  
+* CMake Error at /usr/share/cmake-3.16/Modules/FindPkgConfig.cmake:463 (message): A required package was not found
+
+  * ```sudo apt-get install ros-noetic-robot-pose-ekf`` 
+
+* ModuleNotFoundError: No module named 'yaml'
+
+  * ```pip install pyyaml``` 
+
+* ModuleNotFoundError: No module named 'rospkg'
+  * ```pip install rospkg``` 
+
+* Substitution args not supported:  No module named 'defusedxml'
+  * ```pip install defusedxml``` 
+
+* ModuleNotFoundError: No module named 'rospkg'
+  * ```pip install numpy``` 
+
 
 ## How to use
 Follow these steps:
