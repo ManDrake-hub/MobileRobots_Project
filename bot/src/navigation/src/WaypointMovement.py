@@ -237,7 +237,7 @@ class WaypointMovement:
             positions.append({
                 "waypoint": index,
                 "pose": list(self.get_gazebo_position()),
-                "pose_real": list(self._waypoints[index])
+                "pose_real": list(self._waypoints[index+1])
             })
             print("belief for next step", self.get_belief())
             # Depending on the settings, set the belief of our waffle using the corresponding method
