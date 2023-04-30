@@ -46,14 +46,14 @@ Install ros as done during the lectures
 
 In case of errors:
 
-* 
+* INSERT THE TEXT ERROR
 
   * ``` sudo apt-get install ros-noetic-robot-pose-ekf ```
 
 ## How to use
 Follow these steps:
 * cd into the folder MobileRobots_Project/bot
-* ```chmod u+x src/navigation/*``` 
+* ```chmod u+x src/navigation/src/*``` 
 * ```catkin build``` 
 * ```bash terminals.sh``` 
 
