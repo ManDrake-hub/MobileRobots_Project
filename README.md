@@ -13,16 +13,20 @@ Apply the command (a-priori known) for reaching the next waypoint.
 <img src="/bot/src/navigation/images/Figure_1.png"/>
 
 * Exercise 2:
-The movement model is affected by gaussian noise characterized by 0 mean and 0.25 variance. For this reason, the robot will never reach the true waypoint
+The movement model is affected by gaussian noise characterized by 0 mean and 0.25 variance. For this reason, the robot will never reach the true waypoint.
+<img src="/bot/src/navigation/images/Figure_2.png"/>
 
 * Exercise 3:
 The movement model and measurement model are affected by gaussian noise characterized by 0 mean and 0.25 variance. For this reason, the robot will never reach the true waypoint. 
+<img src="/bot/src/navigation/images/Figure_3.png"/>
 
 * Exercise 4:
 We use a custom Kalman filter for a straight path. It is uniformly accelerated because we modify the speed during the movement. As the initial state, we consider the robot's initial position (0,0,0). Consequently, the update is done through the measurements obtained from the laser scan.
+<img src="/bot/src/navigation/images/Figure_4.png"/>
 
 * Exercise 5:
 The already implemented ROS ekf node is used to set the robot's belief. Again, the measurement model is affected by gaussian noise characterized by 0 mean and 0.25 variance. For this reason, it was necessary to remap the odom topic in the .launch file.
+<img src="/bot/src/navigation/images/Figure_5.png"/>
 
 ## Authors
 Course: Mobile Robots for critical missions 2022/2023
