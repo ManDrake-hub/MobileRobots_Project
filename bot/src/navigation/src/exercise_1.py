@@ -12,7 +12,7 @@ import glob
 if __name__ == "__main__":
     #####################################################
     # MonteCarlo Settings
-    FOLDER = "/MonteCarlo/exercise_1/"
+    FOLDER = "/MonteCarlo/exercise_1_/"
     RUNS = 1
 
     #####################################################
