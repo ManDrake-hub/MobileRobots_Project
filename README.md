@@ -1,5 +1,18 @@
 # MobileRobots_Project
 
+## Authors
+Course: Mobile Robots for critical missions 2022/2023
+ 
+Lecturers: 
+* Vento Mario	       mvento@unisa.it
+* Saggese Alessia    asaggese@unisa.it
+ 
+Group:
+* Mandragora Geraldino 0622701875    g.mandragora@studenti.unisa.it
+* Sullutrone Giovanni  0622701751    g.sullutrone2@studenti.unisa.it
+* Tirino Francesca     0622701745    f.tirino@studenti.unisa.it
+* Farina Luigi         0622701754    l.farina16@studenti.unisa.it
+
 ## Application Demo
 * WaypointMovement class manage the control of the movement of the robot. You can set the waypoints for the robot's movement using the set_waypoints() method. This method takes a list of numpy arrays, where each numpy array represents a waypoint in the form [x, y, theta]. The theta value represents the angle at which the robot should be facing when it reaches the waypoint.
 You can then start the robot's movement by calling the move() method that move the robot to each waypoint in the list in order, stopping at each waypoint and rotating to face the next waypoint before continuing.
@@ -27,19 +40,6 @@ We use a custom Kalman filter for a straight path. It is uniformly accelerated b
 * Exercise 5:
 The already implemented ROS ekf node is used to set the robot's belief. Again, the measurement model is affected by gaussian noise characterized by 0 mean and 0.25 variance. For this reason, it was necessary to remap the odom topic in the .launch file.
 <img src="/bot/src/navigation/images/Figure_5.png"/>
-
-## Authors
-Course: Mobile Robots for critical missions 2022/2023
- 
-Lecturers: 
-* Vento Mario	       mvento@unisa.it
-* Saggese Alessia    asaggese@unisa.it
- 
-Group:
-* Mandragora Geraldino 0622701875    g.mandragora@studenti.unisa.it
-* Sullutrone Giovanni  0622701751    g.sullutrone2@studenti.unisa.it
-* Tirino Francesca     0622701745    f.tirino@studenti.unisa.it
-* Farina Luigi         0622701754    l.farina16@studenti.unisa.it
 
 ## Install
 Install ros as done during the lectures 
