@@ -20,7 +20,8 @@ You can then start the robot's movement by calling the play() method that move t
 * ExtendedKalmanFilter uses robot_pose_ekf node.
 * OdomNoiser class subscribes to the odom topic and adds noise to the odometry data. It publishes the noisy odometry data to the odom_noised topic.
 
-For each exercise, we have previously run 20 tests to check the variance and the std deviation obtained. To avoid slipping, we implemented functionalities that let us increase/decrease gradually our speed (i.e. we calculate the space needed to come to a full stop with the current speed and decrease or increase the speed accordingly to reach the requested waypoint in the smoothest way possible).
+For each exercise, we have previously run 20 tests to check the variance and the std deviation obtained. To modify this value, it is necessary to modify RUNS variable in each exercise.py files. 
+To avoid slipping, we implemented functionalities that let us increase/decrease gradually our speed (i.e. we calculate the space needed to come to a full stop with the current speed and decrease or increase the speed accordingly to reach the requested waypoint in the smoothest way possible).
 
 For each exercise we will include an image that shows of each (numbered) waypoint, its position and the area at one std from it.
 

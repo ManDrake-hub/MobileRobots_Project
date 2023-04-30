@@ -1,1 +1,0 @@
-/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib/pkgconfig/robot_pose_ekf.pc
