@@ -1,1 +1,0 @@
-/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/navigation/cmake/navigationConfig-version.cmake

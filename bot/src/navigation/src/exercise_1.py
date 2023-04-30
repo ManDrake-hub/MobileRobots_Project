@@ -13,7 +13,7 @@ if __name__ == "__main__":
     #####################################################
     # MonteCarlo Settings
     FOLDER = "/MonteCarlo/exercise_1/"
-    RUNS = 20
+    RUNS = 1
 
     #####################################################
     # Waffle Settings
