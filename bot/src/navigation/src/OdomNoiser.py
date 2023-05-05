@@ -43,6 +43,6 @@ if __name__ == "__main__":
     pub = rospy.Publisher("odom_noised", Odometry, queue_size=10)
     rospy.sleep(3)
 
-    odom = OdomNoiser(pub, POSITION_VAR, ORIENTATION_VAR, debug=True)
+    odom = OdomNoiser(pub, POSITION_VAR, ORIENTATION_VAR, debug=False)
 
     rospy.spin()
