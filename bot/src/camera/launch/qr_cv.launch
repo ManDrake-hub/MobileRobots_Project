@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="camera" type="image_input.py" name="image_input" output="screen" />
+</launch>
