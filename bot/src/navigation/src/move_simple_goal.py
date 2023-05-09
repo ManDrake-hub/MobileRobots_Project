@@ -171,6 +171,11 @@ class Move:
     #TO DO: manage NONE command  
     def move(self,command):
         print(f"The command is: {command}")
+        if command == None:
+            rospy.loginfo("Startup the robot position then press enter")
+            input()
+            self.calibration()
+            command = "straight on"
         trans, rot = self.get_robot_position()
         # First command, go straight 
         #next_waypoint = self.find_nearest_point(waypoints, trans, rot,command)
