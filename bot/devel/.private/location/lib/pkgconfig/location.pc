@@ -1,8 +1,0 @@
-prefix=/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/location
-
-Name: location
-Description: Description of location
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

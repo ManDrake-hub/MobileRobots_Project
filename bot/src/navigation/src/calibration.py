@@ -3,6 +3,7 @@ import rospy
 from geometry_msgs.msg import Twist
 from std_srvs.srv import Empty, EmptyResponse
 
+###################### TO-DO as a Service
 def move_robot(request):
     pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
     forward_msg = Twist()

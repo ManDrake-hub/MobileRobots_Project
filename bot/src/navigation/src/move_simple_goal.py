@@ -26,15 +26,16 @@ class Move:
 
     # Incrementation of dict commands
     def callback_command(self, msg):
-        self.next_command = msg
+        self.next_command = msg.data.lower().replace("\u200b","")
 
     # Send next waypoint to reach
     def send_goal(self,x,y):
         self.msg.header.frame_id = "map"
         self.msg.pose.position.x = float(x)
         self.msg.pose.position.y = float(y)
-        #self.msg.pose.orientation.w = 1.0
+        self.msg.pose.orientation.w = 1.0
         self.pub_goal.publish(self.msg)
+        rospy.sleep(3.0)
         #print(f"{self.msg.__str__()}")
     
     # Calibrate robot 
@@ -66,7 +67,7 @@ class Move:
         stop_msg = Twist()
         self.pub_cmd.publish(stop_msg)
 
-    # Find nearest waypoint due to the command recognized
+    # ----------- Find nearest waypoint due to the command recognized
     def find_nearest_point(self, points, current_location, orientation, command):
         # Create a dictionary of command vectors with their corresponding angles
         command_vectors = {
@@ -98,34 +99,82 @@ class Move:
             index = np.argmax(np.array(distances))
 
         return points[index]
+    
+    def compute_magnitude_angle_with_sign(self,target_location, current_location, orientation):
+        target_vector = np.array([target_location[0] - current_location[0], target_location[1] - current_location[1]])
+        norm_target = np.linalg.norm(target_vector)
+        forward_vector = np.array([math.cos(math.radians(orientation)), math.sin(math.radians(orientation))])
+        d_angle = math.degrees(math.atan2(np.cross(forward_vector, target_vector), np.dot(forward_vector, target_vector)))
+
+        return (norm_target, d_angle)
+
+    def find_closest_waypoint(self,command, current_location, orientation, waypoint_locations):
+        # determina l'angolo minimo e massimo in base al comando
+        if command == 'straight on':
+            min_angle = -45
+            max_angle = 45
+        elif command == 'go back':
+            min_angle = 135
+            max_angle = -135
+        elif command == 'right':
+            min_angle = 45
+            max_angle = 135
+        elif command == 'left':
+            min_angle = -135
+            max_angle = -45
+        else:
+            raise ValueError("Comando non valido")
+
+        # calcola l'angolo e la magnitudine per ogni waypoint
+        magnitudes_angles = []
+        for waypoint_location in waypoint_locations:
+            magnitude, angle = self.compute_magnitude_angle_with_sign(waypoint_location, current_location, orientation)
+            magnitudes_angles.append((magnitude, angle))
+
+        # trova l'indice del waypoint più vicino in base all'angolo e alla magnitudine
+        angles = np.array([ma[1] for ma in magnitudes_angles])
+        mask = (angles >= min_angle) & (angles <= max_angle)
+        filtered_magnitudes_angles = np.array(magnitudes_angles)[mask]
+        if len(filtered_magnitudes_angles) == 0:
+            print("not found")
+            return None
+        closest_index = np.argmin(filtered_magnitudes_angles[:, 0])
+
+        return np.array(waypoint_locations)[mask][closest_index]
 
     # Get robot position 
     def get_robot_position(self):
         try:
             # ------- Cerca il transform tra i frame di riferimento della posizione del robot e della mappa
             (trans, rot) = self.listener.lookupTransform('/map', '/base_link', rospy.Time(0))
+            rot = tf.transformations.euler_from_quaternion(rot)
             print('Robot position: {}'.format(trans))
-            print('Robot orientation: {}'.format(tf.transformations.euler_from_quaternion(rot)))
+            print('Robot orientation: {}'.format(rot))
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             pass
         return trans, rot
 
-    # TO DO: call service to return command
+    # TO DO: call QR service to return command
     # Move the robot to the goal and return the command recognized
     def goal_reached(self,next_goal):
         self.send_goal(next_goal[0],next_goal[1])
         rospy.loginfo("Goal send")
         rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         rospy.loginfo("Goal reached")
-        
+
+    #TO DO: manage NONE command  
     def move(self,command):
+        print(f"The command is: {command}")
         trans, rot = self.get_robot_position()
         # First command, go straight 
-        next_waypoint = self.find_nearest_point(waypoints, trans, rot[2],command)
-        print(f"Next waypoint: {next_waypoint}")
-        self.pub_next_waypoint.publish(Int32MultiArray(data=next_waypoint))
-        self.goal_reached(next_waypoint)
-
+        #next_waypoint = self.find_nearest_point(waypoints, trans, rot,command)
+        if command != 'stop':
+            next_waypoint = self.find_closest_waypoint(command, trans, rot[2], waypoints)
+            print(f"Next waypoint: {next_waypoint}")
+            self.goal_reached(next_waypoint)
+            self.pub_next_waypoint.publish(Int32MultiArray(data=next_waypoint))
+        else:
+            print("Finish")
 
 if __name__ == "__main__":
     rospy.init_node("goal_custom")
@@ -144,21 +193,3 @@ if __name__ == "__main__":
     navigation.move('straight on')
     navigation.move(navigation.next_command)
     rospy.spin()
-
-'''
-    def compute_magnitude_angle_with_sign(target_location, current_location, orientation):
-        """
-        Compute relative angle and distance between a target_location and a current_location
-
-            :param target_location: location of the target object
-            :param current_location: location of the reference object
-            :param orientation: orientation of the reference object
-            :return: a tuple composed by the distance to the object and the angle between both objects
-        """
-        target_vector = np.array([target_location.x - current_location.x, target_location.y - current_location.y])
-        norm_target = np.linalg.norm(target_vector)
-        forward_vector = np.array([math.cos(math.radians(orientation)), math.sin(math.radians(orientation))])
-
-        d_angle = math.degrees(math.atan2(np.cross(forward_vector, target_vector), np.dot(forward_vector, target_vector)))
-        return (norm_target, d_angle)
-'''

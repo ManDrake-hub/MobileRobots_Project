@@ -1,3 +1,3 @@
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/camera/cmake/cameraConfig.cmake, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/camera/cmake/cameraConfig.cmake)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/camera/cmake/cameraConfig-version.cmake, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/camera/cmake/cameraConfig-version.cmake)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/lib/pkgconfig/camera.pc, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/pkgconfig/camera.pc)
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/camera/cmake/cameraConfig.cmake
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/camera/cmake/cameraConfig-version.cmake
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/pkgconfig/camera.pc
