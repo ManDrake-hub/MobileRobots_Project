@@ -16,6 +16,8 @@ class Move:
         self.msg = PoseStamped()
         self.waiting = False
         self.next_command = None
+        self.next_waypoint = None
+        self.thr = 0.8
         self.listener = tf.TransformListener()
         self.pub_goal = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=10)
         self.pub_cmd = rospy.Publisher('cmd_vel', Twist, queue_size=10)
@@ -109,6 +111,10 @@ class Move:
         return (norm_target, d_angle)
 
     def find_closest_waypoint(self,command, current_location, orientation, waypoint_locations):
+        trans, rot = self.get_robot_position()
+        waypoint_locations = [wp for wp in waypoint_locations for i in range(len(wp)) 
+                              if self.next_waypoint is None or wp[i] != self.next_waypoint[i] or 
+                              (trans[i] < self.next_waypoint[i] - self.thr and wp[i] > self.next_waypoint[i] + self.thr)]
         # determina l'angolo minimo e massimo in base al comando
         if command == 'straight on':
             min_angle = -45
@@ -169,10 +175,10 @@ class Move:
         # First command, go straight 
         #next_waypoint = self.find_nearest_point(waypoints, trans, rot,command)
         if command != 'stop':
-            next_waypoint = self.find_closest_waypoint(command, trans, rot[2], waypoints)
-            print(f"Next waypoint: {next_waypoint}")
-            self.goal_reached(next_waypoint)
-            self.pub_next_waypoint.publish(Int32MultiArray(data=next_waypoint))
+            self.next_waypoint = self.find_closest_waypoint(command, trans, rot[2], waypoints)
+            print(f"Next waypoint: {self.next_waypoint}")
+            self.goal_reached(self.next_waypoint)
+            self.pub_next_waypoint.publish(Int32MultiArray(data=self.next_waypoint))
         else:
             print("Finish")
 

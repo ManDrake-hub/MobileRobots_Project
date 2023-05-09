@@ -1,4 +1,3 @@
 <launch>
   <node pkg="navigation" type="move_simple_goal.py" name="move_simple_goal" output="screen" />
-  <node pkg="navigation" type="obstacle_avoidance.py" name="obstacle_avoidance" output="screen" />
 </launch>
