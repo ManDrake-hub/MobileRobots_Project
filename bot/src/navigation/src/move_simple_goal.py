@@ -40,11 +40,26 @@ class Move:
         forward_msg.linear.x = 0.2
         backward_msg = Twist()
         backward_msg.linear.x = -0.2
-
         self.pub_cmd.publish(forward_msg)
         rospy.sleep(2)  
         self.pub_cmd.publish(backward_msg)
+        rospy.sleep(2)
+        forward_msg = Twist()
+        forward_msg.linear.x = 0.3
+        backward_msg = Twist()
+        backward_msg.linear.x = -0.3
+        self.pub_cmd.publish(forward_msg)
         rospy.sleep(2)  
+        self.pub_cmd.publish(backward_msg)
+        rospy.sleep(2)
+        rotation_right = Twist()
+        rotation_right.angular.z = 0.5
+        rotation_left = Twist()
+        rotation_left.angular.z = -0.5
+        self.pub_cmd.publish(rotation_right)
+        rospy.sleep(2)  
+        self.pub_cmd.publish(rotation_left)
+        rospy.sleep(2) 
 
         stop_msg = Twist()
         self.pub_cmd.publish(stop_msg)
@@ -72,6 +87,7 @@ if __name__ == "__main__":
             waypoints.append((float(row[0]), float(row[1])))
     move.calibration()
     print("HO CALIBRATO")
+
     # Primo goal
     next_goal = random.choice(waypoints)
     test_goal(next_goal)
