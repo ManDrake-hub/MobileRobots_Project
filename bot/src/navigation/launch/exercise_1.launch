@@ -1,3 +1,0 @@
-<launch>
-    <node name="exercise_1" pkg="navigation" type="exercise_1.py" output="screen"/>
-</launch>

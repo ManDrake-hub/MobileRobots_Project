@@ -1,0 +1,5 @@
+location
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/location/cmake.lock /home/francesca/Scrivania/MobileRobots_Project/bot/devel/./cmake.lock
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/location/share/location/cmake/locationConfig-version.cmake /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/location/cmake/locationConfig-version.cmake
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/location/share/location/cmake/locationConfig.cmake /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/location/cmake/locationConfig.cmake
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/location/lib/pkgconfig/location.pc /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/pkgconfig/location.pc

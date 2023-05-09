@@ -1,3 +1,0 @@
-<launch>
-    <node name="odom_noised" pkg="navigation" type="OdomNoiser.py" output="screen"/>
-</launch>

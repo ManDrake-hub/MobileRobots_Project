@@ -1,0 +1,1 @@
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/location/share/location/cmake/locationConfig-version.cmake

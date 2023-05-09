@@ -1,0 +1,5 @@
+camera
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/cmake.lock /home/francesca/Scrivania/MobileRobots_Project/bot/devel/./cmake.lock
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/camera/cmake/cameraConfig.cmake /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/camera/cmake/cameraConfig.cmake
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/camera/cmake/cameraConfig-version.cmake /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/camera/cmake/cameraConfig-version.cmake
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/lib/pkgconfig/camera.pc /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/pkgconfig/camera.pc
