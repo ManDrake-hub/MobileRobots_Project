@@ -2,9 +2,9 @@
 #chatbot/models/*
 
 # Catkin Build Folders #
-cogrob_ws/build
-cogrob_ws/devel
-cogrob_ws/logs
+bot/build
+bot/devel
+bot/logs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
