@@ -10,6 +10,7 @@ from geometry_msgs.msg import Twist
 import numpy as np 
 import math
 import tf
+from navigation.srv import Calibration
 
 class Move:
     def __init__(self) -> None:
@@ -19,6 +20,8 @@ class Move:
         self.next_waypoint = None
         self.thr = 0.8
         self.listener = tf.TransformListener()
+        self.calibration_service = rospy.ServiceProxy('calibration_server', Calibration)
+        rospy.wait_for_service('calibration_server')
         self.pub_goal = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=10)
         self.pub_cmd = rospy.Publisher('cmd_vel', Twist, queue_size=10)
         self.pub_next_waypoint = rospy.Publisher('next_waypoint', Int32MultiArray, queue_size=10)
@@ -42,32 +45,9 @@ class Move:
     
     # Calibrate robot 
     def calibration(self):
-        forward_msg = Twist()
-        backward_msg = Twist()
-        rotation_right = Twist()
-        rotation_left = Twist()
-        forward_msg.linear.x = 0.2
-        backward_msg.linear.x = -0.2
-        self.pub_cmd.publish(forward_msg)
-        rospy.sleep(2)  
-        self.pub_cmd.publish(backward_msg)
-        rospy.sleep(2)
-        forward_msg.linear.x = 0.3
-        backward_msg.linear.x = -0.3
-        self.pub_cmd.publish(forward_msg)
-        rospy.sleep(2)  
-        self.pub_cmd.publish(backward_msg)
-        rospy.sleep(2)
-        
-        rotation_right.angular.z = 0.5
-        rotation_left.angular.z = -0.5
-        self.pub_cmd.publish(rotation_right)
-        rospy.sleep(2)  
-        self.pub_cmd.publish(rotation_left)
-        rospy.sleep(2) 
-
-        stop_msg = Twist()
-        self.pub_cmd.publish(stop_msg)
+        # Calibration
+        answer = self.calibration_service().answer
+        return answer
 
     # ----------- Find nearest waypoint due to the command recognized
     def find_nearest_point(self, points, current_location, orientation, command):
@@ -189,6 +169,7 @@ class Move:
 
 if __name__ == "__main__":
     rospy.init_node("goal_custom")
+    
     navigation = Move()
     rate = rospy.Rate(10.0)
     waypoints = []
@@ -198,9 +179,7 @@ if __name__ == "__main__":
         for row in reader:
             waypoints.append((float(row[0]), float(row[1])))
 
-    # Calibration
     navigation.calibration()
-    print("CALIBRATION DONE")
     navigation.move('straight on')
     navigation.move(navigation.next_command)
     rospy.spin()

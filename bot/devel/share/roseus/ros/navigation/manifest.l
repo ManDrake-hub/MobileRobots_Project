@@ -1,0 +1,1 @@
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/roseus/ros/navigation/manifest.l

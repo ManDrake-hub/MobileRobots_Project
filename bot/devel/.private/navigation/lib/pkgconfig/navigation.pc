@@ -3,6 +3,6 @@ prefix=/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigat
 Name: navigation
 Description: Description of navigation
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/include
 Libs: -L${prefix}/lib 
-Requires: 
+Requires: message_runtime
