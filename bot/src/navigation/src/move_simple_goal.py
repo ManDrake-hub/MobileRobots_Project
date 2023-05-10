@@ -11,6 +11,7 @@ import numpy as np
 import math
 import tf
 from navigation.srv import Calibration
+from tf.transformations import euler_from_quaternion, quaternion_from_euler
 
 class Move:
     def __init__(self) -> None:
@@ -18,6 +19,7 @@ class Move:
         self.waiting = False
         self.next_command = None
         self.next_waypoint = None
+        self.next_orientation = None
         self.thr = 0.8
         self.listener = tf.TransformListener()
         self.calibration_service = rospy.ServiceProxy('calibration_server', Calibration)
@@ -34,11 +36,12 @@ class Move:
         self.next_command = msg.data.lower().replace("\u200b","")
 
     # Send next waypoint to reach
-    def send_goal(self,x,y):
+    def send_goal(self,x,y,orientation):
         self.msg.header.frame_id = "map"
         self.msg.pose.position.x = float(x)
         self.msg.pose.position.y = float(y)
-        self.msg.pose.orientation.w = 1.0
+        self.msg.pose.orientation.z = orientation[2]
+        self.msg.pose.orientation.w = orientation[3]
         self.pub_goal.publish(self.msg)
         rospy.sleep(3.0)
         #print(f"{self.msg.__str__()}")
@@ -49,39 +52,6 @@ class Move:
         answer = self.calibration_service().answer
         return answer
 
-    # ----------- Find nearest waypoint due to the command recognized
-    def find_nearest_point(self, points, current_location, orientation, command):
-        # Create a dictionary of command vectors with their corresponding angles
-        command_vectors = {
-            'right': np.array([math.cos(math.radians(orientation + 90)), math.sin(math.radians(orientation + 90))]),
-            'left': np.array([math.cos(math.radians(orientation - 90)), math.sin(math.radians(orientation - 90))]),
-            'straight on': np.array([math.cos(math.radians(orientation)), math.sin(math.radians(orientation))]),
-            'go back': np.array([math.cos(math.radians(orientation + 180)), math.sin(math.radians(orientation + 180))])
-        }
-
-        # Calculate the angle and distance between each point and the current location
-        angles = []
-        distances = []
-        for point in points:
-            point_vector = np.array([point[0] - current_location[0], point[1] - current_location[1]])
-            norm_point = np.linalg.norm(point_vector)
-            forward_vector = command_vectors[command]
-            d_angle = math.degrees(math.atan2(np.cross(forward_vector, point_vector), np.dot(forward_vector, point_vector)))
-            angles.append(d_angle)
-            distances.append(norm_point)
-
-        # Find the nearest point in the desired direction
-        if command == 'right':
-            index = np.argmin(np.array(angles))
-        elif command == 'left':
-            index = np.argmax(np.array(angles))
-        elif command == 'straight on':
-            index = np.argmin(np.array(distances))
-        elif command == 'go back':
-            index = np.argmax(np.array(distances))
-
-        return points[index]
-    
     def compute_magnitude_angle_with_sign(self,target_location, current_location, orientation):
         target_vector = np.array([target_location[0] - current_location[0], target_location[1] - current_location[1]])
         norm_target = np.linalg.norm(target_vector)
@@ -91,23 +61,22 @@ class Move:
         return (norm_target, d_angle)
 
     def find_closest_waypoint(self,command, current_location, orientation, waypoint_locations):
-        trans, rot = self.get_robot_position()
         waypoint_locations = [wp for wp in waypoint_locations for i in range(len(wp)) 
                               if self.next_waypoint is None or wp[i] != self.next_waypoint[i] or 
-                              (trans[i] < self.next_waypoint[i] - self.thr and wp[i] > self.next_waypoint[i] + self.thr)]
+                              (current_location[i] < self.next_waypoint[i] - self.thr and wp[i] > self.next_waypoint[i] + self.thr)]
         # determina l'angolo minimo e massimo in base al comando
         if command == 'straight on':
             min_angle = -45
             max_angle = 45
         elif command == 'go back':
-            min_angle = 135
-            max_angle = -135
-        elif command == 'right':
-            min_angle = 45
+            min_angle = -135
             max_angle = 135
-        elif command == 'left':
+        elif command == 'right':
             min_angle = -135
             max_angle = -45
+        elif command == 'left':
+            min_angle = 45
+            max_angle = 135
         else:
             raise ValueError("Comando non valido")
 
@@ -122,11 +91,13 @@ class Move:
         mask = (angles >= min_angle) & (angles <= max_angle)
         filtered_magnitudes_angles = np.array(magnitudes_angles)[mask]
         if len(filtered_magnitudes_angles) == 0:
-            print("not found")
+            print("WAYPOINT NOT FOUND")
             return None
         closest_index = np.argmin(filtered_magnitudes_angles[:, 0])
-
-        return np.array(waypoint_locations)[mask][closest_index]
+        closest_waypoint = np.array(waypoint_locations)[mask][closest_index]
+        _, closest_angle = self.compute_magnitude_angle_with_sign(closest_waypoint, current_location, orientation)
+        closest_quaternion = quaternion_from_euler(0, 0, math.radians(closest_angle))
+        return closest_waypoint, closest_quaternion
 
     # Get robot position 
     def get_robot_position(self):
@@ -142,27 +113,24 @@ class Move:
 
     # TO DO: call QR service to return command
     # Move the robot to the goal and return the command recognized
-    def goal_reached(self,next_goal):
-        self.send_goal(next_goal[0],next_goal[1])
+    def goal_reached(self,next_goal,orientation):
+        self.send_goal(next_goal[0],next_goal[1],orientation)
         rospy.loginfo("Goal send")
         rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         rospy.loginfo("Goal reached")
-
-    #TO DO: manage NONE command  
+ 
     def move(self,command):
-        print(f"The command is: {command}")
+        print(f"COMMAND: {command}")
         if command == None:
             rospy.loginfo("Startup the robot position then press enter")
             input()
             self.calibration()
             command = "straight on"
         trans, rot = self.get_robot_position()
-        # First command, go straight 
-        #next_waypoint = self.find_nearest_point(waypoints, trans, rot,command)
         if command != 'stop':
-            self.next_waypoint = self.find_closest_waypoint(command, trans, rot[2], waypoints)
+            self.next_waypoint, self.next_orientation = self.find_closest_waypoint(command, trans, rot[2], waypoints)
             print(f"Next waypoint: {self.next_waypoint}")
-            self.goal_reached(self.next_waypoint)
+            self.goal_reached(self.next_waypoint, self.next_orientation)
             self.pub_next_waypoint.publish(Int32MultiArray(data=self.next_waypoint))
         else:
             print("Finish")
@@ -181,5 +149,7 @@ if __name__ == "__main__":
 
     navigation.calibration()
     navigation.move('straight on')
+    navigation.move('right')
+    navigation.move('right')
     navigation.move(navigation.next_command)
     rospy.spin()
