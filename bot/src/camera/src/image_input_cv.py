@@ -38,7 +38,7 @@ def video_stream():
 if __name__ == '__main__':
     try:
         rospy.init_node('image_input', anonymous=True)
-        pub = rospy.Publisher('qr_data_topic', String, queue_size=10)
+        pub = rospy.Publisher('qr_data_topic', String, queue_size=1)
         video_stream()
     except rospy.ROSInterruptException:
         pass

@@ -13,22 +13,22 @@ def handle_service(req):
     forward_msg.linear.x = 0.2
     backward_msg.linear.x = -0.2
     pub.publish(forward_msg)
-    rospy.sleep(2)  
+    rospy.sleep(3)  
     pub.publish(backward_msg)
-    rospy.sleep(2)
+    rospy.sleep(3)
     forward_msg.linear.x = 0.3
     backward_msg.linear.x = -0.3
     pub.publish(forward_msg)
-    rospy.sleep(2)  
+    rospy.sleep(3)  
     pub.publish(backward_msg)
-    rospy.sleep(2)
+    rospy.sleep(3)
     
     rotation_right.angular.z = 0.5
     rotation_left.angular.z = -0.5
     pub.publish(rotation_right)
-    rospy.sleep(2)  
+    rospy.sleep(3)  
     pub.publish(rotation_left)
-    rospy.sleep(2) 
+    rospy.sleep(3) 
 
     stop_msg = Twist()
     pub.publish(stop_msg)

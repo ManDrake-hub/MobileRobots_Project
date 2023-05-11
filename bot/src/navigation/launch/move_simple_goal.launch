@@ -1,5 +1,6 @@
 <launch>
   <node pkg="navigation" type="calibration.py" name="calibration" output="screen" />
+  <node pkg="navigation" type="robot_controller.py" name="robot_controller" output="screen" />
   <node pkg="navigation" type="move_simple_goal.py" name="move_simple_goal" output="screen" />
   <node pkg="navigation" type="obstacle_avoidance.py" name="obstacle_avoidance" output="screen" />
 </launch>

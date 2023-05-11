@@ -75,9 +75,9 @@ img = dist(135,1.0)
 check("dist",img)
 
 # RESIZE
-img = cv2.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)))
+img = cv2.resize(img_base, (int(img.shape[1]/2), int(img.shape[0]/2)))
 check("resize",img)
-img = cv2.resize(img, (int(img.shape[1]/3), int(img.shape[0]/3)))
+img = cv2.resize(img_base, (int(img.shape[1]/3), int(img.shape[0]/3)))
 check("resize",img)
-img = cv2.resize(img, (int(img.shape[1]/4), int(img.shape[0]/4)))
+img = cv2.resize(img_base, (int(img.shape[1]/4), int(img.shape[0]/4)))
 check("resize",img)
