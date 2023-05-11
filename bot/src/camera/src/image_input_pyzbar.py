@@ -2,7 +2,7 @@
 import rospy
 from pyzbar.pyzbar import ZBarSymbol, ZBarConfig, decode
 import cv2
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 from cv_bridge import CvBridge, CvBridgeError
 from std_msgs.msg import String
 
@@ -32,10 +32,31 @@ def video_stream():
     cap.release()
     cv2.destroyAllWindows()
 
+def callback_cameras(msg):
+    decoded_objects = decode(msg)
+    for obj in decoded_objects:
+        data = obj.data.decode('utf-8')
+        rect = obj.rect
+            
+        cv2.rectangle(msg, (rect.left, rect.top), (rect.left + rect.width, rect.top + rect.height), (0, 0, 255), 2)
+        cv2.putText(msg, data, (rect.left, rect.top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        #cv2.putText(frame, confidence, (rect.left, rect.top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        pub.publish(data)
+        try:
+            cv2.imshow('video_stream', msg)
+            cv2.waitKey(1)
+        except CvBridgeError as e:
+            print(e)
+    cv2.destroyAllWindows()
+
 if __name__ == '__main__':
     try:
         rospy.init_node('image_input', anonymous=True)
         pub = rospy.Publisher('qr_data_topic', String, queue_size=1)
-        video_stream()
+        # SIMULATION
+        #video_stream()
+        sub_left = rospy.Subscriber('camera/lx/image', CompressedImage, callback_cameras())
+        sub_right = rospy.Subscriber('camera/rx/image', CompressedImage, callback_cameras())
+        
     except rospy.ROSInterruptException:
         pass

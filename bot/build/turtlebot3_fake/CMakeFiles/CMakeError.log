@@ -1,21 +1,21 @@
 Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
 Change Dir: /home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_4f0da/fast && /usr/bin/make -f CMakeFiles/cmTC_4f0da.dir/build.make CMakeFiles/cmTC_4f0da.dir/build
+Run Build Command(s):/usr/bin/make cmTC_f788e/fast && /usr/bin/make -f CMakeFiles/cmTC_f788e.dir/build.make CMakeFiles/cmTC_f788e.dir/build
 make[1]: ingresso nella directory «/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/CMakeFiles/CMakeTmp»
-Building C object CMakeFiles/cmTC_4f0da.dir/src.c.o
-/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_4f0da.dir/src.c.o   -c /home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_4f0da
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4f0da.dir/link.txt --verbose=1
-/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_4f0da.dir/src.c.o  -o cmTC_4f0da 
-/usr/bin/ld: CMakeFiles/cmTC_4f0da.dir/src.c.o: in function `main':
+Building C object CMakeFiles/cmTC_f788e.dir/src.c.o
+/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_f788e.dir/src.c.o   -c /home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_f788e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f788e.dir/link.txt --verbose=1
+/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_f788e.dir/src.c.o  -o cmTC_f788e 
+/usr/bin/ld: CMakeFiles/cmTC_f788e.dir/src.c.o: in function `main':
 src.c:(.text+0x46): undefined reference to `pthread_create'
 /usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
 /usr/bin/ld: src.c:(.text+0x63): undefined reference to `pthread_join'
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_4f0da.dir/build.make:87: cmTC_4f0da] Errore 1
+make[1]: *** [CMakeFiles/cmTC_f788e.dir/build.make:87: cmTC_f788e] Errore 1
 make[1]: uscita dalla directory «/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/CMakeFiles/CMakeTmp»
-make: *** [Makefile:121: cmTC_4f0da/fast] Errore 2
+make: *** [Makefile:121: cmTC_f788e/fast] Errore 2
 
 
 Source file was:
@@ -41,18 +41,18 @@ int main(void)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_96028/fast && /usr/bin/make -f CMakeFiles/cmTC_96028.dir/build.make CMakeFiles/cmTC_96028.dir/build
+Run Build Command(s):/usr/bin/make cmTC_4f518/fast && /usr/bin/make -f CMakeFiles/cmTC_4f518.dir/build.make CMakeFiles/cmTC_4f518.dir/build
 make[1]: ingresso nella directory «/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/CMakeFiles/CMakeTmp»
-Building C object CMakeFiles/cmTC_96028.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_96028.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
-Linking C executable cmTC_96028
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_96028.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_96028.dir/CheckFunctionExists.c.o  -o cmTC_96028  -lpthreads 
+Building C object CMakeFiles/cmTC_4f518.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_4f518.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_4f518
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4f518.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_4f518.dir/CheckFunctionExists.c.o  -o cmTC_4f518  -lpthreads 
 /usr/bin/ld: impossibile trovare -lpthreads
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_96028.dir/build.make:87: cmTC_96028] Errore 1
+make[1]: *** [CMakeFiles/cmTC_4f518.dir/build.make:87: cmTC_4f518] Errore 1
 make[1]: uscita dalla directory «/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/CMakeFiles/CMakeTmp»
-make: *** [Makefile:121: cmTC_96028/fast] Errore 2
+make: *** [Makefile:121: cmTC_4f518/fast] Errore 2
 
 
 
