@@ -1,20 +1,20 @@
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/roseus/ros/navigation/manifest.l, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/roseus/ros/navigation/manifest.l)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/roseus/ros/navigation/srv/Calibration.l, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/roseus/ros/navigation/srv/Calibration.l)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/gennodejs/ros/navigation/_index.js, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/gennodejs/ros/navigation/_index.js)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/gennodejs/ros/navigation/srv/_index.js, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/gennodejs/ros/navigation/srv/_index.js)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/gennodejs/ros/navigation/srv/Calibration.js, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/gennodejs/ros/navigation/srv/Calibration.js)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/common-lisp/ros/navigation/srv/Calibration.lisp, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/common-lisp/ros/navigation/srv/Calibration.lisp)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/common-lisp/ros/navigation/srv/navigation-srv.asd, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/common-lisp/ros/navigation/srv/navigation-srv.asd)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/common-lisp/ros/navigation/srv/_package_Calibration.lisp, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/common-lisp/ros/navigation/srv/_package_Calibration.lisp)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/common-lisp/ros/navigation/srv/_package.lisp, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/common-lisp/ros/navigation/srv/_package.lisp)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/navigation/cmake/navigation-msg-paths.cmake, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigation-msg-paths.cmake)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/navigation/cmake/navigationConfig.cmake, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigationConfig.cmake)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/navigation/cmake/navigationConfig-version.cmake, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigationConfig-version.cmake)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/navigation/cmake/navigation-msg-extras.cmake, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigation-msg-extras.cmake)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/include/navigation/CalibrationResponse.h, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/include/navigation/CalibrationResponse.h)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/include/navigation/CalibrationRequest.h, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/include/navigation/CalibrationRequest.h)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/include/navigation/Calibration.h, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/include/navigation/Calibration.h)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/__init__.py, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/python3/dist-packages/navigation/__init__.py)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/python3/dist-packages/navigation/srv/_Calibration.py)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/__init__.py, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/python3/dist-packages/navigation/srv/__init__.py)
-Linked: (/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/pkgconfig/navigation.pc, /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/pkgconfig/navigation.pc)
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/roseus/ros/navigation/manifest.l
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/roseus/ros/navigation/srv/Calibration.l
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/gennodejs/ros/navigation/_index.js
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/gennodejs/ros/navigation/srv/_index.js
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/gennodejs/ros/navigation/srv/Calibration.js
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/common-lisp/ros/navigation/srv/Calibration.lisp
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/common-lisp/ros/navigation/srv/navigation-srv.asd
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/common-lisp/ros/navigation/srv/_package_Calibration.lisp
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/common-lisp/ros/navigation/srv/_package.lisp
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigation-msg-paths.cmake
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigationConfig.cmake
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigationConfig-version.cmake
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/share/navigation/cmake/navigation-msg-extras.cmake
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/include/navigation/CalibrationResponse.h
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/include/navigation/CalibrationRequest.h
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/include/navigation/Calibration.h
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/python3/dist-packages/navigation/__init__.py
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/python3/dist-packages/navigation/srv/_Calibration.py
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/python3/dist-packages/navigation/srv/__init__.py
+Symlinking /home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib/pkgconfig/navigation.pc

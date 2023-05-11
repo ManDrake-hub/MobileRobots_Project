@@ -24,7 +24,7 @@ class Move:
         self.sub = rospy.Subscriber("qr_data_topic", String, self.callback_command)
         self.pub_goal = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=10)
 
-        self.waiting = False
+        self.actual_waypoint = None
         self.next_waypoint = None
         self.command = None
         self.thr = 0.8
@@ -33,6 +33,7 @@ class Move:
     # Refactor command
     def callback_command(self, msg):
         #TO DO: fix empty data
+        print(msg)
         self.command = msg.data.lower().replace("\u200b","")
 
     # Calibrate robot 
@@ -60,22 +61,27 @@ class Move:
         rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         rospy.loginfo("Goal REACHED")
 
+    # TO DO: manage not last qr code
     # Move the robot to the nearest waypoints due to the command. 
     # If the command is specified, use this. Otherwise take it from the topic. 
     # If you can't find any command from the topic, wait for them to reposition you and look for another one going straight
-    def move(self, command = None):
+    def move(self, command = None, real = None):
         if command != None:
             self.command = command
+        if real != None:
+            self.actual_waypoint = real
         print(f"COMMAND: {self.command}")
         if self.command == None:
             rospy.loginfo("Startup the robot position then press ENTER")
             input()
             self.calibration()
+            self.actual_waypoint = real
             self.command = "straight on"
         if self.command != 'stop':
-            self.next_waypoint = self.control_robot.navigate(self.command)
+            self.next_waypoint = self.control_robot.navigate(self.command, self.actual_waypoint)
             self.command = None
             self.goal_reached(self.next_waypoint)
+            self.actual_waypoint = self.next_waypoint
             #self.pub_next_waypoint.publish(Int32MultiArray(data=self.next_waypoint))
         else:
             print("FINISH")
@@ -86,7 +92,10 @@ if __name__ == "__main__":
     navigation = Move()
     rate = rospy.Rate(10.0)
     navigation.calibration()
-    navigation.move("straight on")
+    print("END CALIBRATION")
+    navigation.move("straight on","real")
+    navigation.move("right")
+    navigation.move("right")
     while state != "FINISH":
         state = navigation.move()
     rospy.spin()

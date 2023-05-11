@@ -2,6 +2,7 @@
 import rospy
 import csv
 from std_msgs.msg import String, Int32MultiArray
+from geometry_msgs.msg import Twist
 import numpy as np 
 import math
 import tf
@@ -15,18 +16,18 @@ class RobotController:
             reader = csv.reader(csvfile, delimiter=',')
             for row in reader:
                 self.waypoints.append((float(row[0]), float(row[1])))
-        
-        self.listener = tf.TransformListener()
-        #self.pub_next_waypoint = rospy.Publisher('next_waypoint', Int32MultiArray, queue_size=10)
 
+        #self.pub_next_waypoint = rospy.Publisher('next_waypoint', Int32MultiArray, queue_size=10)
+        self.listener = tf.TransformListener()
         # Set initial robot position and orientation
         self.robot_x = None
         self.robot_y = None
         self.robot_orientation = None
+        self.actual_waypoint = None
         self.next_waypoint = None
         self.command = None
         self.thr = 0.8
-    
+
     # Get robot position 
     def get_robot_position(self):
         try:
@@ -38,63 +39,66 @@ class RobotController:
             self.robot_x = trans[0]
             self.robot_y = trans[1]
             self.robot_orientation = rot[2]
+            self.actual_waypoint = (self.robot_x,self.robot_y,self.robot_orientation)
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             pass
-
+   
     # Calculate the distance between two points
     def distance(self, x1, y1, x2, y2):
         return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
     # Orientation required to reach a point
-    def orientation_to_point(self, x, y):
-        dx = x - self.robot_x
-        dy = y - self.robot_y
+    def orientation_to_point(self, x, y, actual_waypoint):
+        dx = x - actual_waypoint[0]
+        dy = y - actual_waypoint[1]
         return math.atan2(dy, dx)
 
     # Function to execute a robot command and update its position/orientation
-    def execute_command(self, command):
+    def execute_command(self, command, actual_waypoint):
         if command == "straight on":
-            self.robot_x += math.cos(self.robot_orientation)
-            self.robot_y += math.sin(self.robot_orientation)
+            actual_waypoint[0] += math.cos(actual_waypoint[2])
+            actual_waypoint[1] += math.sin(actual_waypoint[2])
         elif command == "go back":
-            self.robot_x -= math.cos(self.robot_orientation)
-            self.robot_y -= math.sin(self.robot_orientation)
+            actual_waypoint[0] -= math.cos(actual_waypoint[2])
+            actual_waypoint[1] -= math.sin(actual_waypoint[2])
         elif command == "right":
-            self.robot_orientation -= math.pi / 2  # 90 degrees
+            actual_waypoint[2] -= math.pi / 2  # 90 degrees
         elif command == "left":
-            self.robot_orientation += math.pi / 2  # 90 degrees
+            actual_waypoint[2] += math.pi / 2  # 90 degrees
 
     # Function to find the closest waypoint to the robot
-    def find_closest_waypoint(self, command):
+    def find_closest_waypoint(self, command, actual_waypoint):
         closest_waypoint = None
         closest_distance = float('inf')
         waypoint_locations = [wp for wp in self.waypoints for i in range(len(wp)) 
-                              if self.next_waypoint is None or wp[i] != self.next_waypoint[i] or 
-                              (self.robot_x < self.next_waypoint[i] - self.thr and self.robot_x > self.next_waypoint[i] + self.thr)]
+                              if wp[i] != self.actual_waypoint[i]]
         for waypoint in waypoint_locations:
             if command == "right":
-                if (waypoint[0] - self.robot_x) * math.sin(self.robot_orientation) - (waypoint[1] - self.robot_y) * math.cos(self.robot_orientation) < 0:
+                if (waypoint[0] - actual_waypoint[0]) * math.sin(actual_waypoint[2]) - (waypoint[1] - actual_waypoint[1]) * math.cos(actual_waypoint[2]) < 0:
                     continue
             elif command == "left":
-                if (waypoint[0] - self.robot_x) * math.sin(self.robot_orientation) + (waypoint[1] - self.robot_y) * math.cos(self.robot_orientation) < 0:
+                if (waypoint[0] - actual_waypoint[0]) * math.sin(actual_waypoint[2]) + (waypoint[1] - actual_waypoint[1]) * math.cos(actual_waypoint[2]) < 0:
                     continue
             elif command == "straight on":
-                if (waypoint[0] - self.robot_x) * math.cos(self.robot_orientation) + (waypoint[1] - self.robot_y) * math.sin(self.robot_orientation) < 0:
+                if (waypoint[0] - actual_waypoint[0]) * math.cos(actual_waypoint[2]) + (waypoint[1] - actual_waypoint[1]) * math.sin(actual_waypoint[2]) < 0:
                     continue
             elif command == "go back":
-                if (waypoint[0] - self.robot_x) * math.cos(self.robot_orientation) - (waypoint[1] - self.robot_y) * math.sin(self.robot_orientation) < 0:
+                if (waypoint[0] - actual_waypoint[0]) * math.cos(actual_waypoint[2]) - (waypoint[1] - actual_waypoint[1]) * math.sin(actual_waypoint[2]) < 0:
                     continue
-            d = self.distance(self.robot_x, self.robot_y, waypoint[0], waypoint[1])
+            d = self.distance(actual_waypoint[0], actual_waypoint[1], waypoint[0], waypoint[1])
             if d < closest_distance:
                 closest_waypoint = waypoint
                 closest_distance = d
         return closest_waypoint
     
-    def navigate(self, command):
-        self.get_robot_position()
+    def navigate(self, command, actual_waypoint):
         #### TO DO: COMMAND BASE
         #self.execute_command(command)
-        self.next_waypoint = self.find_closest_waypoint(command)
-        self.next_waypoint = self.next_waypoint + (self.orientation_to_point(self.next_waypoint[0], self.next_waypoint[1]),)
+        self.actual_waypoint = actual_waypoint
+        if self.actual_waypoint == "real":
+            self.get_robot_position()
+        self.next_waypoint = self.find_closest_waypoint(command, self.actual_waypoint)
+        self.next_waypoint = self.next_waypoint + (self.orientation_to_point(self.next_waypoint[0], self.next_waypoint[1], self.actual_waypoint),)
         print("Closest waypoint and orientation to reach it:", self.next_waypoint)
         return self.next_waypoint
+    

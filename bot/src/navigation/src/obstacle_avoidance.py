@@ -15,10 +15,10 @@ class ObstacleAvoidanceNode(object):
         right = scan.ranges[15]
         left = scan.ranges[345]
 
-        thr1 = 0.8
-        thr2 = 0.8
+        thr_min = 0.4
+        thr_max = 0.8
 
-        if front<=thr1 and right<=thr2 and left<=thr2:
+        if thr_min<=front<=thr_max or thr_min<=right<=thr_max or thr_min<=left<=thr_max:
             rospy.loginfo("Obstacle, ROTATE")
             self.move.linear.x = 0.0
             self.move.angular.z = 0.5
