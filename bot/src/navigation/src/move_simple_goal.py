@@ -32,7 +32,7 @@ class Move:
  
     # Refactor command
     def callback_command(self, msg):
-        #TO DO: fix empty data
+        #TO DO: fix empty data (if use OPENCV)
         print(msg)
         self.command = msg.data.lower().replace("\u200b","")
 
