@@ -55,12 +55,12 @@ def handle_service_old(req):
 '''
 class WaypointMovement:
     def __init__(self) -> None:
-        self.pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
+        self.pub = rospy.Publisher('cmd_vel', Twist, queue_size=25)
         self.speed_linear_max = 0.26
         self.speed_rad_max = 0.35
-        self.stop_time=1.0
-        self.time_to_reach_max_speed = 3
-        self.time_to_stop = 3.0
+        self.stop_time=1
+        self.time_to_reach_max_speed = 1
+        self.time_to_stop = 0.5
         self.update_step = 0.01
 
     def stop(self):
@@ -103,16 +103,12 @@ class WaypointMovement:
         func = self._move_forward if delta_x != 0 else self._rotate
 
         # Starting speed and movement already done set to 0
-        speed = 0
-        speed_prev = 0
+        speed = speed_max
         _delta = 0
         
         while True:
             # Move or rotate with the current speed using the sign of the requested movement
             func(math.copysign(speed, delta))
-            if func == self._move_forward:
-                #self._kf.update_position((speed - speed_prev)/self.update_step)
-                speed_prev = speed
             # self.rate.sleep()
             rospy.sleep(self.update_step)
 
@@ -121,20 +117,6 @@ class WaypointMovement:
             # If we have reached our objective, stop the loop
             if abs(_delta) >= abs(delta):
                 break
-            
-            # If the space left is higher than the one needed to stop from the current speed 
-            if abs(delta - _delta) > abs(self.delta_to_stop(speed, speed_max)):
-                # Increase speed until we reach max speed
-                if speed < speed_max and delta > 0:
-                    speed += speed_max / (self.time_to_reach_max_speed / self.update_step)
-                elif speed < speed_max and delta < 0:
-                    speed -= speed_max / (self.time_to_reach_max_speed / self.update_step)
-            # Else (i.e. the space left is less or equal the one needed to fully stop from our current speed) decrease our speed
-            else:
-                if speed > 0 and delta > 0:
-                    speed -= speed_max / (self.time_to_stop / self.update_step)
-                elif speed < 0 and delta < 0:
-                    speed += speed_max / (self.time_to_stop / self.update_step)
         # Stop after every movement
         self.stop()
 

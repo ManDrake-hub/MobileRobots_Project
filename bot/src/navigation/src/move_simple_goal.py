@@ -33,7 +33,7 @@ class Move:
     # Refactor command
     def callback_command(self, msg):
         #TO DO: fix empty data (if use OPENCV)
-        print(msg)
+        #print(msg)
         self.command = msg.data.lower().replace("\u200b","")
 
     # Calibrate robot 
