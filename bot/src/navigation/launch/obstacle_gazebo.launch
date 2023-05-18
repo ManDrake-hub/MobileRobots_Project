@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="navigation" type="obstacle_gazebo.py" name="obstacle_sim" output="screen" />
+</launch>
