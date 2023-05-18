@@ -26,7 +26,6 @@ class RobotController:
         self.next_waypoint = None
         self.command = None
         self.thr = 0.8
-        self.filter_waypoints = {"straight_on": [None], "left": [None], "right": [None], "go_back":[None]}
 
     # Get robot position 
     def get_robot_position(self):
@@ -58,6 +57,7 @@ class RobotController:
     
     def find_closest_waypoint (self, command, actual_waypoint):
         waypoint_min = ''
+        self.filter_waypoints = {"straight_on": [None], "left": [None], "right": [None], "go_back":[None]}
         for i in range(len(self.waypoints)):
             if -45 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 45 and command == "straight_on": 
                 self.filter_waypoints[command].append(self.waypoints[i])
