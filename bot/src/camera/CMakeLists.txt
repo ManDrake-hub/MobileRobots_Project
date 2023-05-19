@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   move_base_msgs
   gazebo_msgs
+  roscpp
 )
 
 ## System dependencies are found with CMake's conventions
@@ -59,11 +60,11 @@ find_package(catkin REQUIRED COMPONENTS
 #   Message2.msg
 # )
 
-## Generate services in the 'srv' folder
-#add_service_files(
-#  FILES
-#  Face_image.srv
-#)
+# Generate services in the 'srv' folder
+ add_service_files(
+    FILES
+    QR.srv
+ )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -73,11 +74,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-#generate_messages(
-#  DEPENDENCIES
-#   std_msgs
-#   sensor_msgs
-#)
+generate_messages(
+   DEPENDENCIES
+   std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -110,8 +110,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES camera
+#  LIBRARIES navigation
 #  CATKIN_DEPENDS geometry_msgs message_generation nav_msgs rosconsole rospy sensor_msgs std_msgs
+   CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
 
@@ -128,7 +129,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/camera.cpp
+#   src/${PROJECT_NAME}/navigation.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -139,7 +140,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/camera_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/navigation_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

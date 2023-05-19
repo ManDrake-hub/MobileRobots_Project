@@ -13,12 +13,14 @@ import tf
 from navigation.srv import Calibration
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
 from robot_controller import RobotController
+from camera.srv import QR # aggiunta mia
 
 class Move:
     def __init__(self) -> None:
         self.msg = PoseStamped()
-        self.control_robot = RobotController("/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/src/waypoints.csv")
+        self.control_robot = RobotController("/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/src/waypoints.csv")
         self.calibration_service = rospy.ServiceProxy('calibration_server', Calibration)
+        self.QR_service = rospy.ServiceProxy('QR_command',QR)
         rospy.wait_for_service('calibration_server')
         #self.sub = rospy.Subscriber("qr_most_common", String, self.callback_command)
         self.sub = rospy.Subscriber("qr_data_topic", String, self.callback_command)
@@ -58,10 +60,12 @@ class Move:
     def goal_reached(self,next_goal):
         self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,next_goal[2]))
         rospy.loginfo("Goal SEND")
-        rospy.wait_for_message("move_base/result", MoveBaseActionResult)
+        command = self.QR_service().answer # aggiunta mia
+        self.command = command.data # aggiunta mia 
+        #rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         rospy.loginfo("Goal REACHED")
 
-    # TO DO: manage not last qr code
+     # TO DO: manage not last qr code
     # Move the robot to the nearest waypoints due to the command. 
     # If the command is specified, use this. Otherwise take it from the topic. 
     # If you can't find any command from the topic, wait for them to reposition you and look for another one going straight
@@ -88,14 +92,16 @@ class Move:
 
 if __name__ == "__main__":
     rospy.init_node("goal_custom")
+    rospy.wait_for_service('QR_command') # aggiunta mia 
+    print('QR command service started.......\n') # aggiunta mia
     state = None
     navigation = Move()
     rate = rospy.Rate(10.0)
     navigation.calibration()
     print("END CALIBRATION")
     navigation.move("straight on","real")
-    navigation.move("right")
-    navigation.move("right")
+    #navigation.move("right")
+    #navigation.move("right")
     while state != "FINISH":
         state = navigation.move()
     rospy.spin()

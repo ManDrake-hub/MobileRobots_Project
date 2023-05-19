@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/share/gennodejs/ros/robot_pose_ekf/srv/GetStatus.js"
+  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/share/gennodejs/ros/robot_pose_ekf/srv/GetStatus.js"
   "CMakeFiles/robot_pose_ekf_generate_messages_nodejs"
 )
 

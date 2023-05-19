@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/gennodejs/ros/navigation/srv/Calibration.js"
+  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/gennodejs/ros/navigation/srv/Calibration.js"
   "CMakeFiles/navigation_generate_messages_nodejs"
 )
 

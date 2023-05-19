@@ -90,14 +90,14 @@ if __name__ == '__main__':
         rospy.init_node('image_input', anonymous=True)
         pub = rospy.Publisher('qr_data_topic', String, queue_size=1)
         # SIMULATION
-        #video_stream()
+        video_stream()
         #sub = rospy.Subscriber('camera_image', CompressedImage, camera_image_callback)
         # REALITY
-        sub_left = rospy.Subscriber('camera/lx/image', CompressedImage, camera_image_lx_callback)
-        rospy.sleep(0.5)
-        sub_right = rospy.Subscriber('camera/rx/image', CompressedImage, camera_image_rx_callback)
-        rospy.sleep(0.5)
+        #sub_left = rospy.Subscriber('camera/lx/image', CompressedImage, camera_image_lx_callback)
+        #rospy.sleep(0.5)
+        #sub_right = rospy.Subscriber('camera/rx/image', CompressedImage, camera_image_rx_callback)
+        #rospy.sleep(0.5)
         rospy.spin()
-        cv2.destroyAllWindows()
+        #cv2.destroyAllWindows()
     except rospy.ROSInterruptException:
         pass

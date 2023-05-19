@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/francesca/Scrivania/MobileRobots_Project/bot/src/map2gazebo
+CMAKE_SOURCE_DIR = /home/luigi/Scrivania/MobileRobots_Project/bot/src/map2gazebo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/francesca/Scrivania/MobileRobots_Project/bot/build/map2gazebo
+CMAKE_BINARY_DIR = /home/luigi/Scrivania/MobileRobots_Project/bot/build/map2gazebo
 
 # Utility rule file for run_tests.
 
@@ -67,6 +67,6 @@ CMakeFiles/run_tests.dir/clean:
 .PHONY : CMakeFiles/run_tests.dir/clean
 
 CMakeFiles/run_tests.dir/depend:
-	cd /home/francesca/Scrivania/MobileRobots_Project/bot/build/map2gazebo && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/francesca/Scrivania/MobileRobots_Project/bot/src/map2gazebo /home/francesca/Scrivania/MobileRobots_Project/bot/src/map2gazebo /home/francesca/Scrivania/MobileRobots_Project/bot/build/map2gazebo /home/francesca/Scrivania/MobileRobots_Project/bot/build/map2gazebo /home/francesca/Scrivania/MobileRobots_Project/bot/build/map2gazebo/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/luigi/Scrivania/MobileRobots_Project/bot/build/map2gazebo && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/luigi/Scrivania/MobileRobots_Project/bot/src/map2gazebo /home/luigi/Scrivania/MobileRobots_Project/bot/src/map2gazebo /home/luigi/Scrivania/MobileRobots_Project/bot/build/map2gazebo /home/luigi/Scrivania/MobileRobots_Project/bot/build/map2gazebo /home/luigi/Scrivania/MobileRobots_Project/bot/build/map2gazebo/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/run_tests.dir/depend
 

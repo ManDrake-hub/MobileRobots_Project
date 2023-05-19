@@ -1,9 +1,9 @@
-#!/usr/bin/python3
+#!/home/luigi/miniconda3/envs/MR/bin/python3
 # -*- coding: utf-8 -*-
 # generated from catkin/cmake/template/script.py.in
 # creates a relay to a python script source file, acting as that file.
 # The purpose is that of a symlink
-python_script = '/home/francesca/Scrivania/MobileRobots_Project/bot/src/map2gazebo/src/map2gazebo.py'
+python_script = '/home/luigi/Scrivania/MobileRobots_Project/bot/src/map2gazebo/src/map2gazebo.py'
 with open(python_script, 'r') as fh:
     context = {
         '__builtins__': __builtins__,

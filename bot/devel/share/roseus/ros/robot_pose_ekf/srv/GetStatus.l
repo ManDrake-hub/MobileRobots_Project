@@ -1,1 +1,1 @@
-/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/share/roseus/ros/robot_pose_ekf/srv/GetStatus.l
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/share/roseus/ros/robot_pose_ekf/srv/GetStatus.l

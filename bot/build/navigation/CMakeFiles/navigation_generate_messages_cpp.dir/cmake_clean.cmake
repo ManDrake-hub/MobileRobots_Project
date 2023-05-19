@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/include/navigation/Calibration.h"
+  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/include/navigation/Calibration.h"
   "CMakeFiles/navigation_generate_messages_cpp"
 )
 
