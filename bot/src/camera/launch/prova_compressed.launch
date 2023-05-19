@@ -1,4 +1,0 @@
-<launch>
-  <node pkg="camera" type="prova_pubblica_compressed.py" name="pub" output="screen" />
-  <node pkg="camera" type="image_input_pyzbar.py" name="sub" output="screen" />
-</launch>

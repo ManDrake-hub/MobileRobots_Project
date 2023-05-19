@@ -20,6 +20,8 @@ def callback_qr(msg):
     return most_common_command"""
 
 def get_next_command(req):
+    sub = rospy.Subscriber('qr_data_topic', String, callback_qr)
+    rospy.loginfo('SONO SOTTOSCRITTO AI QR')
     rospy.wait_for_message(topic='move_base/result',topic_type=MoveBaseActionResult)
     most_common_command = max(commands, key=commands.get)
     print(f"Common command: {most_common_command}")
@@ -34,8 +36,7 @@ if __name__ == '__main__':
         rospy.init_node('qr_common', anonymous=True)
         commands={"straight_on":0, "left":0, "right":0, "stop":0, "go_back":0}
         #pub = rospy.Publisher("qr_most_common", String, queue_size=10)
-        sub = rospy.Subscriber('qr_data_topic', String, callback_qr)
-    
+        #sub = rospy.Subscriber('qr_data_topic', String, callback_qr)
         s = rospy.Service('QR_command', QR, get_next_command)
         rospy.loginfo("QR command service ready.")
         rospy.sleep(3.0)

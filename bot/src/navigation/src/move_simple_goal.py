@@ -57,8 +57,15 @@ class Move:
 
     # TO DO: call QR service to return command
     # Move the robot to the goal and return the command recognized
-    def goal_reached(self,next_goal):
-        self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,next_goal[2]))
+    def goal_reached(self,next_goal, next_command):
+        if next_command == "straight_on":
+            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,0))
+        if next_command == "left":
+            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,90))
+        if next_command == "right":
+            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,-90))
+        if next_command == "go_back":
+            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,180))
         rospy.loginfo("Goal SEND")
         command = self.QR_service().answer # aggiunta mia
         self.command = command.data # aggiunta mia 
@@ -82,9 +89,9 @@ class Move:
             self.actual_waypoint = real
             self.command = "straight on"
         if self.command != 'stop':
-            self.next_waypoint = self.control_robot.navigate(self.command, self.actual_waypoint)
+            self.next_waypoint, next_command = self.control_robot.navigate(self.command, self.actual_waypoint)
             self.command = None
-            self.goal_reached(self.next_waypoint)
+            self.goal_reached(self.next_waypoint, next_command)
             self.actual_waypoint = self.next_waypoint
             #self.pub_next_waypoint.publish(Int32MultiArray(data=self.next_waypoint))
         else:
@@ -99,9 +106,10 @@ if __name__ == "__main__":
     rate = rospy.Rate(10.0)
     navigation.calibration()
     print("END CALIBRATION")
-    navigation.move("straight on","real")
+    navigation.move("straight_on","real")
     #navigation.move("right")
-    #navigation.move("right")
+    #navigation.move("left")
+    #navigation.move("left")
     while state != "FINISH":
         state = navigation.move()
     rospy.spin()
