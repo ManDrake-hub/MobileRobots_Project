@@ -17,6 +17,9 @@ def video_stream():
         decoded_objects = decode(frame)
         for obj in decoded_objects:
             data = obj.data.decode('utf-8')
+            if data == 'GO BACK':
+                data = 'GO'+"_"+"BACK"
+            rospy.loginfo(f'data {data} type {type(data)}')
             confidence = str(obj.orientation)
             rect = obj.rect
             

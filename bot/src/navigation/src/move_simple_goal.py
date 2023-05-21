@@ -25,7 +25,9 @@ class Move:
         #self.sub = rospy.Subscriber("qr_most_common", String, self.callback_command)
         self.sub = rospy.Subscriber("qr_data_topic", String, self.callback_command)
         self.pub_goal = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=10)
-
+        self.pub_rot = rospy.Publisher('/cmd_vel',Twist,queue_size=10)
+        self.rot_speed = 0.5
+        self.update_step = 0.01
         self.actual_waypoint = None
         self.next_waypoint = None
         self.command = None
@@ -54,23 +56,61 @@ class Move:
         self.pub_goal.publish(self.msg)
         rospy.sleep(3.0)
         #print(f"{self.msg.__str__()}")
+    
+    def rotate(self,angle):
+        move = Twist()
+        move.linear.x = 0.0
+        move.linear.y = 0.0
+        move.angular.z = math.copysign(self.rot_speed,angle)
+        delta = 0
+        while True:
+            self.pub_rot.publish(move)
+            rospy.sleep(self.update_step)
+            delta = delta + self.rot_speed * self.update_step
+            rospy.loginfo(f'angle = {angle} delta = {delta}')
+            if abs(delta) >= abs(angle):
+                break
+        
 
     # TO DO: call QR service to return command
     # Move the robot to the goal and return the command recognized
-    def goal_reached(self,next_goal, next_command):
-        if next_command == "straight_on":
+    def goal_reached(self,next_goal, next_command,orientation,angle):
+        """if next_command == "straight_on":
             self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,0))
+            self.control_robot.orientation = 0
         if next_command == "left":
-            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,90))
+            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,90)) # 90
+            self.control_robot.orientation = 90
         if next_command == "right":
-            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,-90))
+            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,-90)) # -90
+            self.control_robot.orientation = -90
         if next_command == "go_back":
-            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,180))
+            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,180)) # 180
+            self.control_robot.orientation = 180
+        rospy.loginfo("Goal SEND")
+        command = self.QR_service().answer # aggiunta mia
+        self.command = command.data # aggiunta mia 
+        #rospy.wait_for_message("move_base/result", MoveBaseActionResult)
+        rospy.loginfo("Goal REACHED")"""
+
+        if next_command == "straight_on":
+            self.rotate(math.radians(angle))
+            self.send_goal(next_goal[0],next_goal[1],orientation)
+        if next_command == "left":
+            self.rotate(math.radians(angle))
+            self.send_goal(next_goal[0],next_goal[1],orientation) # 90
+        if next_command == "right":
+            self.rotate(math.radians(angle))
+            self.send_goal(next_goal[0],next_goal[1],orientation) # -90
+        if next_command == "go_back":
+            self.rotate(math.radians(angle))
+            self.send_goal(next_goal[0],next_goal[1],orientation) # 180
         rospy.loginfo("Goal SEND")
         command = self.QR_service().answer # aggiunta mia
         self.command = command.data # aggiunta mia 
         #rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         rospy.loginfo("Goal REACHED")
+
 
      # TO DO: manage not last qr code
     # Move the robot to the nearest waypoints due to the command. 
@@ -87,12 +127,13 @@ class Move:
             input()
             self.calibration()
             self.actual_waypoint = real
-            self.command = "straight on"
+            self.command = "straight_on"
         if self.command != 'stop':
-            self.next_waypoint, next_command = self.control_robot.navigate(self.command, self.actual_waypoint)
-            self.command = None
-            self.goal_reached(self.next_waypoint, next_command)
-            self.actual_waypoint = self.next_waypoint
+            self.next_waypoint, next_command,orientation,angle = self.control_robot.navigate(self.command, self.actual_waypoint)
+            self.command = None # ?
+            if self.next_waypoint is not None:
+                self.goal_reached(self.next_waypoint, next_command,orientation,angle)
+                self.actual_waypoint = self.next_waypoint
             #self.pub_next_waypoint.publish(Int32MultiArray(data=self.next_waypoint))
         else:
             print("FINISH")
