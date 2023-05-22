@@ -1,8 +1,0 @@
-prefix=/home/luigi/Scrivania/MobileRobots_Project/bot/install
-
-Name: turtlebot3_diem_sim
-Description: Description of turtlebot3_diem_sim
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

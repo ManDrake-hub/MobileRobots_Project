@@ -1,1 +1,0 @@
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/map2gazebo/lib/map2gazebo/map2gazebo.py

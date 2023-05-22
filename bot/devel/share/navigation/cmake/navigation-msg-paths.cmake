@@ -1,1 +1,0 @@
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/navigation/cmake/navigation-msg-paths.cmake

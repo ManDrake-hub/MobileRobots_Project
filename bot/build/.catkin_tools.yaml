@@ -1,6 +1,0 @@
-devel_space: /home/luigi/Scrivania/MobileRobots_Project/bot/devel
-install: false
-install_space: /home/luigi/Scrivania/MobileRobots_Project/bot/install
-profile: default
-source_space: /home/luigi/Scrivania/MobileRobots_Project/bot/src
-workspace: /home/luigi/Scrivania/MobileRobots_Project/bot
