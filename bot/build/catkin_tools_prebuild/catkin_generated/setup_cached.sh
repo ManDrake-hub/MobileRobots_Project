@@ -7,7 +7,7 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/catkin_tools_prebuild:$CMAKE_PREFIX_PATH"
-export PWD='/home/francesca/Scrivania/MobileRobots_Project/bot/build/catkin_tools_prebuild'
-export ROSLISP_PACKAGE_DIRECTORIES='/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/catkin_tools_prebuild/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/francesca/Scrivania/MobileRobots_Project/bot/build/catkin_tools_prebuild:$ROS_PACKAGE_PATH"
+export CMAKE_PREFIX_PATH="/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/catkin_tools_prebuild:$CMAKE_PREFIX_PATH"
+export PWD='/home/luigi/Scrivania/MobileRobots_Project/bot/build/catkin_tools_prebuild'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/catkin_tools_prebuild/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/luigi/Scrivania/MobileRobots_Project/bot/build/catkin_tools_prebuild:$ROS_PACKAGE_PATH"

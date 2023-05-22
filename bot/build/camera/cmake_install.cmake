@@ -1,8 +1,8 @@
-# Install script for directory: /home/francesca/Scrivania/MobileRobots_Project/bot/src/camera
+# Install script for directory: /home/luigi/Scrivania/MobileRobots_Project/bot/src/camera
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/francesca/Scrivania/MobileRobots_Project/bot/install")
+  set(CMAKE_INSTALL_PREFIX "/home/luigi/Scrivania/MobileRobots_Project/bot/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -49,139 +49,139 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/_setup_util.py")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/_setup_util.py")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE PROGRAM FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/_setup_util.py")
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE PROGRAM FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/_setup_util.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/env.sh")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/env.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE PROGRAM FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/env.sh")
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE PROGRAM FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/env.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/setup.bash;/home/francesca/Scrivania/MobileRobots_Project/bot/install/local_setup.bash")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/setup.bash;/home/luigi/Scrivania/MobileRobots_Project/bot/install/local_setup.bash")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/setup.bash"
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/local_setup.bash"
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/setup.bash"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/local_setup.bash"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/setup.sh;/home/francesca/Scrivania/MobileRobots_Project/bot/install/local_setup.sh")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/setup.sh;/home/luigi/Scrivania/MobileRobots_Project/bot/install/local_setup.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/setup.sh"
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/local_setup.sh"
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/setup.sh"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/local_setup.sh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/setup.zsh;/home/francesca/Scrivania/MobileRobots_Project/bot/install/local_setup.zsh")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/setup.zsh;/home/luigi/Scrivania/MobileRobots_Project/bot/install/local_setup.zsh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/setup.zsh"
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/local_setup.zsh"
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/setup.zsh"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/local_setup.zsh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/.rosinstall")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/.rosinstall")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/.rosinstall")
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/.rosinstall")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera/srv" TYPE FILE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/src/camera/srv/QR.srv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera/srv" TYPE FILE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/src/camera/srv/QR.srv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera/cmake" TYPE FILE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/camera-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera/cmake" TYPE FILE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/camera-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/include/camera")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/camera/include/camera")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/roseus/ros/camera")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/roseus/ros/camera")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/common-lisp/ros/camera")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/common-lisp/ros/camera")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/gennodejs/ros/camera")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/gennodejs/ros/camera")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/lib/python3/dist-packages/camera")
+  execute_process(COMMAND "/home/luigi/miniconda3/envs/MR/bin/python3" -m compileall "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/camera/lib/python3/dist-packages/camera")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/lib/python3/dist-packages/camera")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/camera/lib/python3/dist-packages/camera")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/camera.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/camera.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera/cmake" TYPE FILE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/camera-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera/cmake" TYPE FILE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/camera-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera/cmake" TYPE FILE FILES
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/cameraConfig.cmake"
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/cameraConfig-version.cmake"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/cameraConfig.cmake"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/catkin_generated/installspace/cameraConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera" TYPE FILE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/src/camera/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera" TYPE FILE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/src/camera/package.xml")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/gtest/cmake_install.cmake")
+  include("/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/gtest/cmake_install.cmake")
 
 endif()
 
@@ -193,5 +193,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/francesca/Scrivania/MobileRobots_Project/bot/build/camera/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/luigi/Scrivania/MobileRobots_Project/bot/build/camera/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
