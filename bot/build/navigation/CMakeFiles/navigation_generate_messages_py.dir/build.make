@@ -43,34 +43,34 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation
+CMAKE_SOURCE_DIR = /home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/luigi/Scrivania/MobileRobots_Project/bot/build/navigation
+CMAKE_BINARY_DIR = /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation
 
 # Utility rule file for navigation_generate_messages_py.
 
 # Include the progress variables for this target.
 include CMakeFiles/navigation_generate_messages_py.dir/progress.make
 
-CMakeFiles/navigation_generate_messages_py: /home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py
-CMakeFiles/navigation_generate_messages_py: /home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/__init__.py
+CMakeFiles/navigation_generate_messages_py: /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py
+CMakeFiles/navigation_generate_messages_py: /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/__init__.py
 
 
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py: /home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py: /opt/ros/noetic/share/std_msgs/msg/String.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/luigi/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code from SRV navigation/Calibration"
-	catkin_generated/env_cached.sh /home/luigi/miniconda3/envs/MR/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p navigation -o /home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py: /home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py: /opt/ros/noetic/share/std_msgs/msg/String.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code from SRV navigation/Calibration"
+	catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p navigation -o /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv
 
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/__init__.py: /home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/luigi/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python srv __init__.py for navigation"
-	catkin_generated/env_cached.sh /home/luigi/miniconda3/envs/MR/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv --initpy
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/__init__.py: /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python srv __init__.py for navigation"
+	catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv --initpy
 
 navigation_generate_messages_py: CMakeFiles/navigation_generate_messages_py
-navigation_generate_messages_py: /home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py
-navigation_generate_messages_py: /home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/__init__.py
+navigation_generate_messages_py: /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/_Calibration.py
+navigation_generate_messages_py: /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/lib/python3/dist-packages/navigation/srv/__init__.py
 navigation_generate_messages_py: CMakeFiles/navigation_generate_messages_py.dir/build.make
 
 .PHONY : navigation_generate_messages_py
@@ -85,6 +85,6 @@ CMakeFiles/navigation_generate_messages_py.dir/clean:
 .PHONY : CMakeFiles/navigation_generate_messages_py.dir/clean
 
 CMakeFiles/navigation_generate_messages_py.dir/depend:
-	cd /home/luigi/Scrivania/MobileRobots_Project/bot/build/navigation && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation /home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation /home/luigi/Scrivania/MobileRobots_Project/bot/build/navigation /home/luigi/Scrivania/MobileRobots_Project/bot/build/navigation /home/luigi/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/navigation_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation /home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/CMakeFiles/navigation_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/navigation_generate_messages_py.dir/depend
 

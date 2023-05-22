@@ -17,9 +17,9 @@ add_custom_target(navigation_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
+get_filename_component(_filename "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
 add_custom_target(_navigation_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" "std_msgs/String"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" "std_msgs/String"
 )
 
 #
@@ -31,7 +31,7 @@ add_custom_target(_navigation_generate_messages_check_deps_${_filename}
 
 ### Generating Services
 _generate_srv_cpp(navigation
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/String.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/navigation
@@ -49,7 +49,7 @@ add_custom_target(navigation_generate_messages_cpp
 add_dependencies(navigation_generate_messages navigation_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
+get_filename_component(_filename "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
 add_dependencies(navigation_generate_messages_cpp _navigation_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -64,7 +64,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS navigation_generate_messages_cpp)
 
 ### Generating Services
 _generate_srv_eus(navigation
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/String.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/navigation
@@ -82,7 +82,7 @@ add_custom_target(navigation_generate_messages_eus
 add_dependencies(navigation_generate_messages navigation_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
+get_filename_component(_filename "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
 add_dependencies(navigation_generate_messages_eus _navigation_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -97,7 +97,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS navigation_generate_messages_eus)
 
 ### Generating Services
 _generate_srv_lisp(navigation
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/String.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/navigation
@@ -115,7 +115,7 @@ add_custom_target(navigation_generate_messages_lisp
 add_dependencies(navigation_generate_messages navigation_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
+get_filename_component(_filename "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
 add_dependencies(navigation_generate_messages_lisp _navigation_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -130,7 +130,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS navigation_generate_messages_lisp)
 
 ### Generating Services
 _generate_srv_nodejs(navigation
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/String.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/navigation
@@ -148,7 +148,7 @@ add_custom_target(navigation_generate_messages_nodejs
 add_dependencies(navigation_generate_messages navigation_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
+get_filename_component(_filename "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
 add_dependencies(navigation_generate_messages_nodejs _navigation_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -163,7 +163,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS navigation_generate_messages_nodejs
 
 ### Generating Services
 _generate_srv_py(navigation
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/String.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/navigation
@@ -181,7 +181,7 @@ add_custom_target(navigation_generate_messages_py
 add_dependencies(navigation_generate_messages navigation_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
+get_filename_component(_filename "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/srv/Calibration.srv" NAME_WE)
 add_dependencies(navigation_generate_messages_py _navigation_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -238,7 +238,7 @@ if(TARGET std_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/navigation)
-  install(CODE "execute_process(COMMAND \"/home/luigi/miniconda3/envs/MR/bin/python3\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/navigation\")")
+  install(CODE "execute_process(COMMAND \"/usr/bin/python3\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/navigation\")")
   # install generated code
   install(
     DIRECTORY ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/navigation

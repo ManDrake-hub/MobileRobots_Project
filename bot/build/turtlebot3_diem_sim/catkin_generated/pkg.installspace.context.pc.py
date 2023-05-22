@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "turtlebot3_diem_sim"
-PROJECT_SPACE_DIR = "/home/luigi/Scrivania/MobileRobots_Project/bot/install"
+PROJECT_SPACE_DIR = "/home/francesca/Scrivania/MobileRobots_Project/bot/install"
 PROJECT_VERSION = "0.0.0"

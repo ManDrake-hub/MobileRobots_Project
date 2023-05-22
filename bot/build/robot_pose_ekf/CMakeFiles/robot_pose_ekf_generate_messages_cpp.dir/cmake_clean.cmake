@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/include/robot_pose_ekf/GetStatus.h"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/include/robot_pose_ekf/GetStatus.h"
   "CMakeFiles/robot_pose_ekf_generate_messages_cpp"
 )
 

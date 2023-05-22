@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/share/common-lisp/ros/robot_pose_ekf/srv/GetStatus.lisp"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/share/common-lisp/ros/robot_pose_ekf/srv/GetStatus.lisp"
   "CMakeFiles/robot_pose_ekf_generate_messages_lisp"
 )
 

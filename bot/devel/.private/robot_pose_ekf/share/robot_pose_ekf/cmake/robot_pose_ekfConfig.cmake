@@ -67,14 +67,14 @@ set(robot_pose_ekf_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(robot_pose_ekf_SOURCE_PREFIX /home/luigi/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf)
-  set(robot_pose_ekf_DEVEL_PREFIX /home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf)
+  set(robot_pose_ekf_SOURCE_PREFIX /home/francesca/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf)
+  set(robot_pose_ekf_DEVEL_PREFIX /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf)
   set(robot_pose_ekf_INSTALL_PREFIX "")
   set(robot_pose_ekf_PREFIX ${robot_pose_ekf_DEVEL_PREFIX})
 else()
   set(robot_pose_ekf_SOURCE_PREFIX "")
   set(robot_pose_ekf_DEVEL_PREFIX "")
-  set(robot_pose_ekf_INSTALL_PREFIX /home/luigi/Scrivania/MobileRobots_Project/bot/install)
+  set(robot_pose_ekf_INSTALL_PREFIX /home/francesca/Scrivania/MobileRobots_Project/bot/install)
   set(robot_pose_ekf_PREFIX ${robot_pose_ekf_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(robot_pose_ekf_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/include " STREQUAL " ")
+if(NOT "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/include " STREQUAL " ")
   set(robot_pose_ekf_INCLUDE_DIRS "")
-  set(_include_dirs "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/include")
+  set(_include_dirs "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT "http://wiki.ros.org/robot_pose_ekf " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose
         message(FATAL_ERROR "Project 'robot_pose_ekf' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'robot_pose_ekf' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/luigi/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'robot_pose_ekf' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/francesca/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf/${idir}'.  ${_report}")
     endif()
     _list_append_unique(robot_pose_ekf_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib;/home/luigi/Scrivania/MobileRobots_Project/bot/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib;/home/francesca/Scrivania/MobileRobots_Project/bot/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

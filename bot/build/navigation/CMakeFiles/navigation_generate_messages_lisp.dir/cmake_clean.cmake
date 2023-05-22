@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/common-lisp/ros/navigation/srv/Calibration.lisp"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/common-lisp/ros/navigation/srv/Calibration.lisp"
   "CMakeFiles/navigation_generate_messages_lisp"
 )
 

@@ -1,1 +1,1 @@
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/camera/lib/pkgconfig/camera.pc
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/lib/pkgconfig/camera.pc

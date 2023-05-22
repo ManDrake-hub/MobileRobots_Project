@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/roseus/ros/navigation/manifest.l"
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/roseus/ros/navigation/srv/Calibration.l"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/roseus/ros/navigation/manifest.l"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/share/roseus/ros/navigation/srv/Calibration.l"
   "CMakeFiles/navigation_generate_messages_eus"
 )
 

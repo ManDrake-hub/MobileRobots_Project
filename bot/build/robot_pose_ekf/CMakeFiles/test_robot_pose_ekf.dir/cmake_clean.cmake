@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib/robot_pose_ekf/test_robot_pose_ekf"
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib/robot_pose_ekf/test_robot_pose_ekf.pdb"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib/robot_pose_ekf/test_robot_pose_ekf"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib/robot_pose_ekf/test_robot_pose_ekf.pdb"
   "CMakeFiles/test_robot_pose_ekf.dir/test/test_robot_pose_ekf.cpp.o"
 )
 

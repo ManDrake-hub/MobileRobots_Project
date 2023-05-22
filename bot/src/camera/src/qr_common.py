@@ -7,11 +7,11 @@ from cv_bridge import CvBridge, CvBridgeError
 from std_msgs.msg import String
 from camera.srv import QR,QRResponse
 from move_base_msgs.msg import MoveBaseActionResult
-
+command = None
 ##################### TO DO: AS SERVICE
 def callback_qr(msg):
-    command = msg.data.lower()
-    commands[command] += 1
+    global command
+    command =  msg.data.lower().replace("\u200b","")
     """most_common_command = max(commands, key=commands.get)
     print(f"Common command: {most_common_command}")
     for key in commands.keys():
@@ -20,23 +20,17 @@ def callback_qr(msg):
     return most_common_command"""
 
 def get_next_command(req):
-    sub = rospy.Subscriber('qr_data_topic', String, callback_qr)
     rospy.loginfo('SONO SOTTOSCRITTO AI QR')
-    rospy.wait_for_message(topic='move_base/result',topic_type=MoveBaseActionResult)
-    most_common_command = max(commands, key=commands.get)
-    print(f"Common command: {most_common_command}")
-    for key in commands.keys():
-            commands[key] = 0
+    #rospy.wait_for_message(topic='move_base/result',topic_type=MoveBaseActionResult)
+    global command
     response = QRResponse()
-    response.answer.data = most_common_command
+    response.answer.data = command
     return response
 
 if __name__ == '__main__':
     try:
         rospy.init_node('qr_common', anonymous=True)
-        commands={"straight_on":0, "left":0, "right":0, "stop":0, "go_back":0}
-        #pub = rospy.Publisher("qr_most_common", String, queue_size=10)
-        #sub = rospy.Subscriber('qr_data_topic', String, callback_qr)
+        sub = rospy.Subscriber('qr_data_topic', String, callback_qr)
         s = rospy.Service('QR_command', QR, get_next_command)
         rospy.loginfo("QR command service ready.")
         rospy.sleep(3.0)

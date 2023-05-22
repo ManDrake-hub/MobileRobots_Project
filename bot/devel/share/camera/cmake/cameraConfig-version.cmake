@@ -1,1 +1,1 @@
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/camera/cmake/cameraConfig-version.cmake
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/camera/share/camera/cmake/cameraConfig-version.cmake

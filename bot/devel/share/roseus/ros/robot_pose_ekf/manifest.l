@@ -1,1 +1,1 @@
-/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/share/roseus/ros/robot_pose_ekf/manifest.l
+/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/share/roseus/ros/robot_pose_ekf/manifest.l

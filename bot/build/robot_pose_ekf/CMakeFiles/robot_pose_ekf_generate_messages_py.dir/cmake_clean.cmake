@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib/python3/dist-packages/robot_pose_ekf/srv/_GetStatus.py"
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib/python3/dist-packages/robot_pose_ekf/srv/__init__.py"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib/python3/dist-packages/robot_pose_ekf/srv/_GetStatus.py"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/robot_pose_ekf/lib/python3/dist-packages/robot_pose_ekf/srv/__init__.py"
   "CMakeFiles/robot_pose_ekf_generate_messages_py"
 )
 

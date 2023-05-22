@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
 # Source directory: /usr/src/googletest
-# Build directory: /home/luigi/Scrivania/MobileRobots_Project/bot/build/navigation/gtest
+# Build directory: /home/francesca/Scrivania/MobileRobots_Project/bot/build/navigation/gtest
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

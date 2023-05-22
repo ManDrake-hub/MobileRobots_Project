@@ -1,4 +1,4 @@
-prefix=/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/map2gazebo
+prefix=/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/map2gazebo
 
 Name: map2gazebo
 Description: Description of map2gazebo

@@ -18,12 +18,12 @@ from camera.srv import QR # aggiunta mia
 class Move:
     def __init__(self) -> None:
         self.msg = PoseStamped()
-        self.control_robot = RobotController("/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/src/waypoints.csv")
+        self.control_robot = RobotController("/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/src/waypoints.csv")
         self.calibration_service = rospy.ServiceProxy('calibration_server', Calibration)
         self.QR_service = rospy.ServiceProxy('QR_command',QR)
         rospy.wait_for_service('calibration_server')
         #self.sub = rospy.Subscriber("qr_most_common", String, self.callback_command)
-        self.sub = rospy.Subscriber("qr_data_topic", String, self.callback_command)
+        #self.sub = rospy.Subscriber("qr_data_topic", String, self.callback_command)
         self.pub_goal = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=10)
         self.pub_rot = rospy.Publisher('/cmd_vel',Twist,queue_size=10)
         self.rot_speed = 0.5
@@ -51,6 +51,9 @@ class Move:
         self.msg.header.frame_id = "map"
         self.msg.pose.position.x = float(x)
         self.msg.pose.position.y = float(y)
+        print(f"goal finale {euler_from_quaternion(orientation)}")
+        self.msg.pose.orientation.x = orientation[0]
+        self.msg.pose.orientation.y = orientation[1]
         self.msg.pose.orientation.z = orientation[2]
         self.msg.pose.orientation.w = orientation[3]
         self.pub_goal.publish(self.msg)
@@ -62,12 +65,13 @@ class Move:
         move.linear.x = 0.0
         move.linear.y = 0.0
         move.angular.z = math.copysign(self.rot_speed,angle)
+        print(f"ruoto di {math.degrees(angle)}")
         delta = 0
         while True:
             self.pub_rot.publish(move)
             rospy.sleep(self.update_step)
             delta = delta + self.rot_speed * self.update_step
-            rospy.loginfo(f'angle = {angle} delta = {delta}')
+            #rospy.loginfo(f'angle = {angle} delta = {delta}')
             if abs(delta) >= abs(angle):
                 break
         
@@ -78,9 +82,7 @@ class Move:
         """if next_command == "straight_on":
             self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,0))
             self.control_robot.orientation = 0
-        if next_command == "left":
-            self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,90)) # 90
-            self.control_robot.orientation = 90
+        if next_command ==callback_qrobot.orientation = 90
         if next_command == "right":
             self.send_goal(next_goal[0],next_goal[1],quaternion_from_euler(0,0,-90)) # -90
             self.control_robot.orientation = -90
@@ -98,6 +100,7 @@ class Move:
             self.send_goal(next_goal[0],next_goal[1],orientation)
         if next_command == "left":
             self.rotate(math.radians(angle))
+            print(f"orientation del send goal {orientation}")
             self.send_goal(next_goal[0],next_goal[1],orientation) # 90
         if next_command == "right":
             self.rotate(math.radians(angle))
@@ -106,13 +109,14 @@ class Move:
             self.rotate(math.radians(angle))
             self.send_goal(next_goal[0],next_goal[1],orientation) # 180
         rospy.loginfo("Goal SEND")
+        rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         command = self.QR_service().answer # aggiunta mia
-        self.command = command.data # aggiunta mia 
+        self.command = command.data #calibration aggiunta mia 
         #rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         rospy.loginfo("Goal REACHED")
 
 
-     # TO DO: manage not last qr code
+     # TO DO: manage not la0.0, -0.0, 0.0st qr code
     # Move the robot to the nearest waypoints due to the command. 
     # If the command is specified, use this. Otherwise take it from the topic. 
     # If you can't find any command from the topic, wait for them to reposition you and look for another one going straight
@@ -146,11 +150,15 @@ if __name__ == "__main__":
     navigation = Move()
     rate = rospy.Rate(10.0)
     navigation.calibration()
+
     print("END CALIBRATION")
+
     navigation.move("straight_on","real")
+    navigation.move(navigation.command)
     #navigation.move("right")
-    #navigation.move("left")
-    #navigation.move("left")
+    #navigation.move("right")
+    #navigation.move("right")
+    #navigation.move("straight_on")
     while state != "FINISH":
         state = navigation.move()
     rospy.spin()

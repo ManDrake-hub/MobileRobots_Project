@@ -1,4 +1,4 @@
-#!/home/luigi/miniconda3/envs/MR/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # Software License Agreement (BSD License)

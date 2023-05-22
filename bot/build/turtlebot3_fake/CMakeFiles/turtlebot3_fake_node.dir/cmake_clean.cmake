@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/turtlebot3_fake/turtlebot3_fake_node"
-  "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/turtlebot3_fake/turtlebot3_fake_node.pdb"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/turtlebot3_fake/turtlebot3_fake_node"
+  "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/turtlebot3_fake/turtlebot3_fake_node.pdb"
   "CMakeFiles/turtlebot3_fake_node.dir/src/turtlebot3_fake.cpp.o"
 )
 
