@@ -10,7 +10,7 @@ def spawn_udf_model():
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
     try:
         spawn_model = rospy.ServiceProxy("/gazebo/spawn_urdf_model", SpawnModel)
-        model_path = "/home/luigi/Scrivania/oggetto.urdf"
+        model_path = "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/src/oggetto.urdf"
         model_name = "my_object"
         reference_frame = "map"
         initial_pose = Pose()
@@ -28,10 +28,12 @@ if __name__ == "__main__":
     ##########OBJECT SPAWN#################
     spawn_udf_model()
     rospy.sleep(4)
-    ##########OBJECT POSITIONING#################
-    state = ModelState()
-    state.model_name = 'my_object'
-    state.pose = Pose(position=Point(5,0,0))
-    set_model_state(state)
-    rospy.loginfo('OBJECT MOVED.....')
+    while rospy.is_shutdown:
+        ##########OBJECT POSITIONING#################
+        state = ModelState()
+        state.model_name = 'my_object'
+        state.pose = Pose(position=Point(5,0,0))
+        set_model_state(state)
+        rospy.loginfo('OBJECT MOVED.....')
+    rospy.spin()
 
