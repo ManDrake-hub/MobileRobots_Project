@@ -18,7 +18,7 @@ from camera.srv import QR # aggiunta mia
 class Move:
     def __init__(self) -> None:
         self.msg = PoseStamped()
-        self.control_robot = RobotController("/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/src/waypoints.csv")
+        self.control_robot = RobotController("/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/src/waypoints.csv")
         self.calibration_service = rospy.ServiceProxy('calibration_server', Calibration)
         self.QR_service = rospy.ServiceProxy('QR_command',QR)
         rospy.wait_for_service('calibration_server')

@@ -153,6 +153,9 @@ class RobotController:
 
             if self.waypoints[i][0] == self.actual_waypoint[0] and self.waypoints[i][1] == self.actual_waypoint[1]:
                 continue
+            #TODO-to fix. insert real pose
+            if self.orientation == None:
+                self.orientation = 0
             if -45+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 45+self.orientation and command == "straight_on": 
                 self.filter_waypoints[command].append(self.waypoints[i])
                 orientamento = quaternion_from_euler(0,0,0)

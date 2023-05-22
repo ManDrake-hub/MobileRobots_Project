@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="navigation" type="obstacle_race.py" name="obstacle_sim" output="screen" />
+</launch>
