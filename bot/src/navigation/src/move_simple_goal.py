@@ -56,6 +56,7 @@ class Move:
         self.msg.pose.orientation.y = orientation[1]
         self.msg.pose.orientation.z = orientation[2]
         self.msg.pose.orientation.w = orientation[3]
+        self.msg.pose.position_tolerance = Point(0.1, 0.1, 0.0)  # Tollerance xy
         self.pub_goal.publish(self.msg)
         rospy.sleep(3.0)
         #print(f"{self.msg.__str__()}")
