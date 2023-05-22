@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/francesca/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf
+CMAKE_SOURCE_DIR = /home/luigi/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/francesca/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf
+CMAKE_BINARY_DIR = /home/luigi/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf
 
 # Utility rule file for clean_test_results_robot_pose_ekf.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/francesca/Scrivania/MobileRobots_Project/bot/build/robo
 include CMakeFiles/clean_test_results_robot_pose_ekf.dir/progress.make
 
 CMakeFiles/clean_test_results_robot_pose_ekf:
-	/usr/bin/python3 /opt/ros/noetic/share/catkin/cmake/test/remove_test_results.py /home/francesca/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf/test_results/robot_pose_ekf
+	/home/luigi/miniconda3/envs/MR/bin/python3 /opt/ros/noetic/share/catkin/cmake/test/remove_test_results.py /home/luigi/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf/test_results/robot_pose_ekf
 
 clean_test_results_robot_pose_ekf: CMakeFiles/clean_test_results_robot_pose_ekf
 clean_test_results_robot_pose_ekf: CMakeFiles/clean_test_results_robot_pose_ekf.dir/build.make
@@ -71,6 +71,6 @@ CMakeFiles/clean_test_results_robot_pose_ekf.dir/clean:
 .PHONY : CMakeFiles/clean_test_results_robot_pose_ekf.dir/clean
 
 CMakeFiles/clean_test_results_robot_pose_ekf.dir/depend:
-	cd /home/francesca/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/francesca/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf /home/francesca/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf /home/francesca/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf /home/francesca/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf /home/francesca/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf/CMakeFiles/clean_test_results_robot_pose_ekf.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/luigi/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/luigi/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf /home/luigi/Scrivania/MobileRobots_Project/bot/src/robot_pose_ekf /home/luigi/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf /home/luigi/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf /home/luigi/Scrivania/MobileRobots_Project/bot/build/robot_pose_ekf/CMakeFiles/clean_test_results_robot_pose_ekf.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/clean_test_results_robot_pose_ekf.dir/depend
 

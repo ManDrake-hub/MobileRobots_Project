@@ -1,8 +1,8 @@
-# Install script for directory: /home/francesca/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake
+# Install script for directory: /home/luigi/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/francesca/Scrivania/MobileRobots_Project/bot/install")
+  set(CMAKE_INSTALL_PREFIX "/home/luigi/Scrivania/MobileRobots_Project/bot/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -49,98 +49,98 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/_setup_util.py")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/_setup_util.py")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE PROGRAM FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/_setup_util.py")
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE PROGRAM FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/_setup_util.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/env.sh")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/env.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE PROGRAM FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/env.sh")
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE PROGRAM FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/env.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/setup.bash;/home/francesca/Scrivania/MobileRobots_Project/bot/install/local_setup.bash")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/setup.bash;/home/luigi/Scrivania/MobileRobots_Project/bot/install/local_setup.bash")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/setup.bash"
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/local_setup.bash"
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/setup.bash"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/local_setup.bash"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/setup.sh;/home/francesca/Scrivania/MobileRobots_Project/bot/install/local_setup.sh")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/setup.sh;/home/luigi/Scrivania/MobileRobots_Project/bot/install/local_setup.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/setup.sh"
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/local_setup.sh"
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/setup.sh"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/local_setup.sh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/setup.zsh;/home/francesca/Scrivania/MobileRobots_Project/bot/install/local_setup.zsh")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/setup.zsh;/home/luigi/Scrivania/MobileRobots_Project/bot/install/local_setup.zsh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/setup.zsh"
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/local_setup.zsh"
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/setup.zsh"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/local_setup.zsh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/francesca/Scrivania/MobileRobots_Project/bot/install/.rosinstall")
+   "/home/luigi/Scrivania/MobileRobots_Project/bot/install/.rosinstall")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/francesca/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/.rosinstall")
+file(INSTALL DESTINATION "/home/luigi/Scrivania/MobileRobots_Project/bot/install" TYPE FILE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/.rosinstall")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/turtlebot3_fake.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/turtlebot3_fake.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_fake/cmake" TYPE FILE FILES
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/turtlebot3_fakeConfig.cmake"
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/turtlebot3_fakeConfig-version.cmake"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/turtlebot3_fakeConfig.cmake"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/catkin_generated/installspace/turtlebot3_fakeConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_fake" TYPE FILE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_fake" TYPE FILE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -150,7 +150,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_fake/turtlebot3_fake_node"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_fake" TYPE EXECUTABLE FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/turtlebot3_fake/turtlebot3_fake_node")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_fake" TYPE EXECUTABLE FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/turtlebot3_fake/turtlebot3_fake_node")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_fake/turtlebot3_fake_node" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_fake/turtlebot3_fake_node")
     file(RPATH_CHANGE
@@ -164,19 +164,19 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/turtlebot3_fake" TYPE DIRECTORY FILES "/home/francesca/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake/include/turtlebot3_fake/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/turtlebot3_fake" TYPE DIRECTORY FILES "/home/luigi/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake/include/turtlebot3_fake/")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_fake" TYPE DIRECTORY FILES
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake/launch"
-    "/home/francesca/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake/rviz"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake/launch"
+    "/home/luigi/Scrivania/MobileRobots_Project/bot/src/turtlebot3_simulations/turtlebot3_fake/rviz"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/gtest/cmake_install.cmake")
+  include("/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/gtest/cmake_install.cmake")
 
 endif()
 
@@ -188,5 +188,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/francesca/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/luigi/Scrivania/MobileRobots_Project/bot/build/turtlebot3_fake/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

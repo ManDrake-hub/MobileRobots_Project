@@ -1,8 +1,8 @@
-prefix=/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation
+prefix=/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation
 
 Name: navigation
 Description: Description of navigation
 Version: 0.0.0
-Cflags: -I/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/include
+Cflags: -I/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/navigation/include
 Libs: -L${prefix}/lib 
 Requires: message_runtime

@@ -152,7 +152,7 @@ if __name__ == "__main__":
     navigation.calibration()
 
     print("END CALIBRATION")
-
+    
     navigation.move("straight_on","real")
     navigation.move(navigation.command)
     #navigation.move("right")

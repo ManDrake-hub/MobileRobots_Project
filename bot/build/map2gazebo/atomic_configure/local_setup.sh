@@ -3,7 +3,7 @@
 
 # since this file is sourced either use the provided _CATKIN_SETUP_DIR
 # or fall back to the destination set at configure time
-: ${_CATKIN_SETUP_DIR:=/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/map2gazebo}
+: ${_CATKIN_SETUP_DIR:=/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/map2gazebo}
 CATKIN_SETUP_UTIL_ARGS="--extend --local"
 . "$_CATKIN_SETUP_DIR/setup.sh"
 unset CATKIN_SETUP_UTIL_ARGS
