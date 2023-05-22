@@ -28,12 +28,14 @@ if __name__ == "__main__":
     ##########OBJECT SPAWN#################
     spawn_udf_model()
     rospy.sleep(4)
+    x = 0
     while rospy.is_shutdown:
+        x +=0.01
         ##########OBJECT POSITIONING#################
         state = ModelState()
         state.model_name = 'my_object'
-        state.pose = Pose(position=Point(5,0,0))
+        state.pose = Pose(position=Point(x,0,0))
         set_model_state(state)
-        rospy.loginfo('OBJECT MOVED.....')
+        #rospy.loginfo('OBJECT MOVED.....')
     rospy.spin()
 

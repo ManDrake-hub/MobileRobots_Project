@@ -145,131 +145,38 @@ class RobotController:
         rospy.loginfo(f'comando attuale {command}')
         flag = None
         angle = None
+        
+        #if self.orientation == None or self.orientation == 0:
+        for i in range(len(self.waypoints)):
+            distances.append(self.distance_waypoints(actual_waypoint[0],actual_waypoint[1],self.waypoints[i][0],self.waypoints[i][1]))
+            commands.append(str(self.waypoints[i][0])+"_"+str(self.waypoints[i][1]))
 
-        if self.orientation == None or self.orientation == 0:
-            for i in range(len(self.waypoints)):
-                distances.append(self.distance_waypoints(actual_waypoint[0],actual_waypoint[1],self.waypoints[i][0],self.waypoints[i][1]))
-                commands.append(str(self.waypoints[i][0])+"_"+str(self.waypoints[i][1]))
-
-                if self.waypoints[i][0] == self.actual_waypoint[0] and self.waypoints[i][1] == self.actual_waypoint[1]:
-                    continue
-                if -45 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 45 and command == "straight_on": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    orientamento = quaternion_from_euler(0,0,0)
-                    #rospy.loginfo(f'sono in questo if 1 1, orientamento {euler_from_quaternion(orientamento)}')
-                    commands[-1] = commands[-1]+'*'
-                    flag = 0
-                elif (-180 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -135 or 135 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 180) and command == "go_back":
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    orientamento = quaternion_from_euler(0,0,math.radians(180))
-                    #rospy.loginfo(f'sono in questo if 1 2, orientamento {euler_from_quaternion(orientamento)}')
-                    commands[-1] = commands[-1]+'*'
-                    flag = 180
-                elif -135 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -45 and command == "right": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    #rospy.loginfo(f'sono in questo if 1 3, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,math.radians(-90))
-                    commands[-1] = commands[-1]+'*'
-                    flag = -90
-                elif 45 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 135 and command == "left": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    #rospy.loginfo(f'sono in questo if 1 4, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,math.radians(90))
-                    commands[-1] = commands[-1]+'*'
-                    flag = 90
-        elif self.orientation == -90:
-            for i in range(len(self.waypoints)):
-                distances.append(self.distance_waypoints(actual_waypoint[0],actual_waypoint[1],self.waypoints[i][0],self.waypoints[i][1]))
-                commands.append(str(self.waypoints[i][0])+"_"+str(self.waypoints[i][1]))
-
-                if self.waypoints[i][0] == self.actual_waypoint[0] and self.waypoints[i][1] == self.actual_waypoint[1]:
-                    continue
-                if -135 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -45 and command == "straight_on": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    rospy.loginfo(f'sono in questo if 2 1, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,math.radians(-90))
-                    commands[-1] = commands[-1]+'*'
-                    flag = -90
-                if 45 <=  self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 135 and command == 'go_back':
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    rospy.loginfo(f'sono in questo if 2 2, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,math.radians(90))
-                    commands[-1] = commands[-1]+'*'
-                    flag = 90
-                if (-180 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -135 or 135 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 180) and command == "right": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    orientamento = quaternion_from_euler(0,0,math.radians(180))
-                    rospy.loginfo(f'sono in questo if 2 3, orientamento {euler_from_quaternion(orientamento)}')
-                    commands[-1] = commands[-1]+'*'
-                    flag = 180
-                if -45 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 45 and command == "left": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    rospy.loginfo(f'sono in questo if 2 4, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,0)
-                    commands[-1] = commands[-1]+'*'
-                    flag = 0
-        elif self.orientation == 90:
-            for i in range(len(self.waypoints)):
-                distances.append(self.distance_waypoints(actual_waypoint[0],actual_waypoint[1],self.waypoints[i][0],self.waypoints[i][1]))
-                commands.append(str(self.waypoints[i][0])+"_"+str(self.waypoints[i][1]))
-
-                if self.waypoints[i][0] == self.actual_waypoint[0] and self.waypoints[i][1] == self.actual_waypoint[1]:
-                    continue
-                if 45 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 135 and command == "straight_on": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    #rospy.loginfo(f'sono in questo if 3 1, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,math.radians(90))
-                    commands[-1] = commands[-1]+'*'
-                    flag = 90
-                if -135 <=  self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -45 and command == 'go_back':
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    #rospy.loginfo(f'sono in questo if 3 2, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,math.radians(-90))
-                    commands[-1] = commands[-1]+'*'
-                    flag = -90
-                if -45 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 45 and command == "right": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    orientamento = quaternion_from_euler(0,0,0)
-                    #rospy.loginfo(f'sono in questo if 3 3, orientamento {euler_from_quaternion(orientamento)}')
-                    commands[-1] = commands[-1]+'*'
-                    flag = 0
-                if (-180 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -135 or 135 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 180)  and command == "left": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    orientamento = quaternion_from_euler(0,0,math.radians(180))
-                    #rospy.loginfo(f'sono in questo if 3 4, orientamento {euler_from_quaternion(orientamento)}')
-                    commands[-1] = commands[-1]+'*'
-                    flag = 180
-        elif self.orientation == 180:
-            for i in range(len(self.waypoints)):
-                distances.append(self.distance_waypoints(actual_waypoint[0],actual_waypoint[1],self.waypoints[i][0],self.waypoints[i][1]))
-                commands.append(str(self.waypoints[i][0])+"_"+str(self.waypoints[i][1]))
-
-                if self.waypoints[i][0] == self.actual_waypoint[0] and self.waypoints[i][1] == self.actual_waypoint[1]:
-                    continue
-                if (-180 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -135 or 135 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 180) and command == "straight_on": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    #rospy.loginfo(f'sono in questo if 4 1, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,math.radians(180))
-                    commands[-1] = command[-1]+'*'
-                    flag = 180
-                if -45 <=  self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 45 and command == 'go_back':
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    #rospy.loginfo(f'sono in questo if 4 2, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,0)
-                    commands[-1] = commands[-1]+'*'
-                    flag = 0
-                if 45 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 135 and command == "right": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    #rospy.loginfo(f'sono in questo if 4 3, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,math.radians(90))
-                    commands[-1] = commands[-1]+'*'
-                    flag = 90
-                if -135 <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -45 and command == "left": 
-                    self.filter_waypoints[command].append(self.waypoints[i])
-                    #rospy.loginfo(f'sono in questo if 4 4, orientamento {euler_from_quaternion(orientamento)}')
-                    orientamento = quaternion_from_euler(0,0,math.radians(-90))
-                    commands[-1] = commands[-1]+'*'
-                    flag = -90
+            if self.waypoints[i][0] == self.actual_waypoint[0] and self.waypoints[i][1] == self.actual_waypoint[1]:
+                continue
+            if -45+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 45+self.orientation and command == "straight_on": 
+                self.filter_waypoints[command].append(self.waypoints[i])
+                orientamento = quaternion_from_euler(0,0,0)
+                #rospy.loginfo(f'sono in questo if 1 1, orientamento {euler_from_quaternion(orientamento)}')
+                commands[-1] = commands[-1]+'*'
+                flag = 0+self.orientation
+            elif (-180+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -135+self.orientation or 135+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 180+self.orientation) and command == "go_back":
+                self.filter_waypoints[command].append(self.waypoints[i])
+                orientamento = quaternion_from_euler(0,0,math.radians(180))
+                #rospy.loginfo(f'sono in questo if 1 2, orientamento {euler_from_quaternion(orientamento)}')
+                commands[-1] = commands[-1]+'*'
+                flag = 180+self.orientation
+            elif -135+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -45+self.orientation and command == "right": 
+                self.filter_waypoints[command].append(self.waypoints[i])
+                #rospy.loginfo(f'sono in questo if 1 3, orientamento {euler_from_quaternion(orientamento)}')
+                orientamento = quaternion_from_euler(0,0,math.radians(-90))
+                commands[-1] = commands[-1]+'*'
+                flag = -90+self.orientation
+            elif 45+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 135+self.orientation and command == "left": 
+                self.filter_waypoints[command].append(self.waypoints[i])
+                #rospy.loginfo(f'sono in questo if 1 4, orientamento {euler_from_quaternion(orientamento)}')
+                orientamento = quaternion_from_euler(0,0,math.radians(90))
+                commands[-1] = commands[-1]+'*'
+                flag = 90+self.orientation
 
         self.plot_points_with_labels2(points=self.waypoints,labels1=distances,labels2=commands)
         min = float('inf')
