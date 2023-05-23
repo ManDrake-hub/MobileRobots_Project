@@ -5,9 +5,7 @@ from gazebo_msgs.srv import SpawnModel
 from geometry_msgs.msg import Pose,Point
 from gazebo_msgs.msg import ModelState
 from gazebo_msgs.srv import SetModelState
-
-
-TIME_CHANGE = 0.5
+import time
 
 def spawn_udf_model(name,position):
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
@@ -35,31 +33,36 @@ if __name__ == "__main__":
     rospy.wait_for_service('/gazebo/set_model_state')
     set_model_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
 
-    points_list_x = [(15.2,-2.5,0),(-4.75,-8.35,0),(24.5,-9.25,0),(32.4,-1.05,0),(21.85,-1.4,0)]
-    points_list_z = [(5,0,0),(15.7,-5,0),(8.25,-9.5,0),(2.2,-10.9,0),(24.5,-9.25,0),(36.5,-8.4,0)]
-    
-    #offesets = [(3,0.15,0),(0,3,0),(0,-6,0),(-4,0,0),(-1,1,0),(0,4,0),(-4,-1,0),(-1,4,0),(-4,0,0),(-1,1,0)]
+    # Parameters
+    time_to_reach_end = 3.0
+    time_step = 0.01
+    rate = rospy.Rate(1 / time_step)
 
+    points_spawn_list = [(5,0,0),(15.7,-5,0),(15.2,-2.5,0),(8.25,-9.5,0),(2.2,-10.9,0),(-4.75,-8.35,0),(24.5,-9.25,0),(36.5,-8.4,0),(32.4,-1.05,0),(21.85,-1.4,0)]
+    points_end_list = [(8,0.15,0),(15.7,-8,0),(15.2,-8.5,0),(4.25,-9.5,0),(1.2,-9.9,0),(-4.75,-4.35,0),(20.5,-10.25,0),(35.5,-4.4,0),(28.4,-1.05,0),(20.85,-0.4,0)]
     #########OBSTACLES SPAWNING######################
-    for i in range(len(points_list_x)):
-        spawn_udf_model(name='object'+str(i),position=points_list_x[i])
-    for i in range(len(points_list_z)):
-        spawn_udf_model(name='object'+str(i+len(points_list_x)),position=points_list_z[i])
+    for i in range(len(points_spawn_list)):
+        spawn_udf_model(name='object'+str(i),position=points_spawn_list[i])
 
-    rospy.sleep(TIME_CHANGE)
+    rospy.sleep(3)
     #########POSITION CHANGING########################
+    move_factor = 0.0
     while not rospy.is_shutdown():
-        for i in range(len(points_list_x)):
-            x = points_list[i][0]+offesets[i][0]
-            y = points_list[i][1]+offesets[i][1]
-            z = points_list[i][2]+offesets[i][2]
-            change_state(name='object'+str(i),new_state=(x,y,z))
-    
-        rospy.sleep(TIME_CHANGE)
-        for i in range(len(offesets)):
-            x = points_list[i][0]
-            y = points_list[i][1]
-            z = points_list[i][2]
-            change_state(name='object'+str(i),new_state=(x,y,z))
-        rospy.sleep(TIME_CHANGE)
+        time_spent = 0.0
+        while time_spent < time_to_reach_end:
+            move_factor = time_spent / time_to_reach_end
+            i = 0
+            for position_start, position_end in zip(points_spawn_list, points_end_list):
+                point = ((1.0 - move_factor) * position_start[0] + move_factor*position_end[0],
+                         (1.0 - move_factor) * position_start[1] + move_factor*position_end[1],
+                         (1.0 - move_factor) * position_start[2] + move_factor*position_end[2])
+                change_state(name='object'+str(i), new_state=point)
+                i += 1
+                # rospy.sleep(0.01)
+            time_spent += time_step
+            rate.sleep()
+
+        _points_spawn_list = points_spawn_list
+        points_spawn_list = points_end_list
+        points_end_list = _points_spawn_list
     ##################################################

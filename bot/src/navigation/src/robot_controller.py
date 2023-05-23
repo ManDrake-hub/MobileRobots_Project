@@ -162,24 +162,28 @@ class RobotController:
                 #rospy.loginfo(f'sono in questo if 1 1, orientamento {euler_from_quaternion(orientamento)}')
                 commands[-1] = commands[-1]+'*'
                 flag = 0+self.orientation
+                print(f"flag {flag}")
             elif (-180+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -135+self.orientation or 135+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 180+self.orientation) and command == "go_back":
                 self.filter_waypoints[command].append(self.waypoints[i])
                 orientamento = quaternion_from_euler(0,0,math.radians(180))
                 #rospy.loginfo(f'sono in questo if 1 2, orientamento {euler_from_quaternion(orientamento)}')
                 commands[-1] = commands[-1]+'*'
                 flag = 180+self.orientation
+                print(f"flag {flag}")
             elif -135+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= -45+self.orientation and command == "right": 
                 self.filter_waypoints[command].append(self.waypoints[i])
                 #rospy.loginfo(f'sono in questo if 1 3, orientamento {euler_from_quaternion(orientamento)}')
                 orientamento = quaternion_from_euler(0,0,math.radians(-90))
                 commands[-1] = commands[-1]+'*'
                 flag = -90+self.orientation
+                print(f"flag {flag}")
             elif 45+self.orientation <= self.get_angle_of_waypoints(actual_waypoint,self.waypoints[i]) <= 135+self.orientation and command == "left": 
                 self.filter_waypoints[command].append(self.waypoints[i])
                 #rospy.loginfo(f'sono in questo if 1 4, orientamento {euler_from_quaternion(orientamento)}')
                 orientamento = quaternion_from_euler(0,0,math.radians(90))
                 commands[-1] = commands[-1]+'*'
                 flag = 90+self.orientation
+                print(f"flag {flag}")
 
         self.plot_points_with_labels2(points=self.waypoints,labels1=distances,labels2=commands)
         min = float('inf')
