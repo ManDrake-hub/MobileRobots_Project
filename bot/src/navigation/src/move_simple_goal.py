@@ -14,6 +14,7 @@ from navigation.srv import Calibration
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
 from robot_controller import RobotController
 from camera.srv import QR 
+from dynamic_reconfigure.client import Client
 
 class Move:
     def __init__(self) -> None:
@@ -43,7 +44,7 @@ class Move:
         self.msg.header.frame_id = "map"
         self.msg.pose.position.x = float(x)
         self.msg.pose.position.y = float(y)
-        print(f"goal finale {euler_from_quaternion(orientation)}")
+        print(f"goal finale {math.degrees(euler_from_quaternion(orientation)[2])}")
         self.msg.pose.orientation.x = orientation[0]
         self.msg.pose.orientation.y = orientation[1]
         self.msg.pose.orientation.z = orientation[2]
@@ -51,6 +52,11 @@ class Move:
         self.pub_goal.publish(self.msg)
         rospy.sleep(3.0)
         #print(f"{self.msg.__str__()}")
+    
+    def set_xy_goal_tolerance(self,value):
+        client = Client("move_base/DWAPlannerROS")
+        params = {'xy_goal_tolerance': value}
+        client.update_configuration(params)
     
     def rotate(self,angle):
         move = Twist()
@@ -68,9 +74,8 @@ class Move:
         
     # Move the robot to the goal and return the command recognized
     def goal_reached(self,next_goal, next_command,orientation,angle):
-        if next_command == "straight_on":
-            self.rotate(math.radians(angle))
-            self.send_goal(next_goal[0],next_goal[1],orientation)
+        self.rotate(math.radians(angle))
+        self.send_goal(next_goal[0],next_goal[1],orientation)
         rospy.loginfo("Goal SEND")
         rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         command = self.QR_service().answer # aggiunta mia
@@ -87,11 +92,11 @@ class Move:
         if real != None:
             self.actual_waypoint = real
         print(f"COMMAND: {self.command}")
-        if self.command == None:
+        if self.command == "":
             rospy.loginfo("Startup the robot position then press ENTER")
             input()
             self.calibration()
-            self.actual_waypoint = real
+            self.actual_waypoint = "real"
             self.command = "straight_on"
         if self.command != 'stop':
             self.next_waypoint, next_command,orientation,angle = self.control_robot.navigate(self.command, self.actual_waypoint)
@@ -99,9 +104,14 @@ class Move:
             if self.next_waypoint is not None:
                 self.goal_reached(self.next_waypoint, next_command,orientation,angle)
                 self.actual_waypoint = self.next_waypoint
+            else:
+                rospy.loginfo("I haven't find a waypoint")
+                self.command = "stop"
             #self.pub_next_waypoint.publish(Int32MultiArray(data=self.next_waypoint))
         else:
             print("FINISH")
+            return "FINISH"
+        
 
 if __name__ == "__main__":
     rospy.init_node("goal_custom")
@@ -113,12 +123,8 @@ if __name__ == "__main__":
     navigation.calibration()
 
     print("END CALIBRATION")
-    
+    navigation.set_xy_goal_tolerance(0.5)
     navigation.move("straight_on","real")
-    #navigation.move("right")
-    #navigation.move("right")
-    #navigation.move("right")
-    #navigation.move("straight_on")
     while state != "FINISH":
         state = navigation.move()
-    rospy.spin()
+    #rospy.spin()

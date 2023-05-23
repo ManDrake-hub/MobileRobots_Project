@@ -24,7 +24,11 @@ def get_next_command(req):
     #rospy.wait_for_message(topic='move_base/result',topic_type=MoveBaseActionResult)
     global command
     response = QRResponse()
-    response.answer.data = command
+    if command == None:
+        print(f"non l'ho trovato")
+        response.answer.data = ""
+    else:
+        response.answer.data = command
     return response
 
 if __name__ == '__main__':
