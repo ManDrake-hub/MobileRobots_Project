@@ -13,7 +13,7 @@ def spawn_udf_model(name,position):
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
     try:
         spawn_model = rospy.ServiceProxy("/gazebo/spawn_urdf_model", SpawnModel)
-        model_path = "/home/luigi/Scrivania/MobileRobots_Project/bot/src/navigation/src/oggetto.urdf"
+        model_path = "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/src/oggetto.urdf"
         model_name = name
         reference_frame = "map"
         initial_pose = Pose()
