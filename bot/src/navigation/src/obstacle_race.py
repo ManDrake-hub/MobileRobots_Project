@@ -6,12 +6,13 @@ from geometry_msgs.msg import Pose,Point
 from gazebo_msgs.msg import ModelState
 from gazebo_msgs.srv import SetModelState
 import time
+import os 
 
 def spawn_udf_model(name,position):
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
     try:
         spawn_model = rospy.ServiceProxy("/gazebo/spawn_urdf_model", SpawnModel)
-        model_path = "/home/francesca/Scrivania/MobileRobots_Project/bot/src/navigation/src/oggetto.urdf"
+        model_path = os.path.dirname(__file__) + "/oggetto.urdf"
         model_name = name
         reference_frame = "map"
         initial_pose = Pose()

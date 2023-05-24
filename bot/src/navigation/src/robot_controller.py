@@ -19,7 +19,6 @@ class RobotController:
             for row in reader:
                 self.waypoints.append((float(row[0]), float(row[1])))
 
-        #self.pub_next_waypoint = rospy.Publisher('next_waypoint', Int32MultiArray, queue_size=10)
         self.listener = tf.TransformListener()
         # Set initial robot position and orientation
         self.robot_x = None
@@ -60,59 +59,6 @@ class RobotController:
         distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
         return distance
     
-    import matplotlib.pyplot as plt
-
-    def plot_points_with_labels2(self,points, labels1,labels2):
-        """
-        Plotta dei punti nel piano con due etichette per ogni punto.
-    
-        Argomenti:
-        - points: una lista di tuple (x, y) che rappresentano le coordinate dei punti
-        -labels1: una lista di stringhe che rappresentano la prima etichetta dei punti
-        - labels2: una lista di stringhe che rappresentano la seconda etichetta dei punti
-    
-        """
-        x = []
-        y = []
-        for i in range(len(points)):
-            x.append(points[i][0])
-            y.append(points[i][1])
-    
-        plt.figure()
-        plt.scatter(x, y)
-    
-        for i, (label1, label2) in enumerate(zip(labels1, labels2)):
-            combined_label = str(label1) + "_" + str(label2)  # Concatena le due etichette separate con uno spazio
-            plt.annotate(combined_label, (x[i], y[i]), textcoords="offset points", xytext=(0,10), ha='center')
-    
-        plt.show()
-    
-    def plot_points_with_labels3(self,points, labels1,labels2,labels3):
-        """
-        Plotta dei punti nel piano con due etichette per ogni punto.
-    
-        Argomenti:
-        - points: una lista di tuple (x, y) che rappresentano le coordinate dei punti
-        -labels1: una lista di stringhe che rappresentano la prima etichetta dei punti
-        - labels2: una lista di stringhe che rappresentano la seconda etichetta dei punti
-    
-        """
-        x = []
-        y = []
-        for i in range(len(points)):
-            x.append(points[i][0])
-            y.append(points[i][1])
-    
-        plt.figure()
-        plt.scatter(x, y)
-    
-        for i, (label1, label2,label3) in enumerate(zip(labels1, labels2,labels3)):
-            combined_label = str(label1) + "_" + str(label2)+str(labels3) # Concatena le due etichette separate con uno spazio
-            plt.annotate(combined_label, (x[i], y[i]), textcoords="offset points", xytext=(0,10), ha='center')
-    
-        plt.show()
-    
-    import matplotlib.pyplot as plt
 
     def plot_points_with_labels(self,points, labels):
         """
