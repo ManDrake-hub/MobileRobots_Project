@@ -1,4 +1,3 @@
 <launch>
   <node pkg="navigation" type="obstacle_race.py" name="obstacle_sim" output="screen" />
-  <node pkg="navigation" type="clear_costmap.py" name="clear" output="screen" />
 </launch>
