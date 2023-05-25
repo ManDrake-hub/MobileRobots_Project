@@ -30,7 +30,6 @@ class Move:
         self.actual_waypoint = None
         self.next_waypoint = None
         self.command = None
-        self.thr = 0.8
         rospy.sleep(3.0)
  
     # Calibrate robot 
@@ -44,7 +43,7 @@ class Move:
         self.msg.header.frame_id = "map"
         self.msg.pose.position.x = float(x)
         self.msg.pose.position.y = float(y)
-        print(f"goal finale {math.degrees(euler_from_quaternion(orientation)[2])}")
+        print(f"orientation final goal {math.degrees(euler_from_quaternion(orientation)[2])}")
         self.msg.pose.orientation.x = orientation[0]
         self.msg.pose.orientation.y = orientation[1]
         self.msg.pose.orientation.z = orientation[2]
@@ -53,17 +52,39 @@ class Move:
         rospy.sleep(3.0)
         #print(f"{self.msg.__str__()}")
     
+    # Set tolerance for send goal
     def set_xy_goal_tolerance(self,value):
         client = Client("move_base/DWAPlannerROS")
         params = {'xy_goal_tolerance': value}
         client.update_configuration(params)
     
+    def set_transform_tolerance(self,value):
+        client = Client("move_base/global_costmap")
+        params = {'transform_tolerance': value}
+        client.update_configuration(params)
+        client = Client("move_base/local_costmap")
+        params = {'transform_tolerance': value}
+        client.update_configuration(params)
+    
+    def set_min_particles(self,value):
+        client = Client("amcl")
+        params = {'min_particles': value}
+        client.update_configuration(params)
+
+    def set_inflation_radius(self,value):
+        client = Client("move_base/global_costmap/inflation_layer")
+        params = {'inflation_radius': value}
+        client.update_configuration(params)
+        client = Client("move_base/local_costmap/inflation_layer")
+        params = {'inflation_radius': value}
+        client.update_configuration(params)
+
     def rotate(self,angle):
         move = Twist()
         move.linear.x = 0.0
         move.linear.y = 0.0
         move.angular.z = math.copysign(self.rot_speed,angle)
-        print(f"ruoto di {math.degrees(angle)}")
+        print(f"rotate {math.degrees(angle)}")
         delta = 0
         while True:
             self.pub_rot.publish(move)
@@ -124,6 +145,9 @@ if __name__ == "__main__":
 
     print("END CALIBRATION")
     navigation.set_xy_goal_tolerance(0.5)
+    navigation.set_transform_tolerance(1.0)
+    navigation.set_min_particles(1000)
+    navigation.set_inflation_radius(4.0)
     navigation.move("straight_on","real")
     while state != "FINISH":
         state = navigation.move()
