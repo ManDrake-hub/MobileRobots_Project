@@ -5,6 +5,13 @@ from geometry_msgs.msg import Twist
 from navigation.srv import Calibration, CalibrationResponse
 import math
 from robot_controller import RobotController
+from geometry_msgs.msg import PoseArray
+
+def calculate_particle_density(msg):
+    num_poses = len(msg.poses)
+    density = num_poses / msg.header.stamp.to_sec()  # Calcolo della densità
+    #rospy.loginfo("Density: %.2f p/s", density)
+
 
 def handle_service(req):
     waypoint_movement = WaypointMovement()
@@ -12,50 +19,16 @@ def handle_service(req):
     waypoint_movement.move(-0.2,0)
     waypoint_movement.move(0.2,0)
     waypoint_movement.move(-0.2,0)
-    waypoint_movement.move(0,0.5)
-    waypoint_movement.move(0,-0.5)
+    waypoint_movement.move(0,math.radians(360))
+    #waypoint_movement.move(0,-0.5)
     response = CalibrationResponse()
     response.answer.data = "Done"
     return response
-'''
-def handle_service_old(req):
-    response = CalibrationResponse()
-    forward_msg = Twist()
-    backward_msg = Twist()
-    rotation_right = Twist()
-    rotation_left = Twist()
-    c = 0
-    forward_msg.linear.x = 0.2
-    while c != 5:
-        pub.publish(forward_msg) 
-        rospy.sleep(0.1)  
-        c +=1
-    c = 0
-    backward_msg.linear.x = -0.2
-    while c != 5:
-        pub.publish(backward_msg) 
-        rospy.sleep(0.1)  
-        c +=1
-    c = 0
-    rotation_right.angular.z = 0.5
-    while c != 5:
-        pub.publish(rotation_right) 
-        rospy.sleep(0.1)  
-        c +=1
-    c = 0
-    rotation_right.angular.z = -0.5
-    while c != 5:
-        pub.publish(rotation_right)
-        rospy.sleep(0.1)  
-        c +=1
-    stop_msg = Twist()
-    pub.publish(stop_msg)
-    response.answer.data = "Done"
-    return response
-'''
+
 class WaypointMovement:
     def __init__(self) -> None:
         self.pub = rospy.Publisher('cmd_vel', Twist, queue_size=25)
+        rospy.Subscriber('particlecloud', PoseArray, calculate_particle_density)
         self.speed_linear_max = 0.26
         self.speed_rad_max = 0.35
         self.stop_time=1

@@ -12,7 +12,7 @@ def spawn_udf_model(name,position):
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
     try:
         spawn_model = rospy.ServiceProxy("/gazebo/spawn_urdf_model", SpawnModel)
-        model_path = os.path.dirname(__file__) + "/oggetto.urdf"
+        model_path = os.path.dirname(__file__) + "/box.urdf"
         model_name = name
         reference_frame = "map"
         initial_pose = Pose()

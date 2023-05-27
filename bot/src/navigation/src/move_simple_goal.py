@@ -99,8 +99,8 @@ class Move:
         self.send_goal(next_goal[0],next_goal[1],orientation)
         rospy.loginfo("Goal SEND")
         rospy.wait_for_message("move_base/result", MoveBaseActionResult)
-        command = self.QR_service().answer # aggiunta mia
-        self.command = command.data #calibration aggiunta mia 
+        command = self.QR_service().answer 
+        self.command = command.data 
         #rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         rospy.loginfo("Goal REACHED")
 
@@ -118,7 +118,7 @@ class Move:
             input()
             self.calibration()
             self.actual_waypoint = "real"
-            self.command = "straight_on"
+            self.command = "straight on"
         if self.command != 'stop':
             self.next_waypoint, next_command,orientation,angle = self.control_robot.navigate(self.command, self.actual_waypoint)
             self.command = None # ?
@@ -136,19 +136,17 @@ class Move:
 
 if __name__ == "__main__":
     rospy.init_node("goal_custom")
-    rospy.wait_for_service('QR_command') # aggiunta mia 
-    print('QR command service started.......\n') # aggiunta mia
+    rospy.wait_for_service('QR_command') 
     state = None
     navigation = Move()
     rate = rospy.Rate(10.0)
-    navigation.calibration()
-
-    print("END CALIBRATION")
     navigation.set_xy_goal_tolerance(0.5)
     navigation.set_transform_tolerance(1.0)
     navigation.set_min_particles(1000)
     navigation.set_inflation_radius(4.0)
-    navigation.move("straight_on","real")
+    navigation.calibration()
+    print("END CALIBRATION")
+    navigation.move("straight on","real")
     while state != "FINISH":
         state = navigation.move()
     #rospy.spin()

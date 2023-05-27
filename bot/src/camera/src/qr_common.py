@@ -25,7 +25,7 @@ def get_next_command(req):
     global command
     response = QRResponse()
     if command == None:
-        print(f"non l'ho trovato")
+        print(f"QR code not found")
         response.answer.data = ""
     else:
         response.answer.data = command
