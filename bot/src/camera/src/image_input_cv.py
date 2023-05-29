@@ -5,7 +5,7 @@ import cv2
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image, CompressedImage
-from std_msgs.msg import String
+from std_msgs.msg import String, Float32MultiArray, Int32MultiArray
 from optparse import OptionParser
 
 def video_stream():
@@ -43,53 +43,51 @@ def process_camera_rx_image(msg):
     #rospy.sleep(0.5)
     bridge = CvBridge()
     img = bridge.compressed_imgmsg_to_cv2(msg)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     qr_decoder = cv2.QRCodeDetector()
-
-    while not rospy.is_shutdown():
         # decode QR code
-        try: 
-            decoded_text, points, _ = qr_decoder.detectAndDecode(img)
-            if len(decoded_text)>0:
-                rospy.loginfo('RX QR code: %s', decoded_text)
+    try: 
+        decoded_text, points, _ = qr_decoder.detectAndDecode(gray)
+        if len(decoded_text)>0:
+            rospy.loginfo('RX QR code: %s', decoded_text)
 
-                if len(points) > 0:
-                    points = points[0].astype(int)
+            if len(points) > 0:
+                points = points[0].astype(int)
 
-                    cv2.polylines(img, [points], True, (0, 255, 0), 2)
-                    cv2.putText(img, decoded_text, (points[0][0], points[0][1] - 10),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
-                    pub.publish(decoded_text)
-        except CvBridgeError as e:
-                print(e)
-        except Exception as e:
-            pass
-    cv2.imshow('rx', img)
-    cv2.waitKey(1)
+                cv2.polylines(img, [points], True, (0, 255, 0), 2)
+                cv2.putText(img, decoded_text, (points[0][0], points[0][1] - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+                pub.publish(decoded_text)
+    except CvBridgeError as e:
+            print(e)
+    except Exception as e:
+        pass
+    #cv2.imshow('rx', img)
+    #cv2.waitKey(1)
 
 def process_camera_lx_image(msg):
-        #rospy.sleep(0.5)
+    #rospy.sleep(0.5)
     bridge = CvBridge()
     img = bridge.compressed_imgmsg_to_cv2(msg)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     qr_decoder = cv2.QRCodeDetector()
-
-    while not rospy.is_shutdown():
         # decode QR code
-        try: 
-            decoded_text, points, _ = qr_decoder.detectAndDecode(img)
-            if len(decoded_text)>0:
-                rospy.loginfo('RX QR code: %s', decoded_text)
+    try: 
+        decoded_text, points, _ = qr_decoder.detectAndDecode(gray)
+        if len(decoded_text)>0:
+            rospy.loginfo('LX QR code: %s', decoded_text)
 
-                if len(points) > 0:
-                    points = points[0].astype(int)
+            if len(points) > 0:
+                points = points[0].astype(int)
 
-                    cv2.polylines(img, [points], True, (0, 255, 0), 2)
-                    cv2.putText(img, decoded_text, (points[0][0], points[0][1] - 10),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
-                    pub.publish(decoded_text)
-        except CvBridgeError as e:
-                print(e)
-        except Exception as e:
-            pass
+                cv2.polylines(img, [points], True, (0, 255, 0), 2)
+                cv2.putText(img, decoded_text, (points[0][0], points[0][1] - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+                pub.publish(decoded_text)
+    except CvBridgeError as e:
+            print(e)
+    except Exception as e:
+        pass
     cv2.imshow('lx', img)
     cv2.waitKey(1)
 
@@ -108,14 +106,25 @@ if __name__ == '__main__':
     try:
         rospy.init_node('image_input', anonymous=True)
         pub = rospy.Publisher('qr_data_topic', String, queue_size=1)
+        pub_params = rospy.Publisher("parameter_camera", Int32MultiArray, queue_size=1)
         if mode == 0:
             # SIMULATION
             video_stream()
+            rospy.spin()
         else:
             # REALITY
             sub_left = rospy.Subscriber('camera/lx/image', CompressedImage, camera_image_lx_callback)
             rospy.sleep(0.5)
             sub_right = rospy.Subscriber('camera/rx/image', CompressedImage, camera_image_rx_callback)
             rospy.sleep(0.5)
+            camera_settings = [(15, 480, 270),(15, 640, 360),(15, 640, 480),(15, 848, 480),(15, 1280, 720)]
+            rospy.sleep(10)
+            params = Int32MultiArray()
+            for settings in camera_settings:
+                params.data = list(settings)
+                print(f"cambio {params}")
+                pub_params.publish(params)
+                rospy.sleep(5)
+            rospy.spin()
     except rospy.ROSInterruptException:
         pass

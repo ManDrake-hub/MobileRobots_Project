@@ -30,6 +30,7 @@ class Move:
         self.actual_waypoint = None
         self.next_waypoint = None
         self.command = None
+        self.actual_goal = None
         rospy.sleep(3.0)
  
     # Calibrate robot 
@@ -49,6 +50,7 @@ class Move:
         self.msg.pose.orientation.z = orientation[2]
         self.msg.pose.orientation.w = orientation[3]
         self.pub_goal.publish(self.msg)
+        self.actual_goal = self.msg
         rospy.sleep(3.0)
         #print(f"{self.msg.__str__()}")
     
@@ -117,9 +119,8 @@ class Move:
             rospy.loginfo("Startup the robot position then press ENTER")
             input()
             self.calibration()
-            self.actual_waypoint = "real"
-            self.command = "straight on"
-        if self.command != 'stop':
+            self.pub_goal.publish(self.actual_goal)
+        if self.command != 'stop' or self.command != "":
             self.next_waypoint, next_command,orientation,angle = self.control_robot.navigate(self.command, self.actual_waypoint)
             self.command = None # ?
             if self.next_waypoint is not None:
