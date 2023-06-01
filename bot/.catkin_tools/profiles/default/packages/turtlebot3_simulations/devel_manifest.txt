@@ -1,2 +1,2 @@
 turtlebot3_simulations/turtlebot3_simulations
-/home/francesca/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_simulations/cmake.lock /home/francesca/Scrivania/MobileRobots_Project/bot/devel/./cmake.lock
+/home/francesca/Scaricati/MobileRobots_Project/bot/devel/.private/turtlebot3_simulations/cmake.lock /home/francesca/Scaricati/MobileRobots_Project/bot/devel/./cmake.lock

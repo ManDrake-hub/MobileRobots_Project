@@ -5,7 +5,6 @@ from pathlib import Path
 import cv2 as cv
 import cv_bridge
 from sensor_msgs.msg import Image, CompressedImage
-from std_msgs.msg import Int32MultiArray
 from threading import Thread
 
 class Node:
@@ -13,13 +12,10 @@ class Node:
         rospy.init_node(NODE_NAME, anonymous=True)
         self.camera_id = rospy.get_param("~camera_id")
         self.cap = self.open_stream()
+        self.set_camera()
         self.print_camera_info()
         self.bridge = cv_bridge.CvBridge()
         self.img_pub = rospy.Publisher("image", CompressedImage, queue_size=1)
-        params = Int32MultiArray()
-        params.data = [15, 424, 240]
-        self.set_camera(params)
-        self.set_param = rospy.Subscriber("parameter_camera", Int32MultiArray, self.set_camera)
         self.rate = rospy.Rate(rospy.get_param("/camera/fps_publish"))
         self.frame = None
         Thread(target=self.publish_frame_cb, daemon=True).start()
@@ -36,7 +32,7 @@ class Node:
         rospy.loginfo("Camera opened")
         return cap
 
-    def set_camera(self, msg):
+    def set_camera(self):
         '''
         These lines of code are setting the properties of the camera stream using OpenCV's
         cv.VideoCapture()` method. Specifically, it is setting the frames per second (FPS) of the camera
@@ -44,10 +40,9 @@ class Node:
         width and height to the values specified in the ROS parameters `/camera/width` and `/camera/height`,
         respectively.
         '''
-        print(f"{msg}")
-        self.cap.set(cv.CAP_PROP_FPS, msg.data[0])
-        self.cap.set(cv.CAP_PROP_FRAME_WIDTH, msg.data[1])  
-        self.cap.set(cv.CAP_PROP_FRAME_HEIGHT, msg.data[2])
+        self.cap.set(cv.CAP_PROP_FPS, rospy.get_param("/camera/fps_capture"))
+        self.cap.set(cv.CAP_PROP_FRAME_WIDTH, rospy.get_param("/camera/width"))    
+        self.cap.set(cv.CAP_PROP_FRAME_HEIGHT, rospy.get_param("/camera/height"))   
 
     def print_camera_info(self):
         '''
