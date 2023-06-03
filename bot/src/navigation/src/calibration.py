@@ -19,7 +19,11 @@ def handle_service(req):
     waypoint_movement.move(-0.2,0)
     waypoint_movement.move(0.2,0)
     waypoint_movement.move(-0.2,0)
-    waypoint_movement.move(0,math.radians(360))
+    waypoint_movement.move(0,math.radians(15))
+    waypoint_movement.move(0.2,0)
+    waypoint_movement.move(0,math.radians(-15))
+    waypoint_movement.move(-0.2,0)
+    #waypoint_movement.move(0,math.radians(360))
     #waypoint_movement.move(0,-0.5)
     response = CalibrationResponse()
     response.answer.data = "Done"

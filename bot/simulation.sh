@@ -8,3 +8,5 @@ sleep 3
 gnome-terminal --tab -e "bash -c 'source devel/setup.bash; roslaunch navigation obstacle_race.launch; exec bash'"
 sleep 3
 gnome-terminal --tab -e "bash -c 'source devel/setup.bash; rosrun rqt_reconfigure rqt_reconfigure; exec bash'"
+sleep 3
+#gnome-terminal --tab -e "bash -c 'source devel/setup.bash; roslaunch navigation set_map.launch; exec bash'"

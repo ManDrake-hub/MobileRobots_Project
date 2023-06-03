@@ -117,14 +117,6 @@ if __name__ == '__main__':
             rospy.sleep(0.5)
             sub_right = rospy.Subscriber('camera/rx/image', CompressedImage, camera_image_rx_callback)
             rospy.sleep(0.5)
-            camera_settings = [(15, 480, 270),(15, 640, 360),(15, 640, 480),(15, 848, 480),(15, 1280, 720)]
-            rospy.sleep(10)
-            params = Int32MultiArray()
-            for settings in camera_settings:
-                params.data = list(settings)
-                print(f"cambio {params}")
-                pub_params.publish(params)
-                rospy.sleep(5)
             rospy.spin()
     except rospy.ROSInterruptException:
         pass

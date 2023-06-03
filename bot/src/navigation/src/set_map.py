@@ -1,40 +1,59 @@
-import numpy as np
-import matplotlib.pyplot as plt
+#! /usr/bin/python3
+import rospy
+from nav_msgs.msg import OccupancyGrid
+from nav_msgs.msg import MapMetaData
+from geometry_msgs.msg import PoseWithCovarianceStamped
+from nav_msgs.srv import SetMap
 
-def read_pgm(file_path):
-    with open(file_path, 'rb') as f:
-        header = f.readline().decode().strip()
-        while header.startswith('#'.encode()):
-            header = f.readline().decode().strip()
+def pgm_to_occupancy_grid(pgm_file):
+    # Read PGM file
+    with open(pgm_file, 'rb') as f:
+        pgm_data = f.readlines()
 
-        width, height = 0, 0
-        max_val = 255
+    # Parse PGM header
+    occ = pgm_data[2].decode().strip().split()
+   
+    width, height = map(int, occ)
 
-        if header == 'P2':
-            width, height = map(int, f.readline().decode().split())
-            max_val = int(f.readline().decode().strip())
-        elif header == 'P5':
-            dimensions = f.readline().decode().split()
-            width, height = int(dimensions[0]), int(dimensions[1])
-            max_val = int(f.readline().decode().strip())
-        else:
-            raise ValueError('Invalid PGM format')
+    # Create OccupancyGrid message
+    occupancy_grid = OccupancyGrid()
 
-        image_data = np.fromfile(f, dtype=np.uint8, count=width*height).reshape((height, width))
-        return image_data
+    # Set metadata
+    metadata = MapMetaData()
+    metadata.width = width
+    metadata.height = height
+    metadata.resolution = 1.0  # Adjust as needed
+    occupancy_grid.info = metadata
 
-
-# Convert PGM to occupancy grid
-def pgm_to_occupancy_grid(pgm_data, threshold):
-    occupancy_grid = (pgm_data > threshold).astype(int)
+    # Set data
+    data = []
+    #print(pgm_data[4:])
+    for line in pgm_data[4:]:
+        print(f"lunghezza {len(line)}")
+        values = line.split()
+        print(f"lunghezza {len(values)}")
+        for value in values:
+            print("sto qua")
+            try:
+                value.decode()
+                data.append(int(value.decode()))
+            except Exception as e:
+                # TODO: non va la decode - Giovanni
+                print(e)
+            
+            
+    occupancy_grid.data = data
+    print(occupancy_grid)
     return occupancy_grid
 
-# Example usage
-pgm_file_path = '/home/francesca/Scaricati/MobileRobots_Project/bot/src/map2gazebo/map/map.pgm'
-threshold = 128
-
-pgm_data = read_pgm(pgm_file_path)
-occupancy_grid = pgm_to_occupancy_grid(pgm_data, threshold)
-# Visualization (optional)
-plt.imshow(occupancy_grid, cmap='gray')
-plt.show()
+if __name__ == "__main__":
+    rospy.init_node('pgm_to_occupancy_grid')
+    try:
+        map_pub= rospy.Publisher('/map', OccupancyGrid, queue_size=1)
+        pgm_file_path = '/home/francesca/Scrivania/MobileRobots_Project/bot/src/map2gazebo/map/map.pgm'
+        occu_map = pgm_to_occupancy_grid(pgm_file_path)
+        map_pub.publish(occu_map)
+        print("ho pubblicato")
+    except:
+        pass
+    rospy.spin()

@@ -60,6 +60,12 @@ class Move:
         params = {'xy_goal_tolerance': value}
         client.update_configuration(params)
     
+    # Set tolerance for send goal
+    def set_yaw_goal_tolerance(self,value):
+        client = Client("move_base/DWAPlannerROS")
+        params = {'yaw_goal_tolerance': value}
+        client.update_configuration(params)
+    
     def set_transform_tolerance(self,value):
         client = Client("move_base/global_costmap")
         params = {'transform_tolerance': value}
@@ -122,7 +128,7 @@ class Move:
             self.pub_goal.publish(self.actual_goal)
         if self.command != 'stop' or self.command != "":
             self.next_waypoint, next_command,orientation,angle = self.control_robot.navigate(self.command, self.actual_waypoint)
-            self.command = None # ?
+            self.command = None
             if self.next_waypoint is not None:
                 self.goal_reached(self.next_waypoint, next_command,orientation,angle)
                 self.actual_waypoint = self.next_waypoint
@@ -142,9 +148,10 @@ if __name__ == "__main__":
     navigation = Move()
     rate = rospy.Rate(10.0)
     navigation.set_xy_goal_tolerance(0.5)
-    navigation.set_transform_tolerance(1.0)
+    navigation.set_yaw_goal_tolerance(3.14)
+    navigation.set_transform_tolerance(0.5)
     navigation.set_min_particles(1000)
-    navigation.set_inflation_radius(4.0)
+    navigation.set_inflation_radius(0.5)
     navigation.calibration()
     print("END CALIBRATION")
     navigation.move("straight on","real")
