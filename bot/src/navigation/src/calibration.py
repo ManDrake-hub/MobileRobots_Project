@@ -15,14 +15,19 @@ def calculate_particle_density(msg):
 
 def handle_service(req):
     waypoint_movement = WaypointMovement()
+    #waypoint_movement.move(0.2,0)
+    #waypoint_movement.move(-0.2,0)
+    #waypoint_movement.move(0.2,0)
+    #waypoint_movement.move(-0.2,0)
+    #rotation
     waypoint_movement.move(0.2,0)
-    waypoint_movement.move(-0.2,0)
+    waypoint_movement.move(0,math.radians(-90))
     waypoint_movement.move(0.2,0)
-    waypoint_movement.move(-0.2,0)
-    waypoint_movement.move(0,math.radians(15))
+    waypoint_movement.move(0,math.radians(-90))
     waypoint_movement.move(0.2,0)
-    waypoint_movement.move(0,math.radians(-15))
-    waypoint_movement.move(-0.2,0)
+    waypoint_movement.move(0,math.radians(-90))
+    waypoint_movement.move(0.2,0)
+    waypoint_movement.move(0,math.radians(-90))
     #waypoint_movement.move(0,math.radians(360))
     #waypoint_movement.move(0,-0.5)
     response = CalibrationResponse()
@@ -57,6 +62,13 @@ class WaypointMovement:
             move.linear.y = 0.0
             move.angular.z = 0.0
             self.pub.publish(move)
+    
+    def _move_together(self,speed_x, speed_z):
+        move = Twist()
+        move.linear.x = speed_x
+        move.linear.y = 0.0
+        move.angular.z = speed_z
+        self.pub.publish(move)
 
     def delta_to_stop(self, speed_current, speed_max):
         # Set starting conditions
@@ -71,7 +83,7 @@ class WaypointMovement:
         # Return the accumulated space
 
         return delta_to_stop
-    
+
     def move(self,delta_x, delta_z):
         assert delta_x==0 or delta_z == 0, "You can either move along x or rotate around z, not both"
         # Set values to match whether we want linear or rotation movement

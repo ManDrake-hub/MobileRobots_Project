@@ -143,7 +143,7 @@ class Move:
 
 if __name__ == "__main__":
     rospy.init_node("goal_custom")
-    rospy.wait_for_service('QR_command') 
+    #rospy.wait_for_service('QR_command') 
     state = None
     navigation = Move()
     rate = rospy.Rate(10.0)
