@@ -2,6 +2,7 @@
   <arg name="mode" default="0" />
   <param name="mode" type="string" value="$(arg mode)"/>
   
-  <node pkg="camera" type="image_input_cv.py" name="image_input" required="true" args="--mode=$(arg mode)" output="screen" />
+  <node pkg="camera" type="image_input_cv_left.py" name="image_input_lt" required="true" args="--mode=$(arg mode)" output="screen" />
+  <node pkg="camera" type="image_input_cv_right.py" name="image_input_rx" required="true" args="--mode=$(arg mode)" output="screen" />
   <node pkg="camera" type="qr_common.py" name="qr_service" output="screen" />
 </launch>
