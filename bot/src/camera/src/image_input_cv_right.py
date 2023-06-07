@@ -69,23 +69,13 @@ def camera_image_rx_callback(image_msg):
     process_camera_rx_image(image_msg)
 
 if __name__ == '__main__':
-    parser = OptionParser()
-    parser.add_option("--mode", dest="mode", default="0")
-    (options, args) = parser.parse_args()
-    mode = int(options.mode)
-
     try:
         rospy.init_node('image_input_rx', anonymous=True)
         pub = rospy.Publisher('qr_data_topic', String, queue_size=1)
         pub_params = rospy.Publisher("parameter_camera", Int32MultiArray, queue_size=1)
-        if mode == 0:
-            # SIMULATION
-            video_stream()
-            rospy.spin()
-        else:
-            # REALITY
-            sub_right = rospy.Subscriber('camera/rx/image', CompressedImage, camera_image_rx_callback)
-            rospy.sleep(0.5)
-            rospy.spin()
+        # REALITY
+        sub_right = rospy.Subscriber('camera/rx/image', CompressedImage, camera_image_rx_callback)
+        rospy.sleep(0.5)
+        rospy.spin()
     except rospy.ROSInterruptException:
         pass

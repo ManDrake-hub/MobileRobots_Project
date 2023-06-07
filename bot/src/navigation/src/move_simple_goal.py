@@ -26,11 +26,6 @@ class Move:
         rospy.wait_for_service('calibration_server')
         self.pub_goal = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=10)
         self.pub_rot = rospy.Publisher('/cmd_vel',Twist,queue_size=10)
-        self.listener = tf.TransformListener()
-        # Set initial robot position and orientation
-        self.robot_x = None
-        self.robot_y = None
-        self.robot_z = None
         self.rot_speed = 0.5
         self.update_step = 0.01
         self.actual_waypoint = None
@@ -38,30 +33,6 @@ class Move:
         self.command = None
         self.actual_goal = None
         rospy.sleep(3.0)
-    
-    def clip_angle(self, angle):
-        distances = [abs(angle - 0), abs(angle - 90), abs(angle + 90), abs(angle - 180)]
-        min_distance = min(distances)
-        if min_distance == distances[0]:
-            return 0
-        elif min_distance == distances[1]:
-            return 90
-        elif min_distance == distances[2]:
-            return -90
-        else:
-            return 180
-        
-    # Get robot position 
-    def get_robot_position(self):
-        try:
-            (trans, rot) = self.listener.lookupTransform('/map', '/base_link', rospy.Time(0))
-            rot = euler_from_quaternion(rot)
-            self.robot_x = trans[0]
-            self.robot_y = trans[1]
-            self.robot_z = math.degrees(rot[2])
-            self.actual_waypoint = (self.robot_x,self.robot_y)
-        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-            pass
 
     def callback_qr(self,msg):
         self.set_fast()
@@ -131,7 +102,7 @@ class Move:
     def rotate(self,angle):
         #self.get_robot_position()
         move = Twist()
-        move.linear.x = 0.0
+        move.maplinear.x = 0.0
         move.linear.y = 0.0
         move.angular.z = math.copysign(self.rot_speed,angle)
         print(f"rotate {math.degrees(angle)}")
@@ -193,7 +164,7 @@ if __name__ == "__main__":
     navigation.set_amcl_params()
     navigation.set_move_base_params()
     #navigation.set_slow()
-    navigation.calibration()
+    #navigation.calibration()
     #print("END CALIBRATION")
     navigation.move("straight on","real")
     while state != "FINISH":

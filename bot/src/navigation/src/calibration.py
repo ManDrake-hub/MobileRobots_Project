@@ -8,6 +8,7 @@ from robot_controller import RobotController
 from geometry_msgs.msg import PoseArray
 
 def calculate_particle_density(msg):
+    #print(msg.header)
     num_poses = len(msg.poses)
     density = num_poses / msg.header.stamp.to_sec()  # Calcolo della densità
     #rospy.loginfo("Density: %.2f p/s", density)
