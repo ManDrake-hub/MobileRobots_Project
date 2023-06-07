@@ -78,20 +78,16 @@ def estimate_movement():
         else:
             prev_pts = cv2.goodFeaturesToTrack(prev_gray, maxCorners=100, qualityLevel=0.3, minDistance=7, blockSize=7)
 
-        # Display the resulting frame
-        cv2.imshow("Webcam Movement Estimation", frame)
-
-        # Quit if 'q' is pressed
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        
 
         # Set the current frame and points as the previous frame and points for the next iteration
         prev_gray = gray.copy()
         prev_pts = good_new.reshape(-1, 1, 2)
+        # Display the resulting frame
+        cv2.imshow("Webcam Movement Estimation", frame)
 
-    # Release the video capture object and close windows
-    cap.release()
-    cv2.destroyAllWindows()
+        # Quit if 'q' is pressed
+        cv2.waitKey(1)
 
 # Run the estimation function
 if __name__ == '__main__':

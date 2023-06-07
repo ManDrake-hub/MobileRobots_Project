@@ -46,7 +46,7 @@ class Kidnapped:
             particle_pose.position.z = 0.0  
             particle_array.poses.append(particle_pose)
         #print(particle_array)
-        self.particle_pub.publish(particle_array)
+        #self.particle_pub.publish(particle_array)
 
 
     def upward(self,msg):
@@ -55,17 +55,21 @@ class Kidnapped:
 
     def downward(self,msg):
         self.sub_downward.unregister()
-        self.pose_estimate.pose.pose.position.x = self.robot_x - 3.0
-        self.pose_estimate.pose.pose.position.y = self.robot_y
-        self.pose_estimate.pose.pose.orientation.x = self.robot_z[0]
-        self.pose_estimate.pose.pose.orientation.y = self.robot_z[1]
-        self.pose_estimate.pose.pose.orientation.z = self.robot_z[2]
-        self.pose_estimate.pose.pose.orientation.w = self.robot_z[3]
-        print(self.pose_estimate)
-        self.pub_pose_estimate.publish(self.pose_estimate)
-        rospy.sleep(0.5)
-        self.publish_particle_cloud()
-        rospy.sleep(0.5)
+        self.pose_estimate.header
+        self.pose_estimate.header.frame_id = "map"
+        if self.robot_x or self.robot_y is not None:
+            self.pose_estimate.pose.pose.position.x = self.robot_x - 3.0
+            self.pose_estimate.pose.pose.position.y = self.robot_y
+            self.pose_estimate.pose.pose.orientation.x = self.robot_z[0]
+            self.pose_estimate.pose.pose.orientation.y = self.robot_z[1]
+            self.pose_estimate.pose.pose.orientation.z = self.robot_z[2]
+            self.pose_estimate.pose.pose.orientation.w = self.robot_z[3]
+            self.pose_estimate.pose.covariance = [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]
+            print(self.pose_estimate)
+            self.pub_pose_estimate.publish(self.pose_estimate)
+            rospy.sleep(0.5)
+            self.publish_particle_cloud()
+            rospy.sleep(0.5)
         
 
 if __name__ == '__main__':
