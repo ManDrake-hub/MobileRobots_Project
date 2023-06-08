@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import rospy
+from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import PoseWithCovarianceStamped
 import random
 from nav_msgs.msg import Odometry
@@ -17,14 +18,16 @@ class Kidnapped:
         self.robot_x = None
         self.robot_y = None
         self.robot_z = None
-        self.sub_upward = rospy.Subscriber('upward', Bool, self.upward)
-        self.sub_downward = rospy.Subscriber('downward', Bool, self.downward)
-        
+        self.sub_goal = rospy.Subscriber("move_base_simple/goal", PoseStamped, self.callback_goal)
         self.pub_pose_estimate = rospy.Publisher('initialpose', PoseWithCovarianceStamped, queue_size=1)
         self.robot_position = None
         self.estimate_tresh = 1
         self.pose_estimate = PoseWithCovarianceStamped()
         self.particle_pub = rospy.Publisher('particlecloud', PoseArray, queue_size=10)
+
+    def callback_goal(self,msg):
+        self.sub_upward = rospy.Subscriber('upward', Bool, self.upward)
+        self.sub_downward = rospy.Subscriber('downward', Bool, self.downward)
 
     def get_robot_position(self):
         try:
@@ -58,17 +61,14 @@ class Kidnapped:
         self.pose_estimate.header
         self.pose_estimate.header.frame_id = "map"
         if self.robot_x or self.robot_y is not None:
-            self.pose_estimate.pose.pose.position.x = self.robot_x - 3.0
-            self.pose_estimate.pose.pose.position.y = self.robot_y
+            self.pose_estimate.pose.pose.position.x = self.robot_x - 0.5
+            self.pose_estimate.pose.pose.position.y = self.robot_y - 0.5
             self.pose_estimate.pose.pose.orientation.x = self.robot_z[0]
             self.pose_estimate.pose.pose.orientation.y = self.robot_z[1]
             self.pose_estimate.pose.pose.orientation.z = self.robot_z[2]
             self.pose_estimate.pose.pose.orientation.w = self.robot_z[3]
             self.pose_estimate.pose.covariance = [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]
-            print(self.pose_estimate)
             self.pub_pose_estimate.publish(self.pose_estimate)
-            rospy.sleep(0.5)
-            self.publish_particle_cloud()
             rospy.sleep(0.5)
         
 

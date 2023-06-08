@@ -6,7 +6,7 @@ import csv
 import os
 from std_msgs.msg import String, Int32MultiArray
 import random
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, PoseWithCovarianceStamped
 import numpy as np 
 import math
 import tf
@@ -25,6 +25,7 @@ class Move:
         self.qr_sub = rospy.Subscriber('qr_data_topic', String, self.callback_qr)
         rospy.wait_for_service('calibration_server')
         self.pub_goal = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=10)
+        self.pub_pose_estimate = rospy.Publisher('initialpose', PoseWithCovarianceStamped, queue_size=1)
         self.pub_rot = rospy.Publisher('/cmd_vel',Twist,queue_size=10)
         self.rot_speed = 0.5
         self.update_step = 0.01
@@ -66,7 +67,9 @@ class Move:
         client.update_configuration(params)
         params = {'force_update_after_set_map': True}
         client.update_configuration(params)
-        params = {'use_map_topic': True}
+        params = {'update_min_d': 0.1}
+        client.update_configuration(params)
+        params = {'update_min_a': 0.1}
         client.update_configuration(params)
     
     def set_move_base_params(self):
@@ -75,18 +78,20 @@ class Move:
         client.update_configuration(params)
         params = {'yaw_goal_tolerance': 3.14}
         client.update_configuration(params)
+        '''
         client = Client("move_base/global_costmap")
-        params = {'transform_tolerance': 0.5}
+        params = {'transform_tolerance': 0.2}
         client.update_configuration(params)
         client = Client("move_base/global_costmap/inflation_layer")
-        params = {'inflation_radius': 0.5}
+        params = {'inflation_radius': 0.3}
         client.update_configuration(params)
         client = Client("move_base/local_costmap")
-        params = {'transform_tolerance': 0.5}
+        params = {'transform_tolerance': 0.2}
         client.update_configuration(params)
         client = Client("move_base/local_costmap/inflation_layer")
-        params = {'inflation_radius': 0.5}
+        params = {'inflation_radius': 0.3}
         client.update_configuration(params)
+        '''
 
     def set_slow(self):
         client = Client("move_base/DWAPlannerROS")
@@ -102,7 +107,7 @@ class Move:
     def rotate(self,angle):
         #self.get_robot_position()
         move = Twist()
-        move.maplinear.x = 0.0
+        move.linear.x = 0.0
         move.linear.y = 0.0
         move.angular.z = math.copysign(self.rot_speed,angle)
         print(f"rotate {math.degrees(angle)}")
@@ -116,7 +121,7 @@ class Move:
         
     # Move the robot to the goal and return the command recognized
     def goal_reached(self,next_goal, next_command,orientation,angle):
-        self.rotate(math.radians(angle))
+        #self.rotate(math.radians(angle))
         self.send_goal(next_goal[0],next_goal[1],orientation)
         rospy.loginfo("Goal SEND")
         rospy.wait_for_message("move_base/result", MoveBaseActionResult)
@@ -135,11 +140,14 @@ class Move:
         if real != None:
             self.actual_waypoint = real
         print(f"COMMAND: {self.command}")
+        # TODO: DO OR NOT
+        '''
         if self.command == "":
             rospy.loginfo("Startup the robot position then press ENTER")
             input()
             #self.calibration()
             self.pub_goal.publish(self.actual_goal)
+        '''
         if self.command != 'stop' or self.command != "":
             self.next_waypoint, next_command,orientation,angle = self.control_robot.navigate(self.command, self.actual_waypoint)
             self.command = None
@@ -167,6 +175,6 @@ if __name__ == "__main__":
     #navigation.calibration()
     #print("END CALIBRATION")
     navigation.move("straight on","real")
-    while state != "FINISH":
-        state = navigation.move()
-    #rospy.spin()
+    #while state != "FINISH":
+    #    state = navigation.move()
+    rospy.spin()
