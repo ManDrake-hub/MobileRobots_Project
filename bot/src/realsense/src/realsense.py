@@ -15,7 +15,7 @@ class Node:
         self.set_camera()
         self.print_camera_info()
         self.bridge = cv_bridge.CvBridge()
-        self.img_pub = rospy.Publisher("image", CompressedImage, queue_size=10)
+        self.img_pub = rospy.Publisher("image", CompressedImage, queue_size=30)
         self.rate = rospy.Rate(rospy.get_param("/camera/fps_publish"))
         self.frame = None
         Thread(target=self.publish_frame_cb, daemon=True).start()

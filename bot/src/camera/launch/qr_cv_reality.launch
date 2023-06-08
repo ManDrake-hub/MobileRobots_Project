@@ -1,8 +1,5 @@
 <launch>
   <node pkg="camera" type="image_input_cv_left.py" name="image_input_lt" output="screen" />
   <node pkg="camera" type="image_input_cv_right.py" name="image_input_rx" output="screen" />
-  <node pkg="camera" type="optical_flow_left.py" name="optical_flow_lf" output="screen" />
-  <node pkg="camera" type="optical_flow_right.py" name="optical_flow_rx" output="screen" />
   <node pkg="camera" type="qr_common.py" name="qr_service" output="screen" />
-  <node pkg="camera" type="check_kidnapped.py" name="kidnapped" output="screen" />
 </launch>

@@ -36,6 +36,7 @@ class Move:
         rospy.sleep(3.0)
 
     def callback_qr(self,msg):
+        print("veloce")
         self.set_fast()
         
     # Calibrate robot 
@@ -78,29 +79,42 @@ class Move:
         client.update_configuration(params)
         params = {'yaw_goal_tolerance': 3.14}
         client.update_configuration(params)
-        '''
+        
         client = Client("move_base/global_costmap")
-        params = {'transform_tolerance': 0.2}
+        params = {'transform_tolerance': 0.5}
         client.update_configuration(params)
         client = Client("move_base/global_costmap/inflation_layer")
-        params = {'inflation_radius': 0.3}
+        params = {'inflation_radius': 0.5}
         client.update_configuration(params)
         client = Client("move_base/local_costmap")
-        params = {'transform_tolerance': 0.2}
+        params = {'transform_tolerance': 0.5}
         client.update_configuration(params)
         client = Client("move_base/local_costmap/inflation_layer")
-        params = {'inflation_radius': 0.3}
+        params = {'inflation_radius': 0.5}
         client.update_configuration(params)
-        '''
+        
 
     def set_slow(self):
         client = Client("move_base/DWAPlannerROS")
         params = {'max_vel_x': 0.15, 'min_vel_x': -0.15, 'max_vel_trans':0.15, 'min_vel_trans': 0.08, 'max_vel_theta':1.0, 'min_vel_theta': 0.5, 'acc_lim_x':1.5, 'acc_lim_theta': 2.5}
         client.update_configuration(params)
 
+    def set_fast_sl(self):
+        client = Client("move_base/DWAPlannerROS")
+        #params = {'max_vel_x': 0.20, 'min_vel_x': -0.26, 'max_vel_trans':0.26, 'min_vel_trans': 0.18, 'max_vel_theta':1.82, 'min_vel_theta': 0.9, 'acc_lim_x':2.5, 'acc_lim_theta': 3.2}
+        params = {
+    'max_vel_x': 0.2,
+    'min_vel_x': -0.2,
+    'max_vel_trans': 0.2,
+    'min_vel_trans': 0.14,
+    'max_vel_theta': 1.5,
+    'min_vel_theta': 0.75,
+    'acc_lim_x': 2.0,
+    'acc_lim_theta': 2.5
+}
     def set_fast(self):
         client = Client("move_base/DWAPlannerROS")
-        params = {'max_vel_x': 0.26, 'min_vel_x': -0.26, 'max_vel_trans':0.26, 'min_vel_trans': 0.13, 'max_vel_theta':1.82, 'min_vel_theta': 0.9, 'acc_lim_x':2.5, 'acc_lim_theta': 3.2}
+        params = {'max_vel_x': 0.26, 'min_vel_x': -0.26, 'max_vel_trans':0.26, 'min_vel_trans': 0.18, 'max_vel_theta':1.82, 'min_vel_theta': 0.9, 'acc_lim_x':2.5, 'acc_lim_theta': 3.2}
         client.update_configuration(params)
 
 
@@ -121,13 +135,13 @@ class Move:
         
     # Move the robot to the goal and return the command recognized
     def goal_reached(self,next_goal, next_command,orientation,angle):
-        #self.rotate(math.radians(angle))
+        self.rotate(math.radians(angle))
         self.send_goal(next_goal[0],next_goal[1],orientation)
         rospy.loginfo("Goal SEND")
         rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         command = self.QR_service().answer 
         self.command = command.data 
-        #navigation.set_slow()
+        navigation.set_fast_sl()
         #rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         rospy.loginfo("Goal REACHED")
 
@@ -165,16 +179,15 @@ class Move:
 
 if __name__ == "__main__":
     rospy.init_node("goal_custom")
-    rospy.wait_for_service('QR_command') 
+    #rospy.wait_for_service('QR_command') 
     state = None
     navigation = Move()
     rate = rospy.Rate(10.0)
     navigation.set_amcl_params()
     navigation.set_move_base_params()
-    #navigation.set_slow()
     #navigation.calibration()
     #print("END CALIBRATION")
     navigation.move("straight on","real")
-    #while state != "FINISH":
-    #    state = navigation.move()
+    while state != "FINISH":
+        state = navigation.move()
     rospy.spin()

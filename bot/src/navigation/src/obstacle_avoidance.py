@@ -21,7 +21,8 @@ class ObstacleAvoidanceNode(object):
 
         if thr_min<=front<=thr_max or thr_min<=right<=thr_max or thr_min<=left<=thr_max:
             rospy.loginfo("Obstacle, ROTATE")
-            self.move.linear.x = 0.0
+            self.move.linear.x = 0
+            self.move.linear.y = 0
             self.move.angular.z = 0.5
             self.cmd_vel_pub.publish(self.move)
 
