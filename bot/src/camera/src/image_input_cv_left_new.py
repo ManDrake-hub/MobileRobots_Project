@@ -14,22 +14,23 @@ import websockets
 
 async def process_camera_image(websocket, path):
     cv2.namedWindow('Camera lx', cv2.WINDOW_NORMAL)
-    cv2.namedWindow('Camera rx', cv2.WINDOW_NORMAL)
+    # cv2.namedWindow('Camera rx', cv2.WINDOW_NORMAL)
 
     while not rospy.is_shutdown():
         image_buffer = await websocket.recv()
         nparr = np.frombuffer(image_buffer, np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        print("Img received")
         camera_id = int(img[0, 0, 0])
+        print("camera id", camera_id)
 
         # TODO: This has to be changed
-        if camera_id == 1:
-            cv2.imshow('Camera lx', img[1:])
-        elif camera_id == 2:
-            cv2.imshow('Camera rx', img[1:])
+        if camera_id == 10:
+            cv2.imshow('Camera lx', img[1])
+        # elif camera_id == 4:
+        #     cv2.imshow('Camera rx', img[1:])
 
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        gray = gray[1:]
+        gray = cv2.cvtColor(img[1], cv2.COLOR_BGR2GRAY)
 
         qr_decoder = cv2.QRCodeDetector()
         # decode QR code
@@ -49,8 +50,8 @@ async def process_camera_image(websocket, path):
                 print(e)
         except Exception as e:
             pass
-        cv2.imshow('lx', img)
-        cv2.waitKey(1)
+        #cv2.imshow('lx', img)
+        #cv2.waitKey(1)
 
 
 if __name__ == '__main__':
@@ -59,7 +60,7 @@ if __name__ == '__main__':
         pub = rospy.Publisher('qr_data_topic', String, queue_size=1)
         pub_params = rospy.Publisher("parameter_camera", Int32MultiArray, queue_size=1)
         # REALITY
-        start_server = websockets.serve(process_camera_image, '192.168.178.65', 8000)
+        start_server = websockets.serve(process_camera_image, '192.168.90.7', 8000)
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
     except rospy.ROSInterruptException:

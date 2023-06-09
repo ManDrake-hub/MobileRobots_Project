@@ -1,4 +1,5 @@
 <launch>
   <node pkg="camera" type="image_input_cv_left.py" name="image_input_lt" output="screen" />
+  <node pkg="camera" type="image_input_cv_right.py" name="image_input_lt" output="screen" />
   <node pkg="camera" type="qr_common.py" name="qr_service" output="screen" />
 </launch>
