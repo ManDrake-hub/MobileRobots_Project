@@ -40,17 +40,20 @@ class Move:
         self.robot_y = None
         self.robot_z = None
         self.goal_orientation = None
+        self.last_stop = False
         rospy.sleep(3.0)
 
     def callback_qr(self,msg):
         self.set_fast()
     
     def callback_recovery(self,msg):
-        print("pronto per la recovery")
-        stop_msg = Twist()
-        self.pub_rot.publish(stop_msg)
-        rospy.loginfo("Startup the robot position then press ENTER")
-        input()
+        #print("pronto per la recovery")
+
+        if msg:
+            stop_msg = Twist()
+            self.pub_rot.publish(stop_msg)
+            return
+
         self.get_robot_position()
         self.pose_estimate.header
         self.pose_estimate.header.frame_id = "map"
@@ -62,7 +65,9 @@ class Move:
             self.pose_estimate.pose.pose.orientation.z = self.robot_z[2]
             self.pose_estimate.pose.pose.orientation.w = self.robot_z[3]
             self.pose_estimate.pose.covariance = [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]
+            print("pubblico nuova posa")
             self.pub_pose_estimate.publish(self.pose_estimate)
+            rospy.sleep(0.5)
         self.pub_goal(self.actual_goal)
         
     # Calibrate robot 
@@ -118,7 +123,7 @@ class Move:
         params = {'transform_tolerance': 0.5}
         client.update_configuration(params)
         client = Client("move_base/local_costmap/inflation_layer")
-        params = {'inflation_radius': 0.5}
+        params = {'inflation_radius': 1.0}
         client.update_configuration(params)
         
     def set_slow(self):
@@ -177,6 +182,13 @@ class Move:
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             pass
     
+    def normalize(self, angle):
+        while angle > 180:
+            angle -= 360
+        while angle < -180:
+            angle += 360
+        return angle
+    
     def rotate(self,angle):
         self.get_robot_position()
         move = Twist()
@@ -188,15 +200,16 @@ class Move:
             goal = math.degrees(euler_from_quaternion(self.goal_orientation)[2])
         real_angle = self.robot_z
         print(f"goal orientation: {goal}, real angle {real_angle}")
-        move.angular.z = math.copysign(self.rot_speed,math.degrees(angle)+(real_angle-goal))
+        new_angle = math.degrees(angle)+(goal-real_angle)
+        move.angular.z = math.copysign(self.rot_speed,math.radians(self.normalize(new_angle)))
         print(f"initial angle {math.degrees(angle)}")
-        print(f"rotate {math.degrees(angle) + (real_angle-goal)}")
+        print(f"rotate {new_angle}")
         delta = 0
         while True:
             self.pub_rot.publish(move)
             rospy.sleep(self.update_step)
             delta = delta + self.rot_speed * self.update_step
-            if abs(delta) >= abs(angle):
+            if abs(delta) >= abs(math.radians(self.normalize(new_angle))):
                 break
         
     # Move the robot to the goal and return the command recognized
@@ -246,7 +259,7 @@ class Move:
 
 if __name__ == "__main__":
     rospy.init_node("goal_custom")
-    #rospy.wait_for_service('QR_command') 
+    rospy.wait_for_service('QR_command') 
     state = None
     navigation = Move()
     rate = rospy.Rate(10.0)
