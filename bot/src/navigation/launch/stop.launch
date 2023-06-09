@@ -1,0 +1,4 @@
+<launch>
+ <node pkg="navigation" type="stop.py" name="stop" output="screen" />
+
+</launch>

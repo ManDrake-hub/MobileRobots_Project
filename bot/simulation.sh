@@ -9,4 +9,4 @@ gnome-terminal --tab -e "bash -c 'source devel/setup.bash; roslaunch navigation 
 sleep 3
 gnome-terminal --tab -e "bash -c 'source devel/setup.bash; rosrun rqt_reconfigure rqt_reconfigure; exec bash'"
 sleep 3
-#gnome-terminal --tab -e "bash -c 'source devel/setup.bash; roslaunch navigation set_map.launch; exec bash'"
+gnome-terminal --tab -e "bash -c 'source devel/setup.bash; rqt_graph; exec bash'"

@@ -22,8 +22,9 @@ class RobotController:
         self.actual_waypoint = None
         self.next_waypoint = None
         self.command = None
-        self.thr = 0.8
+        self.thr = 1.0
         self.orientation = None
+        self.rot = None
 
         self.load_waypoints(waypoints_path)
 
@@ -49,7 +50,6 @@ class RobotController:
     def get_robot_position(self):
         try:
             (trans, rot) = self.listener.lookupTransform('/map', '/base_link', rospy.Time(0))
-            rot = euler_from_quaternion(rot)
             self.robot_x = trans[0]
             self.robot_y = trans[1]
             self.robot_z = self.clip_angle(math.degrees(rot[2]))
