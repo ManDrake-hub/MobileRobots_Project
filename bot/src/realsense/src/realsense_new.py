@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/home/giovi/miniconda3/bin/python
 
 import rospy
 from pathlib import Path
@@ -11,15 +11,14 @@ import websockets
 import numpy as np
 
 
+camera_ids = {0: 0, 1: 255}
+
 class Node:
     def __init__(self) -> None:
         rospy.init_node(NODE_NAME, anonymous=True)
-        rospy.loginfo("rate")
-        self.rate = rospy.Rate(rospy.get_param("/camera/fps_publish"))
-        rospy.loginfo("async")
-        # TODO: This has to be changed
-        asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(10))
-        # asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(4))
+
+        asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(0))
+        # asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(1))
 
     def set_camera(self, cap):
         '''
@@ -29,11 +28,13 @@ class Node:
         width and height to the values specified in the ROS parameters `/camera/width` and `/camera/height`,
         respectively.
         '''
+        self.width = rospy.get_param("/camera/width")
+        self.height = rospy.get_param("/camera/height")
         cap.set(cv.CAP_PROP_FPS, rospy.get_param("/camera/fps_capture"))
-        cap.set(cv.CAP_PROP_FRAME_WIDTH, rospy.get_param("/camera/width"))    
-        cap.set(cv.CAP_PROP_FRAME_HEIGHT, rospy.get_param("/camera/height"))   
+        cap.set(cv.CAP_PROP_FRAME_WIDTH, self.width)    
+        cap.set(cv.CAP_PROP_FRAME_HEIGHT, self.height)
 
-    def print_camera_info(self, cap, camera_id):
+    def print_camera_info(self, cap):
         '''
         These lines of code are retrieving the width, height, and frames per second (FPS) of the
         camera stream using OpenCV's `cv.VideoCapture()` method. The values are then logged using
@@ -42,7 +43,7 @@ class Node:
         width = cap.get(cv.CAP_PROP_FRAME_WIDTH)
         height = cap.get(cv.CAP_PROP_FRAME_HEIGHT)
         fps = cap.get(cv.CAP_PROP_FPS)
-        rospy.loginfo(f"Frame size width x height: {int(width)}x{int(height)}@{fps} for camera: {camera_id}")
+        rospy.loginfo(f"Frame size width x height: {int(width)}x{int(height)}@{fps} for camera")
     
     async def publish_frame_cb(self, camera_id):
         '''
@@ -53,15 +54,12 @@ class Node:
         before checking again. This ensures that frames are continuously published to the ROS network at a
         consistent rate.
         '''
-        rospy.loginfo("Init")
+        rate = rospy.Rate(rospy.get_param("/camera/fps_publish"))
         cap = cv.VideoCapture(camera_id)
-        rospy.loginfo("cap working")
         self.set_camera(cap)
-        rospy.loginfo("setting camera")
-        self.print_camera_info(cap, camera_id)
-        rospy.loginfo("Sono entrato stronzo")
+        self.print_camera_info(cap)
 
-        ws = await websockets.connect('ws://192.168.90.7:8000')
+        ws = await websockets.connect('ws://localhost:8000', ping_interval=None)
 
         while not rospy.is_shutdown():
             ret, frame = cap.read()
@@ -69,10 +67,10 @@ class Node:
             if frame is None:
                 continue
 
-            frame_with_id = np.vstack((np.full_like(frame, fill_value=camera_id), frame))  # Add camera ID to the image
-            _, image_buffer = cv.imencode('.jpg', frame_with_id)
+            frame[0, 0] = [camera_ids[camera_id]]*3
+            _, image_buffer = cv.imencode('.jpg', frame)
             await ws.send(image_buffer.tobytes())
-            self.rate.sleep()
+            rate.sleep()
 
     
 if __name__ == "__main__":
