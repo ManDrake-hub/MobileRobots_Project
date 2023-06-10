@@ -52,24 +52,36 @@ class Move:
 
     def callback_recovery(self, msg):
         # Callback function for recovery
-        print(msg)
-        if msg:
+        self.real_robot.get_robot_position(False)
+        if msg.data:
             stop_msg = Twist()
             self.pub_rot.publish(stop_msg)
+            goal = PoseStamped()
+            goal.header.frame_id = "map"
+            goal.pose.position.x = self.real_robot.robot_x
+            goal.pose.position.y = self.real_robot.robot_y
+            goal.pose.orientation.x = self.real_robot.robot_z[0]
+            goal.pose.orientation.y = self.real_robot.robot_z[1]
+            goal.pose.orientation.z = self.real_robot.robot_z[2]
+            goal.pose.orientation.w = self.real_robot.robot_z[3]
+            self.pub_goal.publish(goal)
             return
-        self.real_robot.get_robot_position(False)
         self.pose_estimate.header.frame_id = "map"
-        self.pose_estimate.pose.pose.position.x = self.control_robot.robot_x - 0.5
-        self.pose_estimate.pose.pose.position.y = self.control_robot.robot_y - 0.5
-        self.pose_estimate.pose.pose.orientation.x = self.control_robot.robot_z[0]
-        self.pose_estimate.pose.pose.orientation.y = self.control_robot.robot_z[1]
-        self.pose_estimate.pose.pose.orientation.z = self.control_robot.robot_z[2]
-        self.pose_estimate.pose.pose.orientation.w = self.control_robot.robot_z[3]
-        self.pose_estimate.pose.covariance = [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]
-        print("new estimate pose")
+        self.pose_estimate.pose.pose.position.x = self.real_robot.robot_x - 0.5
+        self.pose_estimate.pose.pose.position.y = self.real_robot.robot_y - 0.5
+        self.pose_estimate.pose.pose.orientation.x = self.real_robot.robot_z[0]
+        self.pose_estimate.pose.pose.orientation.y = self.real_robot.robot_z[1]
+        self.pose_estimate.pose.pose.orientation.z = self.real_robot.robot_z[2]
+        self.pose_estimate.pose.pose.orientation.w = self.real_robot.robot_z[3]
+        self.pose_estimate.pose.covariance = [0.25, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                            0.0, 0.25, 0.0, 0.0, 0.0, 0.0,
+                                            0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                            0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                            0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                            0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]
         self.pub_pose_estimate.publish(self.pose_estimate)
         rospy.sleep(0.5)
-        self.pub_goal(self.actual_goal)
+        self.pub_goal.publish(self.actual_goal)
         rospy.sleep(0.5)
 
     def calibration(self):
