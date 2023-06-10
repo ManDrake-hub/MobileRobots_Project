@@ -1,5 +1,0 @@
-<launch>
-  <node pkg="navigation" type="calibration.py" name="calibration" output="screen" />
-  <node pkg="navigation" type="move_simple_goal.py" name="move_simple_goal" output="screen" />
-
-</launch>

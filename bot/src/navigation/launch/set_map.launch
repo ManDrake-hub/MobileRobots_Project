@@ -1,3 +1,0 @@
-<launch>
-  <node pkg="navigation" type="set_map.py" name="set_map" output="screen" />
-</launch>

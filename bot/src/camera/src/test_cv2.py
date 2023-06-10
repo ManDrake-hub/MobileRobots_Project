@@ -25,13 +25,13 @@ def check(transformation, img):
             found_left = True
         assert found_left, "the word is not found"
         cv2.imshow(transformation, img)  
-        cv2.waitKey(0)  
+        cv2.waitKey(1)  
     except:
         print(transformation)
         cv2.imshow(transformation, img)  
-        cv2.waitKey(0)  
+        cv2.waitKey(1)  
 
-img_base = cv2.imread("bot/src/camera/qr_images/Left.png")
+img_base = cv2.imread("/home/francesca/Scrivania/MobileRobots_Project/bot/src/camera/qr_images/Left.png")
 
 # BLUR
 img = cv2.GaussianBlur(img_base, (5, 5), 10)  

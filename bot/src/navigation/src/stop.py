@@ -7,9 +7,9 @@ if __name__ == "__main__":
     pub = rospy.Publisher("stop", Bool,queue_size=1)
     rospy.sleep(0.5)
     while True:
-        input("If you want to stop the robot location press ENTER; to repose press Ctrl+c")
+        input("If you want to stop the robot location press ENTER; after the movement press Ctrl+c")
         try:
             while True:
                 pub.publish(True)
-        except KeyboardInterrupt:
+        except rospy.ROSInterruptException:
             pub.publish(False)

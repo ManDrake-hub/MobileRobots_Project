@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="navigation" type="calibration.py" name="calibration" output="screen" />
+  <node pkg="navigation" type="move.py" name="move" output="screen" />
+</launch>

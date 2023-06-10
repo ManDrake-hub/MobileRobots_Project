@@ -2,12 +2,11 @@
 import rospy
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Twist
-from navigation.srv import Calibration
 
 class ObstacleAvoidanceNode(object):
     def __init__(self):
         rospy.init_node('obstacle_avoidance')
-        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
         self.scan_sub = rospy.Subscriber('/scan', LaserScan, self.scan_callback)
         self.move = Twist()
 
@@ -28,8 +27,4 @@ class ObstacleAvoidanceNode(object):
 
 if __name__ == '__main__':
     node = ObstacleAvoidanceNode()
-    #calibration_service = rospy.ServiceProxy('calibration_server', Calibration)
-    #rospy.wait_for_service('calibration_server')
-    #answer = calibration_service().answer
-    
     rospy.spin()

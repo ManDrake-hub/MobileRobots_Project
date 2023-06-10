@@ -1,26 +1,17 @@
 #! /usr/bin/python3
 import rospy
-import requests
 from geometry_msgs.msg import Twist
 from navigation.srv import Calibration, CalibrationResponse
 import math
-from robot_controller import RobotController
 from geometry_msgs.msg import PoseArray
 
 def calculate_particle_density(msg):
-    #print(msg.header)
     num_poses = len(msg.poses)
-    density = num_poses / msg.header.stamp.to_sec()  # Calcolo della densità
+    density = num_poses / msg.header.stamp.to_sec() 
     #rospy.loginfo("Density: %.2f p/s", density)
-
 
 def handle_service(req):
     waypoint_movement = WaypointMovement()
-    #waypoint_movement.move(0.2,0)
-    #waypoint_movement.move(-0.2,0)
-    #waypoint_movement.move(0.2,0)
-    #waypoint_movement.move(-0.2,0)
-    #rotation
     waypoint_movement.move(0.5,0)
     waypoint_movement.move(0,math.radians(-90))
     waypoint_movement.move(0.5,0)
@@ -29,8 +20,6 @@ def handle_service(req):
     waypoint_movement.move(0,math.radians(-90))
     waypoint_movement.move(0.5,0)
     waypoint_movement.move(0,math.radians(-90))
-    #waypoint_movement.move(0,math.radians(360))
-    #waypoint_movement.move(0,-0.5)
     response = CalibrationResponse()
     response.answer.data = "Done"
     return response
@@ -41,14 +30,10 @@ class WaypointMovement:
         rospy.Subscriber('particlecloud', PoseArray, calculate_particle_density)
         self.speed_linear_max = 0.26
         self.speed_rad_max = 0.35
-        self.stop_time=1
+        self.stop_time = 1
         self.time_to_reach_max_speed = 1
         self.time_to_stop = 0.5
         self.update_step = 0.01
-
-    def stop(self):
-        self._rotate(0)
-        rospy.sleep(self.stop_time)
 
     def _rotate(self, speed):
         move = Twist()
@@ -58,11 +43,11 @@ class WaypointMovement:
         self.pub.publish(move)
 
     def _move_forward(self,speed):
-            move = Twist()
-            move.linear.x = speed
-            move.linear.y = 0.0
-            move.angular.z = 0.0
-            self.pub.publish(move)
+        move = Twist()
+        move.linear.x = speed
+        move.linear.y = 0.0
+        move.angular.z = 0.0
+        self.pub.publish(move)
     
     def _move_together(self,speed_x, speed_z):
         move = Twist()
@@ -70,6 +55,10 @@ class WaypointMovement:
         move.linear.y = 0.0
         move.angular.z = speed_z
         self.pub.publish(move)
+    
+    def stop(self):
+        self._rotate(0)
+        rospy.sleep(self.stop_time)
 
     def delta_to_stop(self, speed_current, speed_max):
         # Set starting conditions
@@ -110,15 +99,12 @@ class WaypointMovement:
         # Stop after every movement
         self.stop()
 
-def main():
-    rospy.init_node('calibration')
-    s = rospy.Service('calibration_server', Calibration, handle_service)
-    rospy.loginfo("Move robot service ready.")
-    rospy.spin()
-
 if __name__ == '__main__':
     try:
-        main()
+        rospy.init_node('calibration')
+        s = rospy.Service('calibration_server', Calibration, handle_service)
+        rospy.loginfo("Move robot service ready.")
+        rospy.spin()
     except rospy.ROSInterruptException as e:
         print("Calibration server init has failed: %s"%e)
    
