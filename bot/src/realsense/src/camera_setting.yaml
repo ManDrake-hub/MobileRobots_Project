@@ -2,7 +2,7 @@
 #fps_publish: 10 #Frequency of image publication
 #width: 640 #Width of frames
 #height: 480 #Height of frames
-fps_capture: 15 #Frequency of image acquisition from camera
-fps_publish: 5 #Frequency of image publication
-width: 424 #Width of frames
-height: 240 #Height of frames
+fps_capture: 30 #Frequency of image acquisition from camera
+fps_publish: 10 #Frequency of image publication
+width: 1280 #Width of frames
+height: 720 #Height of frames
