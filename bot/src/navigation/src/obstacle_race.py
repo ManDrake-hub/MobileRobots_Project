@@ -52,7 +52,7 @@ if __name__ == "__main__":
     for i in range(len(points)):
         #spawn_udf_model(name='object'+str(i),position=points_spawn_list[i])
         spawn_udf_model(name='static'+str(i),position=points[i])
-        rospy.sleep(1)
+        rospy.sleep(0.1)
 
     """# Position changing
     move_factor = 0.0

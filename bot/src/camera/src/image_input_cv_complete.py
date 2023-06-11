@@ -36,7 +36,6 @@ async def process_camera_image(websocket, path):
                 cv2.putText(img, decoded_text, (points[0][0], points[0][1] - 10),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
                 pub.publish(decoded_text)
-        print(f"published{camera_id}")
         cv2.imshow('Camera lx' if camera_id == 0 else 'Camera rx', img)
         cv2.waitKey(1)
 
