@@ -1,6 +1,6 @@
 turtlebot3_simulations/turtlebot3_fake
-/home/giovi/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/cmake.lock /home/giovi/MobileRobots_Project/bot/devel/./cmake.lock
-/home/giovi/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/pkgconfig/turtlebot3_fake.pc /home/giovi/MobileRobots_Project/bot/devel/lib/pkgconfig/turtlebot3_fake.pc
-/home/giovi/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/turtlebot3_fake/turtlebot3_fake_node /home/giovi/MobileRobots_Project/bot/devel/lib/turtlebot3_fake/turtlebot3_fake_node
-/home/giovi/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/share/turtlebot3_fake/cmake/turtlebot3_fakeConfig-version.cmake /home/giovi/MobileRobots_Project/bot/devel/share/turtlebot3_fake/cmake/turtlebot3_fakeConfig-version.cmake
-/home/giovi/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/share/turtlebot3_fake/cmake/turtlebot3_fakeConfig.cmake /home/giovi/MobileRobots_Project/bot/devel/share/turtlebot3_fake/cmake/turtlebot3_fakeConfig.cmake
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/cmake.lock /home/luigi/Scrivania/MobileRobots_Project/bot/devel/./cmake.lock
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/share/turtlebot3_fake/cmake/turtlebot3_fakeConfig-version.cmake /home/luigi/Scrivania/MobileRobots_Project/bot/devel/share/turtlebot3_fake/cmake/turtlebot3_fakeConfig-version.cmake
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/share/turtlebot3_fake/cmake/turtlebot3_fakeConfig.cmake /home/luigi/Scrivania/MobileRobots_Project/bot/devel/share/turtlebot3_fake/cmake/turtlebot3_fakeConfig.cmake
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/pkgconfig/turtlebot3_fake.pc /home/luigi/Scrivania/MobileRobots_Project/bot/devel/lib/pkgconfig/turtlebot3_fake.pc
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/turtlebot3_fake/lib/turtlebot3_fake/turtlebot3_fake_node /home/luigi/Scrivania/MobileRobots_Project/bot/devel/lib/turtlebot3_fake/turtlebot3_fake_node

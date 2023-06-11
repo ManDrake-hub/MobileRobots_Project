@@ -37,14 +37,24 @@ if __name__ == "__main__":
     time_step = 0.01
     rate = rospy.Rate(1 / time_step)
     points_spawn_list = [(5,0,0),(15.7,-5,0),(15.2,-2.5,0),(8.25,-9.5,0),(2.2,-10.9,0),(-4.75,-8.35,0),(24.5,-9.25,0),(36.5,-8.4,0),(32.4,-1.05,0),(21.85,-1.4,0)]
-    points_end_list = [(8,0.15,0),(15.7,-8,0),(15.2,-8.5,0),(4.25,-9.5,0),(1.2,-9.9,0),(-4.75,-4.35,0),(20.5,-10.25,0),(35.5,-4.4,0),(28.4,-1.05,0),(20.85,-0.4,0)]
+    #points_end_list = [(8,0.15,0),(15.7,-8,0),(15.2,-8.5,0),(4.25,-9.5,0),(1.2,-9.9,0),(-4.75,-4.35,0),(20.5,-10.25,0),(35.5,-4.4,0),(28.4,-1.05,0),(20.85,-0.4,0)]
+    #points_spawn_static_list = [(2.9,-1.65,0),(14.65,-5.3,0),(26.6,-12,0),(30.8,-12,0),(34.85,-7.1,0),(42.7,-2.85),(50.0,-3.4,0),(57.8,-8.0,0),(42.4,-12.15,0),(15.25,-2,0)]
     
-    # Obstacle spawning
-    for i in range(len(points_spawn_list)):
-        spawn_udf_model(name='object'+str(i),position=points_spawn_list[i])
-    rospy.sleep(3)
+    points = [(-6.45,-6,0),(-3,-5.6,0),(17.15,-6.4,0),(13.9,-6.4,0),(3.05,-0.5,0),(9.45,0.5,0),(22.25,-1.0,0),(29.65,-1.1,0),(34.65,-7,0),(37.05,-7.1,0),
+              (6.0,0,0),(24.0,0,0),(-5.08,-2.08,0),(-5.1,-4.95,0),(-5.13,-7.69,0),(1.70,-9.32,0),(5.53,-9.99,0),(8.45,-9.19,0),(15.02,-3.16,0),(15.01,-5.57,0),
+              (14.92,-8.27,0),(23.77,-9.89,0),(26.74,-10.6,0),(28.47,-10.08,0),(30.59,-10.79,0),(35.74,-3.67,0),(35.73,-6.46,0),(35.61,-9.28,0)]
 
-    # Position changing
+
+
+    # (-6.45,-6).(-3,-5.6),(17.15,-6.4),(13.9,-6.4),(34.55,-6.3),(37.45,-6.8)
+
+    # Obstacle spawning
+    for i in range(len(points)):
+        #spawn_udf_model(name='object'+str(i),position=points_spawn_list[i])
+        spawn_udf_model(name='static'+str(i),position=points[i])
+        rospy.sleep(1)
+
+    """# Position changing
     move_factor = 0.0
     while not rospy.is_shutdown():
         time_spent = 0.0
@@ -62,4 +72,4 @@ if __name__ == "__main__":
 
         _points_spawn_list = points_spawn_list
         points_spawn_list = points_end_list
-        points_end_list = _points_spawn_list
+        points_end_list = _points_spawn_list"""
