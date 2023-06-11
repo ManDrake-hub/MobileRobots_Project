@@ -1,17 +1,10 @@
-#!/home/giovi/miniconda3/bin/python
-
+#! /usr/bin/python3
 import rospy
-from pyzbar.pyzbar import ZBarSymbol, ZBarConfig, decode
 import cv2
-from sensor_msgs.msg import Image
-from cv_bridge import CvBridge, CvBridgeError
-from sensor_msgs.msg import Image, CompressedImage
-from std_msgs.msg import String, Float32MultiArray, Int32MultiArray
-from optparse import OptionParser
+from std_msgs.msg import String, Int32MultiArray
 import asyncio
 import numpy as np
 import websockets
-
 
 def closest(value: np.ndarray):
     _value = value.astype(np.int16)
@@ -43,7 +36,7 @@ async def process_camera_image(websocket, path):
                 cv2.putText(img, decoded_text, (points[0][0], points[0][1] - 10),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
                 pub.publish(decoded_text)
-        print("published")
+        print(f"published{camera_id}")
         cv2.imshow('Camera lx' if camera_id == 0 else 'Camera rx', img)
         cv2.waitKey(1)
 

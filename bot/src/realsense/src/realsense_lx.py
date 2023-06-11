@@ -10,8 +10,9 @@ camera_ids = {0: 0, 1: 255}
 class Node:
     def __init__(self) -> None:
         rospy.init_node(NODE_NAME, anonymous=True)
-        asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(rospy.get_param('~camera_lx')))
-        asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(rospy.get_param('~camera_rx')))
+        loop = asyncio.get_event_loop()
+        loop.create_task(self.publish_frame_cb(rospy.get_param('~camera_lx')))
+        loop.run_forever()
 
     def set_camera(self, cap):
         '''
@@ -52,7 +53,7 @@ class Node:
         self.set_camera(cap)
         self.print_camera_info(cap)
 
-        ws = await websockets.connect('ws://'+rospy.get_param('~id')+':8000', ping_interval=None)
+        ws = await websockets.connect('ws://'+rospy.get_param('~ip')+':8000', ping_interval=None)
 
         while not rospy.is_shutdown():
             ret, frame = cap.read()

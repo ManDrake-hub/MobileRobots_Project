@@ -1,0 +1,14 @@
+<launch>
+    <arg name="camera_lx" default="0"/>
+    <arg name="camera_rx" default="1"/>
+    <arg name="ip" default="localhost"/>
+    <rosparam file="$(find realsense)/src/camera_setting.yaml" ns="camera"/>
+    <node name="realsense_lx" type="realsense_lx.py" pkg="realsense" output="screen">
+        <param name="camera_lx" type="int" value="$(arg camera_lx)"/>
+        <param name="ip" type="str" value="$(arg ip)"/>
+    </node>
+    <node name="realsense_rx" type="realsense_rx.py" pkg="realsense" output="screen">
+        <param name="camera_rx" type="int" value="$(arg camera_rx)"/>
+        <param name="ip" type="str" value="$(arg ip)"/>
+    </node>
+</launch>
