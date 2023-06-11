@@ -15,13 +15,28 @@ def sftp(turtle_ip):
     the paths to the `realsense.py` file and the `sftp.bash` script. Finally, it runs the command
     using the `subprocess` module.
     '''
-    realsense_src_path = realsense_pkg_path.joinpath("src/realsense.py")
+    #MODIFIED
+    #realsense_src_path = realsense_pkg_path.joinpath("src/realsense.py")
+    realsense_src_path_lx = realsense_pkg_path.joinpath("src/realsense_lx.py")
+    realsense_src_path_rx = realsense_pkg_path.joinpath("src/realsense_rx.py")
     sftp_path = realsense_pkg_path.joinpath("src/camera_launch/sftp.bash")
-    assert realsense_src_path.exists()
+
+    #assert realsense_src_path.exists()
+    assert realsense_src_path_lx.exists()
+    assert realsense_src_path_rx.exists()
+
     assert sftp_path.exists()
-    cmd = f"bash {str(sftp_path)} {turtle_ip} {str(realsense_src_path)}"
-    p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
-    p.check_returncode()
+
+    #cmd = f"bash {str(sftp_path)} {turtle_ip} {str(realsense_src_path)}"
+    cmd_lx = f"bash {str(sftp_path)} {turtle_ip} {str(realsense_src_path_lx)}"
+    cmd_rx = f"bash {str(sftp_path)} {turtle_ip} {str(realsense_src_path_rx)}"
+
+    #p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    p_lx = subprocess.run(cmd_lx, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    p_rx = subprocess.run(cmd_rx, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+
+    p_lx.check_returncode()
+    p_rx.check_returncode()
     
 def del_src_file(turtle_ip):
     '''
@@ -30,9 +45,17 @@ def del_src_file(turtle_ip):
     `realsense.py` file on the turtlebot. Then it runs the command using the `subprocess` module and
     checks the return code to ensure that the command was executed successfully.
     ''' 
-    cmd = f"sshpass -p turtlebot ssh -o StrictHostKeyChecking=no ubuntu@{turtle_ip} 'rm /home/ubuntu/realsense/catkin_ws/src/realsense/src/realsense.py'"
-    p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
-    p.check_returncode()
+    #cmd = f"sshpass -p turtlebot ssh -o StrictHostKeyChecking=no ubuntu@{turtle_ip} 'rm /home/ubuntu/realsense/catkin_ws/src/realsense/src/realsense.py'"
+    cmd_lx = f"sshpass -p turtlebot ssh -o StrictHostKeyChecking=no ubuntu@{turtle_ip} 'rm /home/ubuntu/realsense/catkin_ws/src/realsense/src/realsense_lx.py'"
+    cmd_rx = f"sshpass -p turtlebot ssh -o StrictHostKeyChecking=no ubuntu@{turtle_ip} 'rm /home/ubuntu/realsense/catkin_ws/src/realsense/src/realsense_rx.py'"
+    
+    #p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    p_lx = subprocess.run(cmd_lx, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    p_rx = subprocess.run(cmd_rx, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+
+    #p.check_returncode()
+    p_lx.check_returncode()
+    p_rx.check_returncode()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser() # Argument paser

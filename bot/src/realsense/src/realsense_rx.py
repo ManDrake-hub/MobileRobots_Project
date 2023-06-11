@@ -53,7 +53,7 @@ class Node:
         self.set_camera(cap)
         self.print_camera_info(cap)
 
-        ws = await websockets.connect('ws://'+rospy.get_param('~ip')+':8000', ping_interval=None)
+        ws = await websockets.connect('ws://'+rospy.get_param('~ip_cameras')+':8000', ping_interval=None)
 
         while not rospy.is_shutdown():
             ret, frame = cap.read()
