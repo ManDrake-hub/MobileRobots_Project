@@ -6,3 +6,5 @@ sleep 3
 gnome-terminal --tab -e "bash -c 'source devel/setup.bash; rosrun rqt_reconfigure rqt_reconfigure; exec bash'"
 sleep 3
 gnome-terminal --tab -e "bash -c 'source devel/setup.bash; rqt_graph; exec bash'"
+sleep 3
+gnome-terminal --tab -e "bash -c 'source devel/setup.bash; rosparam set enable_statistics true; exec bash'"
