@@ -1,10 +1,8 @@
 #!/bin/python3
-
 import rospy
-from pathlib import Path
 import cv2 as cv
 import cv_bridge
-from sensor_msgs.msg import Image, CompressedImage
+from sensor_msgs.msg import CompressedImage
 from threading import Thread
 
 class Node:

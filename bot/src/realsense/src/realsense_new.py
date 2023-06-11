@@ -1,14 +1,8 @@
-#!/home/giovi/miniconda3/bin/python
-
+#! /usr/bin/python3
 import rospy
-from pathlib import Path
 import cv2 as cv
-import cv_bridge
-from sensor_msgs.msg import Image, CompressedImage
-from threading import Thread
 import asyncio
 import websockets
-import numpy as np
 
 
 camera_ids = {0: 0, 1: 255}
@@ -16,9 +10,8 @@ camera_ids = {0: 0, 1: 255}
 class Node:
     def __init__(self) -> None:
         rospy.init_node(NODE_NAME, anonymous=True)
-
-        asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(0))
-        # asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(1))
+        asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(rospy.get_param('~camera_lx')))
+        asyncio.get_event_loop().run_until_complete(self.publish_frame_cb(rospy.get_param('~camera_rx')))
 
     def set_camera(self, cap):
         '''
@@ -59,7 +52,7 @@ class Node:
         self.set_camera(cap)
         self.print_camera_info(cap)
 
-        ws = await websockets.connect('ws://localhost:8000', ping_interval=None)
+        ws = await websockets.connect('ws://'+rospy.get_param('~id')+':8000', ping_interval=None)
 
         while not rospy.is_shutdown():
             ret, frame = cap.read()

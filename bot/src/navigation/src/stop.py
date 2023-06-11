@@ -10,7 +10,7 @@ if __name__ == "__main__":
     
     while True:
         counter = 0
-        input("If you want to stop the robot location press ENTER; after the movement press Ctrl+c")
+        input("If you want to stop the robot location press ENTER; after the movement press ENTER")
         while counter < 30:
             pub.publish(True)
             counter += 1
