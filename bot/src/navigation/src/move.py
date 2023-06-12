@@ -43,6 +43,7 @@ class Move:
         self.next_waypoint = None
         self.command = None
         self.actual_goal = None
+        self.fake_goal = False
         self.set_amcl_params()
         self.set_move_base_params()
 
@@ -64,6 +65,7 @@ class Move:
             goal.pose.orientation.y = self.real_robot.robot_z[1]
             goal.pose.orientation.z = self.real_robot.robot_z[2]
             goal.pose.orientation.w = self.real_robot.robot_z[3]
+            self.fake_goal = True
             self.pub_goal.publish(goal)
             return
         self.pose_estimate.header.frame_id = "map"
@@ -83,6 +85,7 @@ class Move:
         rospy.sleep(0.5)
         self.pub_goal.publish(self.actual_goal)
         rospy.sleep(0.5)
+        self.fake_goal = False
 
     def calibration(self):
         # Calibrate the robot
@@ -206,6 +209,10 @@ class Move:
         self.rotate(math.radians(angle))
         self.send_goal(next_goal[0], next_goal[1], orientation)
         rospy.loginfo("Goal SEND")
+        rospy.wait_for_message("move_base/result", MoveBaseActionResult)
+        print("l'ho raggiunto")
+        while self.fake_goal:
+            rospy.sleep(0.5)
         rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         command = self.QR_service().answer
         self.command = command.data
