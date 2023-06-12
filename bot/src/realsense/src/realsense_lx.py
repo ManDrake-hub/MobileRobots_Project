@@ -3,13 +3,15 @@ import rospy
 import cv2 as cv
 import asyncio
 import websockets
-
-
-camera_ids = {0: 0, 1: 255}
+from std_msgs.msg import String
 
 class Node:
     def __init__(self) -> None:
         rospy.init_node(NODE_NAME, anonymous=True)
+        self.qr_decoder = cv.QRCodeDetector()
+        self.pub = rospy.Publisher('qr_data_topic', String, queue_size=10)
+        rospy.sleep(0.5)
+        self.camera_ids = {rospy.get_param('~camera_lx'): 0, rospy.get_param('~camera_rx'): 255}
         loop = asyncio.get_event_loop()
         loop.create_task(self.publish_frame_cb(rospy.get_param('~camera_lx')))
         loop.run_forever()
@@ -53,17 +55,19 @@ class Node:
         self.set_camera(cap)
         self.print_camera_info(cap)
 
-        ws = await websockets.connect('ws://'+rospy.get_param('~ip_cameras')+':8000', ping_interval=None)
-
         while not rospy.is_shutdown():
             ret, frame = cap.read()
 
             if frame is None:
                 continue
 
-            frame[0, 0] = [camera_ids[camera_id]]*3
-            _, image_buffer = cv.imencode('.jpg', frame)
-            await ws.send(image_buffer.tobytes())
+            frame[0, 0] = [self.camera_ids[camera_id]]*3
+            gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+            decoded_text, points, _ = self.qr_decoder.detectAndDecode(gray)
+            if len(decoded_text)>0:
+                rospy.loginfo('LX QR code: %s', decoded_text)
+                if len(points) > 0:
+                    self.pub.publish(decoded_text)
             rate.sleep()
 
     

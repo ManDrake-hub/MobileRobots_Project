@@ -43,7 +43,6 @@ async def process_camera_image(websocket, path):
 if __name__ == '__main__':
     rospy.init_node('image_input', anonymous=True)
     pub = rospy.Publisher('qr_data_topic', String, queue_size=1)
-    pub_params = rospy.Publisher("parameter_camera", Int32MultiArray, queue_size=1)
     # REALITY
     start_server = websockets.serve(process_camera_image, rospy.get_param('~ip_cameras'), 8000, ping_interval=None)
     asyncio.get_event_loop().run_until_complete(start_server)

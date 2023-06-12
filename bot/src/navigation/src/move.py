@@ -48,8 +48,9 @@ class Move:
         self.set_move_base_params()
 
     def callback_qr(self, msg):
+        return
         # Callback function for QR data
-        self.set_fast()
+        #self.set_fast()
 
     def callback_recovery(self, msg):
         # Callback function for recovery
@@ -115,13 +116,13 @@ class Move:
         params = {'transform_tolerance': 0.5}
         client.update_configuration(params)
         client = Client("move_base/global_costmap/inflation_layer")
-        params = {'inflation_radius': 0.5}
+        params = {'inflation_radius': 1.0}
         client.update_configuration(params)
         client = Client("move_base/local_costmap")
         params = {'transform_tolerance': 0.5}
         client.update_configuration(params)
         client = Client("move_base/local_costmap/inflation_layer")
-        params = {'inflation_radius': 0.5}
+        params = {'inflation_radius': 0.7}
         client.update_configuration(params)
 
     def set_slow(self):
@@ -220,7 +221,7 @@ class Move:
             rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         command = self.QR_service().answer
         self.command = command.data
-        navigation.set_medium()
+        #navigation.set_medium()
         rospy.loginfo("Goal REACHED")
 
     def move(self, command=None, real=None):
@@ -247,6 +248,7 @@ if __name__ == "__main__":
     rospy.init_node("move")
     state = None
     navigation = Move()
+    navigation.set_fast()
     navigation.move("straight on", "real")
     while state != "FINISH":
         state = navigation.move()

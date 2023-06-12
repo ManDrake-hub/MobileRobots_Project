@@ -5,6 +5,7 @@ from pathlib import Path
 from utils import get_turtle_ip
 import argparse
 import subprocess
+import time
 
 def sftp(turtle_ip):
     '''
@@ -33,6 +34,7 @@ def sftp(turtle_ip):
 
     #p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
     p_lx = subprocess.run(cmd_lx, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    time.sleep(5)
     p_rx = subprocess.run(cmd_rx, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
 
     p_lx.check_returncode()

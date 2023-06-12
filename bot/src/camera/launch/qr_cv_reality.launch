@@ -1,7 +1,3 @@
 <launch>
-    <arg name="ip_cameras" default="localhost"/>
-    <node pkg="camera" type="image_input_cv_complete.py" name="image_input" output="screen">
-        <param name="ip_cameras" type="str" value="$(arg ip_cameras)"/>
-    </node>
     <node pkg="camera" type="qr_service.py" name="qr_service" output="screen"/>  
 </launch>

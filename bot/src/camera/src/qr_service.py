@@ -8,6 +8,7 @@ command = None
 def callback_qr(msg):
     global command
     command = msg.data.lower().replace("\u200b", "")
+    print(f"COMMAND:{command}")
 
 def get_next_command(req):
     rospy.loginfo('search QR')
