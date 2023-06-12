@@ -204,16 +204,20 @@ class Move:
         return final_rotate
         
     def goal_reached(self, next_goal, orientation, angle, actual_orientation):
+        _was_fake = False
         # Handle the situation when the goal is reached
         angle = self.rotate_difference(angle,actual_orientation)
         self.rotate(math.radians(angle))
         self.send_goal(next_goal[0], next_goal[1], orientation)
         rospy.loginfo("Goal SEND")
         rospy.wait_for_message("move_base/result", MoveBaseActionResult)
-        print("l'ho raggiunto")
+
         while self.fake_goal:
+            _was_fake = True
             rospy.sleep(0.5)
-        rospy.wait_for_message("move_base/result", MoveBaseActionResult)
+        
+        if _was_fake:
+            rospy.wait_for_message("move_base/result", MoveBaseActionResult)
         command = self.QR_service().answer
         self.command = command.data
         navigation.set_medium()
