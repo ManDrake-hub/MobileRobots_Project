@@ -52,7 +52,7 @@ class Move:
         # Callback function for QR data
         #self.set_fast()
 
-    def callback_recovery(self, msg):
+    def robot_position_goal(self, msg):
         # Callback function for recovery
         self.real_robot.get_robot_position(False)
         if msg.data:
@@ -69,6 +69,9 @@ class Move:
             self.fake_goal = True
             self.pub_goal.publish(goal)
             return
+        return
+    
+    def fake_goal(self):
         self.pose_estimate.header.frame_id = "map"
         self.pose_estimate.pose.pose.position.x = self.real_robot.robot_x - 0.5
         self.pose_estimate.pose.pose.position.y = self.real_robot.robot_y - 0.5
@@ -87,6 +90,10 @@ class Move:
         self.pub_goal.publish(self.actual_goal)
         rospy.sleep(0.5)
         self.fake_goal = False
+
+    def callback_recovery(self, msg):
+        self.robot_position_goal(msg)
+        self.fake_goal()        
 
     def calibration(self):
         # Calibrate the robot
