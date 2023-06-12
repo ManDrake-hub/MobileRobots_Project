@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="camera" type="qr_service.py" name="qr_service" output="screen"/>  
+    <node pkg="camera" type="test_command.py" name="test_command" output="screen"/>  
+</launch>
