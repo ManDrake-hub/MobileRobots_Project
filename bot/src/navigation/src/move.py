@@ -56,9 +56,9 @@ class Move:
 
     def callback_recovery(self, msg):
         def move_object_backward(rotation, distance):
-            rotation_rad = rotation - math.radians(90)
-            movement_x = distance * math.sin(rotation_rad)
-            movement_y = distance * math.cos(rotation_rad)
+            rotation_rad = rotation
+            movement_x = -distance * math.cos(rotation_rad)
+            movement_y = -distance * math.sin(rotation_rad)
             return movement_x, movement_y
 
 
