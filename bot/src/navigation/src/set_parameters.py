@@ -43,7 +43,7 @@ class Parameters:
         client.update_configuration(params)
 
         client = Client("move_base")
-        params = {'conservative_reset_dist': 1}
+        params = {'conservative_reset_dist': 1, 'recovery_behavior_enabled': False}
         client.update_configuration(params)
 
     def set_slow(self):
