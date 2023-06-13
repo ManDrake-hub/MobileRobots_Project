@@ -24,7 +24,9 @@ class Move:
         self.paramters = Parameters()
 
         # Create an instance of the RobotController class
+        rospy.sleep(1.0)
         self.control_robot = RobotController(os.path.dirname(__file__) + "/waypoints.csv")
+        rospy.sleep(1.0)
         self.real_robot = RobotController(os.path.dirname(__file__) + "/waypoints.csv")
         self.calibration_service = rospy.ServiceProxy('calibration_server', Calibration)
         rospy.wait_for_service('calibration_server')
@@ -46,8 +48,6 @@ class Move:
         self.command = None
         self.actual_goal = None
         self.fake_goal = False
-        self.set_amcl_params()
-        self.set_move_base_params()
 
     def callback_qr(self, msg):
         return
@@ -55,6 +55,13 @@ class Move:
         #self.set_fast()
 
     def callback_recovery(self, msg):
+        def move_object_backward(rotation, distance):
+            rotation_rad = rotation - math.radians(90)
+            movement_x = distance * math.sin(rotation_rad)
+            movement_y = distance * math.cos(rotation_rad)
+            return movement_x, movement_y
+
+
         # Callback function for recovery
         self.real_robot.get_robot_position(False)
         if msg.data:
@@ -71,9 +78,13 @@ class Move:
             self.fake_goal = True
             self.pub_goal.publish(goal)
             return
+        
+
+
         self.pose_estimate.header.frame_id = "map"
-        self.pose_estimate.pose.pose.position.x = self.real_robot.robot_x - 0.5
-        self.pose_estimate.pose.pose.position.y = self.real_robot.robot_y - 0.5
+        offset_x, offset_y = move_object_backward(euler_from_quaternion(self.real_robot.robot_z)[2], distance=1)
+        self.pose_estimate.pose.pose.position.x = self.real_robot.robot_x + offset_x
+        self.pose_estimate.pose.pose.position.y = self.real_robot.robot_y + offset_y
         self.pose_estimate.pose.pose.orientation.x = self.real_robot.robot_z[0]
         self.pose_estimate.pose.pose.orientation.y = self.real_robot.robot_z[1]
         self.pose_estimate.pose.pose.orientation.z = self.real_robot.robot_z[2]
@@ -94,83 +105,6 @@ class Move:
         # Calibrate the robot
         answer = self.calibration_service().answer
         return answer
-
-    def set_amcl_params(self):
-        # Set parameters for amcl node
-        client = Client("amcl")
-        params = {
-            'min_particles': 1000,
-            'force_update_after_initialpose': True,
-            'force_update_after_set_map': True,
-            'update_min_d': 0.1,
-            'update_min_a': 0.1,
-            'gui_publish_rate': 10.0
-        }
-        client.update_configuration(params)
-
-    def set_move_base_params(self):
-        # Set parameters for move_base node
-        client = Client("move_base/DWAPlannerROS")
-        params = {'xy_goal_tolerance': 0.5, 'yaw_goal_tolerance': 3.14}
-        client.update_configuration(params)
-
-        client = Client("move_base/global_costmap")
-        params = {'transform_tolerance': 0.5}
-        client.update_configuration(params)
-        client = Client("move_base/global_costmap/inflation_layer")
-        params = {'inflation_radius': 1.0}
-        client.update_configuration(params)
-        client = Client("move_base/local_costmap")
-        params = {'transform_tolerance': 0.5}
-        client.update_configuration(params)
-        client = Client("move_base/local_costmap/inflation_layer")
-        params = {'inflation_radius': 0.7}
-        client.update_configuration(params)
-
-    def set_slow(self):
-        # Set slow movement parameters for the robot
-        client = Client("move_base/DWAPlannerROS")
-        params = {
-            'max_vel_x': 0.15,
-            'min_vel_x': -0.15,
-            'max_vel_trans': 0.15,
-            'min_vel_trans': 0.08,
-            'max_vel_theta': 1.0,
-            'min_vel_theta': 0.5,
-            'acc_lim_x': 1.5,
-            'acc_lim_theta': 2.5
-        }
-        client.update_configuration(params)
-
-    def set_medium(self):
-        # Set medium movement parameters for the robot
-        client = Client("move_base/DWAPlannerROS")
-        params = {
-            'max_vel_x': 0.2,
-            'min_vel_x': -0.2,
-            'max_vel_trans': 0.2,
-            'min_vel_trans': 0.14,
-            'max_vel_theta': 1.5,
-            'min_vel_theta': 0.75,
-            'acc_lim_x': 2.0,
-            'acc_lim_theta': 2.5
-        }
-        client.update_configuration(params)
-
-    def set_fast(self):
-        # Set fast movement parameters for the robot
-        client = Client("move_base/DWAPlannerROS")
-        params = {
-            'max_vel_x': 0.26,
-            'min_vel_x': -0.26,
-            'max_vel_trans': 0.26,
-            'min_vel_trans': 0.18,
-            'max_vel_theta': 1.82,
-            'min_vel_theta': 0.9,
-            'acc_lim_x': 2.5,
-            'acc_lim_theta': 3.2
-        }
-        client.update_configuration(params)
 
     def send_goal(self, x, y, orientation):
         # Send a goal position to the robot
@@ -250,7 +184,6 @@ if __name__ == "__main__":
     rospy.init_node("move")
     state = None
     navigation = Move()
-    navigation.set_fast()
     navigation.move("straight on", "real")
     while state != "FINISH":
         state = navigation.move()

@@ -38,6 +38,14 @@ class Parameters:
         params = {'inflation_radius': 0.7}
         client.update_configuration(params)
 
+        client = Client("move_base")
+        params = {'max_planning_retries': -1}
+        client.update_configuration(params)
+
+        client = Client("move_base")
+        params = {'conservative_reset_dist': 1}
+        client.update_configuration(params)
+
     def set_slow(self):
         # Set slow movement parameters for the robot
         client = Client("move_base/DWAPlannerROS")

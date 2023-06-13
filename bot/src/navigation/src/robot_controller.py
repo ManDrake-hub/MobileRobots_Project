@@ -35,14 +35,21 @@ class RobotController:
     def get_robot_position(self, flag):
         try:
             (trans, rot) = self.listener.lookupTransform('/map', '/base_link', rospy.Time(0))
+
+            if trans is None or rot is None:
+                print("Was None")
+                return
+
             self.robot_x, self.robot_y = trans[0], trans[1]  # Store the robot's x and y coordinates
             if flag:
                 self.robot_z = self.clip_angle(math.degrees(euler_from_quaternion(rot)[2]))  # Convert and clip the robot's orientation angle
             else:
                 self.robot_z = rot # Convert and clip the robot's orientation angle
+            print(self.robot_z)
             self.actual_waypoint = (self.robot_x, self.robot_y)  # Set the actual waypoint as the robot's current position
         except Exception as e:
-            print(e)
+            rospy.sleep(0.25)
+            self.get_robot_position(flag)
 
     def distance_waypoints(self, x1, y1, x2, y2):
         distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)  # Calculate the distance between two waypoints

@@ -50,7 +50,7 @@ class Node:
         before checking again. This ensures that frames are continuously published to the ROS network at a
         consistent rate.
         '''
-        rate = rospy.Rate(rospy.get_param("/camera/fps_publish"))
+        #rate = rospy.Rate(rospy.get_param("/camera/fps_publish"))
         cap = cv.VideoCapture(camera_id)
         self.set_camera(cap)
         self.print_camera_info(cap)
@@ -68,7 +68,7 @@ class Node:
                 rospy.loginfo('LX QR code: %s', decoded_text)
                 if len(points) > 0:
                     self.pub.publish(decoded_text)
-            rate.sleep()
+            #rate.sleep()
 
     
 if __name__ == "__main__":
