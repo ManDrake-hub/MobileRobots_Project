@@ -79,8 +79,6 @@ class Move:
             self.pub_goal.publish(goal)
             return
         
-
-
         self.pose_estimate.header.frame_id = "map"
         offset_x, offset_y = move_object_backward(euler_from_quaternion(self.real_robot.robot_z)[2], distance=1)
         self.pose_estimate.pose.pose.position.x = self.real_robot.robot_x + offset_x

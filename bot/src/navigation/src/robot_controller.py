@@ -26,7 +26,7 @@ class RobotController:
                 self.waypoints.append((float(row[0]), float(row[1])))  # Append the coordinates to the waypoints list
 
     def clip_angle(self, angle):
-        angle_ranges = [0, 90, -90, 180]  # Define angle ranges
+        angle_ranges = [0, 90, -90, 180, -180]  # Define angle ranges
         min_distance = min([abs(angle - a) for a in angle_ranges])  # Find the minimum distance to an angle range
         min_index = [abs(angle - a) for a in angle_ranges].index(min_distance)  # Find the index of the minimum distance
         return angle_ranges[min_index]  # Return the closest angle from the angle ranges
