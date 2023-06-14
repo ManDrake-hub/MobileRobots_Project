@@ -10,7 +10,7 @@ if __name__ == "__main__":
     
     while True:
         counter = 0
-        input("If you want to stop the robot location press ENTER; after the movement press ENTER")
+        input("If you want to stop the robot location press ENTER; after the movement press ENTER: ")
         pub.publish(True)
         rospy.sleep(0.5)
         input()
