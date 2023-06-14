@@ -98,8 +98,15 @@ class RobotController:
         next_orientation = None
 
         for waypoint in self.waypoints:
-            if (waypoint[0] - OFFSET <= self.actual_waypoint[0] <= waypoint[0] + OFFSET and
-                    waypoint[1] - OFFSET <= self.actual_waypoint[1] <= waypoint[1] + OFFSET):
+            waypoint_distance = self.distance_waypoints(waypoint[0], waypoint[1],
+                                                            self.actual_waypoint[0],
+                                                            self.actual_waypoint[1])
+            if waypoint_distance < min_distance:
+                min_distance = waypoint_distance
+                waypoint_min = (waypoint[0],waypoint[1])
+        min_distance = math.inf
+        for waypoint in self.waypoints:
+            if waypoint == waypoint_min:
                 continue  # Skip waypoints within a certain offset range of the actual waypoint
 
             angle_of_waypoints = self.get_angle_of_waypoints(self.actual_waypoint, waypoint)
