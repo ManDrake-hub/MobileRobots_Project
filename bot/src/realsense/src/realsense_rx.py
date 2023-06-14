@@ -65,7 +65,7 @@ class Node:
             gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
             decoded_text, points, _ = self.qr_decoder.detectAndDecode(gray)
             if len(decoded_text)>0:
-                rospy.loginfo('RX QR code: %s', decoded_text)
+                #rospy.loginfo('RX QR code: %s', decoded_text)
                 if len(points) > 0:
                     self.pub.publish(decoded_text)
             #rate.sleep()
