@@ -5,7 +5,7 @@ import math
 import tf
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
 
-OFFSET = 0.8
+OFFSET = 1.0
 
 class RobotController:
     def __init__(self, waypoints_path):

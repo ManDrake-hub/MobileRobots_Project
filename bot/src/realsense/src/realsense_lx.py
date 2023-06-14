@@ -4,6 +4,7 @@ import cv2 as cv
 import asyncio
 import websockets
 from std_msgs.msg import String
+import random
 
 class Node:
     def __init__(self) -> None:
@@ -61,7 +62,8 @@ class Node:
             if frame is None:
                 continue
 
-            frame[0, 0] = [self.camera_ids[camera_id]]*3
+            frame = frame[:, 80:-80]
+
             gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
             decoded_text, points, _ = self.qr_decoder.detectAndDecode(gray)
             if len(decoded_text)>0:

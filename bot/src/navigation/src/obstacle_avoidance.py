@@ -30,7 +30,8 @@ class ObstacleAvoidanceNode(object):
         rospy.init_node('escape_behavior')
         self.sub = rospy.Subscriber('/scan', LaserScan, self.scan_callback)
         self.pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-        self.escape_distance = 0.5  # Set the maximum escape distance here
+        self.escape_distance = 0.65  # Set the maximum escape distance here
+        self.escape_min = 0.1
         self.escape_speed = -0.2  # Set the backward escape speed here
         self.was_escaping = False
 
@@ -40,20 +41,20 @@ class ObstacleAvoidanceNode(object):
         front = ranges[0]
         back = ranges[180]
 
-        if front < self.escape_distance:
+        if self.escape_min < front < self.escape_distance:
             self.was_escaping = True
             self.escape(reverse=False)
-        elif back < self.escape_distance:
+        elif self.escape_min < back < self.escape_distance:
             self.was_escaping = True
             self.escape(reverse=True)
-        elif self.was_escaping:
-            self.was_escaping = False
-            for i in range(10):
-                self.stop()
-                rospy.sleep(0.1)
-            for i in range(10):
-                self.forward()
-                rospy.sleep(0.1)
+        # elif self.was_escaping and (self.escape_min < back and self.escape_min < front):
+        #     self.was_escaping = False
+        #     for i in range(10):
+        #         self.stop()
+        #         rospy.sleep(0.1)
+        #     for i in range(10):
+        #         self.right()
+        #         rospy.sleep(0.1)
 
     def stop(self):
         print("stop")
@@ -61,10 +62,10 @@ class ObstacleAvoidanceNode(object):
         twist.linear.x = 0
         self.pub.publish(twist)
 
-    def forward(self):
+    def right(self):
         print("forward")
         twist = Twist()
-        twist.linear.x = 0.26
+        twist.angular.z = 0.26
         self.pub.publish(twist)
 
     def escape(self, reverse=False):

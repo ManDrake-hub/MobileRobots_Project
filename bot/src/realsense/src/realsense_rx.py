@@ -4,12 +4,13 @@ import cv2 as cv
 import asyncio
 import websockets
 from std_msgs.msg import String
+import random
 
 class Node:
     def __init__(self) -> None:
         rospy.init_node(NODE_NAME, anonymous=True)
         self.qr_decoder = cv.QRCodeDetector()
-        self.pub = rospy.Publisher('qr_data_topic', String, queue_size=30)
+        self.pub = rospy.Publisher('qr_data_topic', String, queue_size=10)
         rospy.sleep(0.5)
         self.camera_ids = {rospy.get_param('~camera_lx'): 0, rospy.get_param('~camera_rx'): 255}
         loop = asyncio.get_event_loop()
@@ -61,7 +62,12 @@ class Node:
             if frame is None:
                 continue
 
-            frame[0, 0] = [self.camera_ids[camera_id]]*3
+            # 640 480
+            # top = random.randrange(0, 120)
+            # left = random.randrange(0, 160)
+
+            frame = frame[:, 80:-80]
+
             gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
             decoded_text, points, _ = self.qr_decoder.detectAndDecode(gray)
             if len(decoded_text)>0:
