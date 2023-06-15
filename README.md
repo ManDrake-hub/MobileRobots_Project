@@ -14,7 +14,9 @@ Group:
 * Farina Luigi         0622701754    l.farina16@studenti.unisa.it
 
 ## Application Demo
-[VIDEO]
+[![IMAGE_ALT](https://img.youtube.com/vi/zT-32tyy11w/maxresdefault.jpg)](https://youtu.be/zT-32tyy11w)
+
+https://youtu.be/zT-32tyy11w
 
 * Waypoint to reach:
 <img src="/waypoints.png"/>
