@@ -35,18 +35,6 @@ class ObstacleAvoidanceNode(object):
             self.was_escaping = True
             self.escape(reverse=True)
 
-    def stop(self):
-        print("stop")
-        twist = Twist()
-        twist.linear.x = 0
-        self.pub.publish(twist)
-
-    def right(self):
-        print("forward")
-        twist = Twist()
-        twist.angular.z = 0.26
-        self.pub.publish(twist)
-
     def escape(self, reverse=False):
         print("escape")
         twist = Twist()

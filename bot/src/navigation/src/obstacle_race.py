@@ -7,6 +7,16 @@ from gazebo_msgs.srv import SetModelState
 import os 
 
 def spawn_udf_model(name,position):
+    '''
+    Spawn objects custom on gazebo with a specified position and name
+
+    Args:
+        name: name of the object 
+        position: position desired 
+
+    Raises:
+        rospy.ServiceException if the service is not ready
+    '''
     try:
         model_path = os.path.dirname(__file__) + "/box.urdf"
         model_name = name
@@ -20,6 +30,14 @@ def spawn_udf_model(name,position):
         print("Service call failed: %s" % e)
 
 def change_state(name,new_state):
+    '''
+    Move objects custom on gazebo
+
+    Args:
+        name: name of the object 
+        new_state: new position desired 
+
+    '''
     state = ModelState()
     state.model_name = name
     state.pose = Pose(position=Point(new_state[0],new_state[1],new_state[2]))

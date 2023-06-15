@@ -45,6 +45,21 @@ class Parameters:
         client = Client("move_base")
         params = {'conservative_reset_dist': 1, 'recovery_behavior_enabled': True}
         client.update_configuration(params)
+    
+    def set_fast(self):
+        # Set fast movement parameters for the robot
+        client = Client("move_base/DWAPlannerROS")
+        params = {
+            'max_vel_x': 0.26,
+            'min_vel_x': -0.26,
+            'max_vel_trans': 0.26,
+            'min_vel_trans': 0.18,
+            'max_vel_theta': 1.82,
+            'min_vel_theta': 0.9,
+            'acc_lim_x': 2.5,
+            'acc_lim_theta': 3.2
+        }
+        client.update_configuration(params)
 
     def set_slow(self):
         # Set slow movement parameters for the robot
@@ -76,17 +91,4 @@ class Parameters:
         }
         client.update_configuration(params)
 
-    def set_fast(self):
-        # Set fast movement parameters for the robot
-        client = Client("move_base/DWAPlannerROS")
-        params = {
-            'max_vel_x': 0.26,
-            'min_vel_x': -0.26,
-            'max_vel_trans': 0.26,
-            'min_vel_trans': 0.18,
-            'max_vel_theta': 1.82,
-            'min_vel_theta': 0.9,
-            'acc_lim_x': 2.5,
-            'acc_lim_theta': 3.2
-        }
-        client.update_configuration(params)
+    

@@ -4,6 +4,12 @@ from std_msgs.msg import Bool
 from std_srvs.srv import Empty
 
 def clear_costmaps():
+    '''
+    Client that calls Service to clear costmap before starting the navigation task
+
+    Raises:
+        rospy.ServiceException if the Service is not ready
+    '''
     try:
         clear_costmaps_service = rospy.ServiceProxy('/move_base/clear_costmaps', Empty)
         response = clear_costmaps_service()
@@ -20,7 +26,7 @@ if __name__ == "__main__":
     
     while True:
         counter = 0
-        input("If you want to stop the robot location press ENTER; after the movement press ENTER: ")
+        input("If you want to stop the robot press ENTER; after the movement press ENTER: ")
         pub.publish(True)
         rospy.sleep(0.5)
         input()

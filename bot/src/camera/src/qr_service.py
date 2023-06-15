@@ -6,11 +6,26 @@ from camera.srv import QR,QRResponse
 command = None
 
 def callback_qr(msg):
+    '''
+    Take QR command from cameras and replace '_' and special character'
+
+    Args:
+        msg: command recognized from cameras
+    '''
     global command
     command = msg.data.lower().replace("\u200b", "").replace("_", " ")
     print(f"COMMAND:{command}")
 
 def get_next_command(req):
+    '''
+    Response from service to return next command to perform
+
+    Args:
+        req: request from client
+    Returns:
+        reponse: the command found; '' if QR not found
+    
+    '''
     rospy.loginfo('search QR')
     global command
     response = QRResponse()
