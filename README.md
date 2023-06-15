@@ -15,10 +15,15 @@ Group:
 
 ## Application Demo
 [VIDEO]
-<img src="/bot/src/navigation/images/Figure_1.png"/>
 
-* Exercise 2:
+* Waypoint to reach:
+<img src="/waypoints.png"/>
 
+* Used map
+<img src="/map.jpg"/>
+
+* Simulation
+<img src="/obstacle_race_gazebo.jpg"/>
 
 ## Install
 Install ros as done during the lectures 
@@ -28,39 +33,16 @@ In case of errors:
 
   * ```pip install empy ```
 
-* ImportError: "from catkin_pkg.package import parse_package" failed: No module named 'catkin_pkg'
-
-  * ```pip install catkin-pkg``` 
-  
-* CMake Error at /usr/share/cmake-3.16/Modules/FindPkgConfig.cmake:463 (message): A required package was not found
-
-  * ```sudo apt-get install ros-noetic-robot-pose-ekf``` 
-
-* ModuleNotFoundError: No module named 'yaml'
-
-  * ```pip install pyyaml``` 
-
-* Substitution args not supported:  No module named 'rospkg'
-
-  * ```pip install rospkg``` 
-
-* Substitution args not supported:  No module named 'defusedxml'
-
-  * ```pip install defusedxml``` 
-
-* ModuleNotFoundError: No module named 'numpy'
-
-  * ```pip install numpy``` 
-
-
 ## How to use
 Follow these steps:
 * cd into the folder MobileRobots_Project/bot
 * ```chmod u+x src/navigation/src/*``` 
 * ```catkin build``` 
-* ```bash terminals.sh``` 
+* if you didn't want to use the cameras, ```sh complete_sim_test.sh```
+* if you want to use cameras, ```sh complete_simulation.sh``` 
 
-The "terminals.sh" command will start one simulation for all 5 exercises.
+The "sh complete_sim_test.sh" command will start the simulation. There is a terminal where you can write the command to simulate cameras. There is a terminal where you can simulate the kidnapped robot.
+The "sh complete_simulation.sh" command will start the simulation. There is a terminal where you can simulate the kidnapped robot.
 
 ## Dependencies
 
