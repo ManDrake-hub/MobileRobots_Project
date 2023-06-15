@@ -16,8 +16,6 @@ Group:
 ## Application Demo
 [![IMAGE_ALT](https://img.youtube.com/vi/zT-32tyy11w/maxresdefault.jpg)](https://youtu.be/zT-32tyy11w)
 
-https://youtu.be/zT-32tyy11w
-
 * Waypoint to reach:
 <img src="/waypoints.png"/>
 
