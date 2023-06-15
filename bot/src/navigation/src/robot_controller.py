@@ -4,6 +4,7 @@ import csv
 import math
 import tf
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
+import matplotlib.pyplot as plt
 
 OFFSET = 1.0
 
@@ -146,6 +147,31 @@ class RobotController:
             else:
                 value[1] = value[2] = (value[0] + value[3]) / 2  # Calculate the mid-angle for the ranges
         return ranges
+    
+    def plot_waypoints(self,points, labels1,labels2):
+        '''
+        Plot the points in the plane with two labels for each point.
+    
+        Subjects:
+        - points: a list of tuples (x, y) representing the coordinates of the points
+        -labels1: a list of strings representing the first point label
+        - labels2: a list of strings representing the second point label
+    
+        '''
+        x = []
+        y = []
+        for i in range(len(points)):
+            x.append(points[i][0])
+            y.append(points[i][1])
+    
+        plt.figure()
+        plt.scatter(x, y)
+    
+        for i, (label1, label2) in enumerate(zip(labels1, labels2)):
+            combined_label = str(round(label1,1)) + "_" + str(label2) 
+            plt.annotate(combined_label, (x[i], y[i]), textcoords="offset points", xytext=(0,10), ha='center')
+    
+        plt.show()
 
     def find_closest_waypoint(self, command):
         '''
@@ -162,6 +188,8 @@ class RobotController:
         '''
         filter_waypoints = {"straight on": [None], "left": [None], "right": [None], "go back": [None]}
         ranges = self.get_angle_ranges(self.robot_z)  # Get the angle ranges based on the current orientation
+        distances = []
+        commands = []
 
         waypoint_min = None
         min_distance = math.inf
@@ -181,6 +209,8 @@ class RobotController:
         for waypoint in self.waypoints:
             if waypoint == waypoint_min:
                 continue  # Skip waypoint near the actual waypoint
+            distances.append(self.distance_waypoints(self.actual_waypoint[0],self.actual_waypoint[1],waypoint[0], waypoint[1]))
+            commands.append(str(waypoint[0])+"_"+str(waypoint[1]))
 
             angle_of_waypoints = self.get_angle_of_waypoints(self.actual_waypoint, waypoint)
 
@@ -189,21 +219,27 @@ class RobotController:
                 filter_waypoints[command].append(waypoint)
                 next_orientation = 0 + self.robot_z
                 simple_rotate = 0
+                commands[-1] = commands[-1]+'*'
             elif (ranges["go back"][0] <= angle_of_waypoints <= ranges["go back"][1] or
                   ranges["go back"][2] <= angle_of_waypoints <= ranges["go back"][3]) and command == "go back":
                 filter_waypoints[command].append(waypoint)
                 next_orientation = 180 + self.robot_z
                 simple_rotate = 180
+                commands[-1] = commands[-1]+'*'
             elif (ranges["right"][0] <= angle_of_waypoints <= ranges["right"][1] or
                   ranges["right"][2] <= angle_of_waypoints <= ranges["right"][3]) and command == "right":
                 filter_waypoints[command].append(waypoint)
                 next_orientation = -90 + self.robot_z
                 simple_rotate = -90
+                commands[-1] = commands[-1]+'*'
             elif (ranges["left"][0] <= angle_of_waypoints <= ranges["left"][1] or
                   ranges["left"][2] <= angle_of_waypoints <= ranges["left"][3]) and command == "left":
                 filter_waypoints[command].append(waypoint)
                 next_orientation = 90 + self.robot_z
                 simple_rotate = 90
+                commands[-1] = commands[-1]+'*'
+
+        #self.plot_waypoints(points=self.waypoints,labels1=distances,labels2=commands)
         # Find the closest waypoint from the filtered waypoints
         for i in range(len(filter_waypoints[command])):
             if filter_waypoints[command][i] is not None:
