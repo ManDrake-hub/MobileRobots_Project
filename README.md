@@ -14,6 +14,7 @@ Group:
 * Farina Luigi         0622701754    l.farina16@studenti.unisa.it
 
 ## Application Demo
+[VIDEO]
 * WaypointMovement class manage the control of the movement of the robot. You can set the waypoints for the robot's movement using the set_waypoints() method. This method takes a list of numpy arrays, where each numpy array represents a waypoint in the form [x, y, theta]. The theta value represents the angle at which the robot should be facing when it reaches the waypoint.
 You can then start the robot's movement by calling the play() method that move the robot to each waypoint in the list in order, stopping at each waypoint and rotating to face the next waypoint before continuing.
 * KalmanFilter class implements a custom solution of it as uniformly accelerated motion.
@@ -86,6 +87,19 @@ Follow these steps:
 * ```bash terminals.sh``` 
 
 The "terminals.sh" command will start one simulation for all 5 exercises.
+
+## Dependencies
+
+to run 
+```console
+sh terminals.sh 
+```
+you'll need to install gnome-terminal.<br />
+on Ubuntu gnome terminal is installed by default, otherwise you'll need to install it with the following command:<br />
+
+```console
+sudo apt-get install gnome-terminal
+```
 
 ## License
 [GNU](https://choosealicense.com/licenses/gpl-3.0/)
