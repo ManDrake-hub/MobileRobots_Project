@@ -2,7 +2,6 @@
 import rospy
 import cv2 as cv
 import asyncio
-import websockets
 from std_msgs.msg import String
 import random
 
