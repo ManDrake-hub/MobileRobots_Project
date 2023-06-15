@@ -38,9 +38,9 @@ Follow these steps:
 * ```chmod u+x src/navigation/src/*``` 
 * ```catkin build```
 * Simulation:
-  * if you do not want to use the cameras,  
+  * if you do not want to use the cameras:  
 ```sh complete_sim_test.sh```
-  * if you want to use cameras,  
+  * if you want to use cameras:  
 ```sh complete_simulation.sh```
 * Reality: 
   * ```sh complete_reality.sh```
