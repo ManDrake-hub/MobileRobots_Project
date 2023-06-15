@@ -29,7 +29,7 @@ Group:
 Install ros as done during the lectures 
 
 In case of errors with cameras:
-* Install DroidCam following the official installation at this [link(https://www.dev47apps.com/droidcam/linux/)][link]
+* Install DroidCam following the official installation at this [link](https://www.dev47apps.com/droidcam/linux/)
 * If you do not want to use DroidCam, you can use the standard ```v4l2loopback``` module
 
 ## How to use
