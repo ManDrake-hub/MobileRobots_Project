@@ -51,7 +51,6 @@ class Node:
         before checking again. This ensures that frames are continuously published to the ROS network at a
         consistent rate.
         '''
-        #rate = rospy.Rate(rospy.get_param("/camera/fps_publish"))
         cap = cv.VideoCapture(camera_id)
         self.set_camera(cap)
         self.print_camera_info(cap)
@@ -62,19 +61,13 @@ class Node:
             if frame is None:
                 continue
 
-            # 640 480
-            # top = random.randrange(0, 120)
-            # left = random.randrange(0, 160)
-
             frame = frame[:, 80:-80]
 
             gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
             decoded_text, points, _ = self.qr_decoder.detectAndDecode(gray)
             if len(decoded_text)>0:
-                #rospy.loginfo('RX QR code: %s', decoded_text)
                 if len(points) > 0:
                     self.pub.publish(decoded_text)
-            #rate.sleep()
 
     
 if __name__ == "__main__":

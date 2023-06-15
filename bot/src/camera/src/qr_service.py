@@ -7,7 +7,7 @@ command = None
 
 def callback_qr(msg):
     global command
-    command = msg.data.lower().replace("\u200b", "")
+    command = msg.data.lower().replace("\u200b", "").replace("_", " ")
     print(f"COMMAND:{command}")
 
 def get_next_command(req):

@@ -26,13 +26,13 @@ class Parameters:
         client.update_configuration(params)
 
         client = Client("move_base/global_costmap")
-        params = {'transform_tolerance': 0.5}
+        params = {'transform_tolerance': 1.0}
         client.update_configuration(params)
         client = Client("move_base/global_costmap/inflation_layer")
         params = {'inflation_radius': 0.7}
         client.update_configuration(params)
         client = Client("move_base/local_costmap")
-        params = {'transform_tolerance': 0.5}
+        params = {'transform_tolerance': 1.0}
         client.update_configuration(params)
         client = Client("move_base/local_costmap/inflation_layer")
         params = {'inflation_radius': 0.7}

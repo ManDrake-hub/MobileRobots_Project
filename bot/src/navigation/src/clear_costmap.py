@@ -13,6 +13,4 @@ def clear_costmaps():
 if __name__ == '__main__':
     rospy.init_node('clear_costmaps_node')
     rospy.wait_for_service('/move_base/clear_costmaps')
-    while not rospy.is_shutdown():
-        clear_costmaps()
-        rospy.sleep(2)
+    clear_costmaps()
