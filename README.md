@@ -17,13 +17,13 @@ Group:
 [![IMAGE_ALT](https://img.youtube.com/vi/zT-32tyy11w/maxresdefault.jpg)](https://youtu.be/zT-32tyy11w)
 
 * Waypoint to reach:
-<img src="/waypoints.png"/>
+<img src="/images/waypoints.png"/>
 
 * Used map
-<img src="/map.jpg"/>
+<img src="/images/map.jpg"/>
 
 * Simulation
-<img src="/obstacle_race_gazebo.jpg"/>
+<img src="/images/obstacle_race_gazebo.jpg"/>
 
 ## Install
 Install ROS as done during the lectures 
