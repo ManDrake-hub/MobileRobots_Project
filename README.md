@@ -28,17 +28,16 @@ Group:
 ## Install
 Install ros as done during the lectures 
 
-In case of errors:
-* Unable to find either executable 'empy' or Python module 'em'...  try installing the package 'python3-empy'
-
-  * ```pip install empy ```
+In case of errors with cameras:
+* Install DroidCam following the official installation at this [link(https://www.dev47apps.com/droidcam/linux/)][link]
+* If you do not want to use DroidCam, you can use the standard ```v4l2loopback``` module
 
 ## How to use
 Follow these steps:
 * cd into the folder MobileRobots_Project/bot
 * ```chmod u+x src/navigation/src/*``` 
 * ```catkin build``` 
-* Simulation: - if you didn't want to use the cameras, ```sh complete_sim_test.sh```
+* Simulation: - if you do not want to use the cameras, ```sh complete_sim_test.sh```
               - if you want to use cameras, ```sh complete_simulation.sh```
 * Reality: ```sh complete_reality.sh```
 
