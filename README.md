@@ -26,7 +26,7 @@ Group:
 <img src="/obstacle_race_gazebo.jpg"/>
 
 ## Install
-Install ros as done during the lectures 
+Install ROS as done during the lectures 
 
 In case of errors with cameras:
 * Install DroidCam following the official installation at this [link](https://www.dev47apps.com/droidcam/linux/)
@@ -38,8 +38,10 @@ Follow these steps:
 * ```chmod u+x src/navigation/src/*``` 
 * ```catkin build```
 * Simulation:
-  * if you do not want to use the cameras, ```sh complete_sim_test.sh```
-  * if you want to use cameras, ```sh complete_simulation.sh```
+  * if you do not want to use the cameras,
+    ```sh complete_sim_test.sh```
+  * if you want to use cameras,
+    ```sh complete_simulation.sh```
 * Reality: 
   * ```sh complete_reality.sh```
 
