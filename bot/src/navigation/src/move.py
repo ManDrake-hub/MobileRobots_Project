@@ -50,12 +50,35 @@ class Move:
         self.fake_goal = False
 
     def callback_qr(self, msg):
+        """
+        Callback function for QR data.
+
+        Args:
+            msg: The received QR data message.
+        """
         return
-        # Callback function for QR data
         #self.set_fast()
 
     def callback_recovery(self, msg):
+        """
+        Callback function for recovery.
+
+        Handles the recovery behavior when a stop signal is received.
+
+        Args:
+            msg: The received stop signal message.
+        """
         def move_object_backward(rotation, distance):
+            """
+            Calculate the movement in the backward direction.
+
+            Args:
+                rotation: The current robot rotation in radians.
+                distance: The distance to move backward.
+
+            Returns:
+                The movement in the x and y axes.
+            """
             rotation_rad = rotation
             movement_x = -distance * math.cos(rotation_rad)
             movement_y = -distance * math.sin(rotation_rad)
@@ -100,12 +123,24 @@ class Move:
         self.fake_goal = False
 
     def calibration(self):
-        # Calibrate the robot
+        """
+        Calibrates the robot.
+
+        Returns:
+            The calibration answer.
+        """
         answer = self.calibration_service().answer
         return answer
 
     def send_goal(self, x, y, orientation):
-        # Send a goal position to the robot
+        """
+        Sends a goal position to the robot.
+
+        Args:
+            x: The x-coordinate of the goal position.
+            y: The y-coordinate of the goal position.
+            orientation: The orientation of the goal position as a quaternion.
+        """
         self.msg.header.frame_id = "map"
         self.msg.pose.position.x = float(x)
         self.msg.pose.position.y = float(y)
@@ -118,7 +153,12 @@ class Move:
         rospy.sleep(3.0)
 
     def rotate(self, angle):
-        # Rotate the robot by a specified angle
+        """
+        Rotates the robot by a specified angle.
+
+        Args:
+            angle: The angle to rotate in radians.
+        """
         move = Twist()
         move.linear.x = 0.0
         move.linear.y = 0.0
@@ -133,12 +173,34 @@ class Move:
                 break
     
     def rotate_difference(self,angle,actual_orientation):
+        """
+        Calculates the final rotation angle based on the actual and desired orientations.
+
+        Args:
+            angle: The desired angle to rotate in radians.
+            actual_orientation: The current robot orientation.
+
+        Returns:
+            The final rotation angle to reach the desired orientation.
+        """
         self.real_robot.get_robot_position(False)
         real = self.real_robot.normalize(math.degrees(euler_from_quaternion(self.real_robot.robot_z)[2]))
         final_rotate = self.real_robot.normalize((actual_orientation - real) + angle)
         return final_rotate
         
     def goal_reached(self, next_goal, orientation, angle, actual_orientation):
+        """
+        Handles the situation when the goal is reached.
+
+        Rotates the robot to the desired orientation, sends the next goal position,
+        and waits for the move_base action result.
+
+        Args:
+            next_goal: The coordinates of the next goal position.
+            orientation: The desired orientation of the robot at the next goal.
+            angle: The desired angle to rotate at the next goal.
+            actual_orientation: The current robot orientation.
+        """
         _was_fake = False
         # Handle the situation when the goal is reached
         angle = self.rotate_difference(angle,actual_orientation)
@@ -159,7 +221,20 @@ class Move:
         rospy.loginfo("Goal REACHED")
 
     def move(self, command=None, real=None):
-        # Move the robot to the specified goal
+        """
+        Moves the robot to the specified goal.
+
+        Handles the movement of the robot by obtaining the next goal position
+        and orientation from the RobotController, rotating if necessary, and
+        sending the goal to the move_base action server.
+
+        Args:
+            command: The command to move to a specific goal (optional).
+            real: The real waypoint for the robot (optional).
+
+        Returns:
+            A string indicating the status of the movement.
+        """
         if command is not None:
             self.command = command
         if real is not None:

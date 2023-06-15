@@ -17,9 +17,21 @@ class ObstacleAvoidanceNode(object):
         self.stopped = False
 
     def stop_callback(self, msg):
+        '''
+        Callback function for the 'stop' topic.
+
+        Args:
+            msg: The message received on the 'stop' topic. True if the robot is stopped, else False
+        '''
         self.stopped = msg
 
     def scan_callback(self, scan):
+        '''
+        Callback function for the '/scan' topic. Make the escape behaviour if the laser scan detect near obstacle front and back
+
+        Args:
+            scan: The laser scan data.
+        '''
         if self.stopped:
             return
 
@@ -36,6 +48,12 @@ class ObstacleAvoidanceNode(object):
             self.escape(reverse=True)
 
     def escape(self, reverse=False):
+        '''
+        Initiates the escape behavior.
+
+        Args:
+            reverse: Determines whether to escape in reverse or forward. Defaults to False.
+        '''
         print("escape")
         twist = Twist()
         twist.linear.x = self.escape_speed if not reverse else -self.escape_speed

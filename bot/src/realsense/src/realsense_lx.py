@@ -62,10 +62,12 @@ class Node:
                 continue
 
             frame = frame[:, 80:-80]
-
+            # convert to greyscale
             gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+            # decode the image
             decoded_text, points, _ = self.qr_decoder.detectAndDecode(gray)
             if len(decoded_text)>0:
+                # check if the text decoded is not a blank section
                 if len(points) > 0:
                     self.pub.publish(decoded_text)
 
