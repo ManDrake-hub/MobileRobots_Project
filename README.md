@@ -51,9 +51,9 @@ Follow these steps:
 
 to run 
 ```console
-sh terminals.sh 
+sh complete_simulation.sh 
 ```
-you'll need to install gnome-terminal.<br />
+or others mentioned before, you'll need to install gnome-terminal.<br />
 on Ubuntu gnome terminal is installed by default, otherwise you'll need to install it with the following command:<br />
 
 ```console
