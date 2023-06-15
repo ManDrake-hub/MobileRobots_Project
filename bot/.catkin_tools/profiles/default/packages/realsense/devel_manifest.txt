@@ -1,5 +1,5 @@
 realsense
-/home/francesca/MobileRobots_Project/bot/devel/.private/realsense/cmake.lock /home/francesca/MobileRobots_Project/bot/devel/./cmake.lock
-/home/francesca/MobileRobots_Project/bot/devel/.private/realsense/share/realsense/cmake/realsenseConfig.cmake /home/francesca/MobileRobots_Project/bot/devel/share/realsense/cmake/realsenseConfig.cmake
-/home/francesca/MobileRobots_Project/bot/devel/.private/realsense/share/realsense/cmake/realsenseConfig-version.cmake /home/francesca/MobileRobots_Project/bot/devel/share/realsense/cmake/realsenseConfig-version.cmake
-/home/francesca/MobileRobots_Project/bot/devel/.private/realsense/lib/pkgconfig/realsense.pc /home/francesca/MobileRobots_Project/bot/devel/lib/pkgconfig/realsense.pc
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/realsense/cmake.lock /home/luigi/Scrivania/MobileRobots_Project/bot/devel/./cmake.lock
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/realsense/lib/pkgconfig/realsense.pc /home/luigi/Scrivania/MobileRobots_Project/bot/devel/lib/pkgconfig/realsense.pc
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/realsense/share/realsense/cmake/realsenseConfig.cmake /home/luigi/Scrivania/MobileRobots_Project/bot/devel/share/realsense/cmake/realsenseConfig.cmake
+/home/luigi/Scrivania/MobileRobots_Project/bot/devel/.private/realsense/share/realsense/cmake/realsenseConfig-version.cmake /home/luigi/Scrivania/MobileRobots_Project/bot/devel/share/realsense/cmake/realsenseConfig-version.cmake
